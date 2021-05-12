@@ -14,15 +14,18 @@ const Counter: React.FC<Props> = ({children}) => {
         setCount(count => count + 1);
     }
     
+    const handleDecrement = () => {
+        setCount(count => count - 1);
+    }
+
     return (
         <div>
-            {/* <div>
+            <div>
                 Count: {count}
             </div>
             <button onClick={handleIncrement}>+</button>
-            <button>-</button>
-            <button>reset</button> */}
-            {children(count, setCount)}
+            <button onClick={handleDecrement}>-</button>
+            <button onClick={() => setCount(0)}>reset</button>
         </div>
     )
 }
