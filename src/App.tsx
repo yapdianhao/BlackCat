@@ -1,10 +1,25 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+} from 'react-router-dom';
 
-function App() {
+import Counter from "../components/Counter";
+
+const App = () => {
     return (
         <div>
-            Hello World
+            <Counter>
+                {(count, setCount) => (
+                <div>
+                    {count}
+                    <button onClick={() =>setCount(count + 1)}>
+                        click me
+                    </button>
+                </div>)}
+            </Counter>
         </div>
     );
 }
