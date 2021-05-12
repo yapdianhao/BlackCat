@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon server/app.ts"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,21 @@
   "license": "ISC",
   "devDependencies": {
     "@types/enzyme": "^3.10.8",
+    "@types/faker": "^5.5.5",
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.4",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "faker": "^5.5.3",
     "html-webpack-plugin": "^5.3.1",
+    "nodemon": "^2.0.7",
     "path": "^0.12.7",
+    "prettier": "^2.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "ts-jest": "^26.5.6",
@@ -33,6 +44,7 @@
   },
   "dependencies": {
     "@types/react-router-dom": "^5.1.7",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "ts-node": "^9.1.1"
   }
 }
