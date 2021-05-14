@@ -10,7 +10,7 @@ import {
 import Counter from "../components/Counter";
 import About from "../components/About";
 import Home from "../components/Home";
-import LoginScreen from '../components/LoginScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 const App = () => {
     return (
