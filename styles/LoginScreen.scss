@@ -12,11 +12,6 @@ body, html {
     overflow: hidden;
 }
 
-img {
-    width: 10%;
-    height: 10%;
-}
-
 .sub-title {
     display: flex;
     justify-content: center;
@@ -37,19 +32,44 @@ img {
 }
 
 .black-cat-logo {
-    padding: 40px;
-    height: 20%;
+    margin: 0 auto;
+    padding: 20px;
+    height: 10%;
+    width: 10%;
+}
+
+.user-login-form-area {
     display: flex;
     justify-content: center;
 }
 
 .user-login-form {
-    display: flex;
+    display: inline-block;
     justify-content: center;
 }
 
+.user-login-form-input-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
 .user-login-form-input {
-    display: block;
+    width: 100%;
     border-radius: 25px;
-    padding: 5px;
+    padding: 10px;
+    outline: none;
+}
+
+.user-login-form-submit-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 30px;
+    display: block;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    float: left;
 }

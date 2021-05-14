@@ -3,6 +3,9 @@ import { setConstantValue } from 'typescript';
 
 import "../styles/LoginScreen.scss";
 
+import BlackCatIcon from '../components/BlackCatIcon';
+import User from "../images/user.svg";
+
 
 const LoginScreen = () => {
     const [userName, setUserName] = useState("");
@@ -21,10 +24,10 @@ const LoginScreen = () => {
                 BLACK CAT
             </div>
             <div className="black-cat-logo">
-                <img src={require("../images/logo-cat.svg")}  />
+                <BlackCatIcon />
             </div>
-            <div className="user-login-form">
-                <form>
+            <div className="user-login-form-area">
+                <form className="user-login-form">
                     <label>
                         Name:
                         <input className="user-login-form-input" type="text" name="name" onChange={e => setUserName(e.target.value)} />
@@ -33,8 +36,13 @@ const LoginScreen = () => {
                         Password:
                         <input className="user-login-form-input" type="text" name="name" onChange={e => setUserPassword(e.target.value)} />
                     </label>
-                    <input type="submit" value="Submit" />
                 </form>
+
+            </div>
+            <div>
+                <button className="user-login-form-submit-btn" onClick={() => {console.log("clicked!")}}>
+                    Click me
+                </button>
             </div>
         </div>
     )
