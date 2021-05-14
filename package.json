@@ -17,9 +17,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/enzyme": "^3.10.8",
     "@types/faker": "^5.5.5",
     "@types/jest": "^26.0.23",
+    "@types/node": "^15.0.3",
     "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.4",
     "@typescript-eslint/eslint-plugin": "^4.23.0",

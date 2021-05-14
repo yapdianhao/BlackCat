@@ -1,4 +1,4 @@
-{
+{   
     "compilerOptions": {
         "outDir": "./dist/",
         "sourceMap": true,
@@ -8,6 +8,13 @@
         "jsx": "react",
         "allowJs": true,
         "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true
-    }
+        "allowSyntheticDefaultImports": true,
+        "types": [
+            "node"
+        ],
+        "typeRoots": [
+            "/node_modules/@types",
+            "custom.d.ts"
+        ]
+    },
 }
