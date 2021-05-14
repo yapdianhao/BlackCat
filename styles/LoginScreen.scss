@@ -49,10 +49,21 @@ body, html {
 }
 
 .user-login-form-input-container {
-    display: flex;
     width: 100%;
     margin-bottom: 15px;
 }
+
+.user-login-form-input-field {
+    width: 100%;
+    padding: 10px;
+    border-color: #d3c1e5;
+    border-radius: 25px;
+    border: #d3c1e5;
+    border-width: thin;
+    background: #ffffff59;
+}
+
+
 
 .user-login-form-input {
     width: 100%;

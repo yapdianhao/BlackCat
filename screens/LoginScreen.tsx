@@ -4,8 +4,7 @@ import { setConstantValue } from 'typescript';
 import "../styles/LoginScreen.scss";
 
 import BlackCatIcon from '../components/BlackCatIcon';
-import User from "../images/user.svg";
-
+import UserIcon from '../components/UserIcon';
 
 const LoginScreen = () => {
     const [userName, setUserName] = useState("");
@@ -26,7 +25,7 @@ const LoginScreen = () => {
             <div className="black-cat-logo">
                 <BlackCatIcon />
             </div>
-            <div className="user-login-form-area">
+            {/* <div className="user-login-form-area">
                 <form className="user-login-form">
                     <label>
                         Name:
@@ -37,11 +36,21 @@ const LoginScreen = () => {
                         <input className="user-login-form-input" type="text" name="name" onChange={e => setUserPassword(e.target.value)} />
                     </label>
                 </form>
+            </div> */}
 
+            <div className="user-login-form-area">
+                <form>
+                    <div className="user-login-form-input-container ">
+                        <input className="user-login-form-input-field" type="text" placeholder="Username" name="name" onChange={e => setUserName(e.target.value)} />
+                    </div>
+                    <div className="user-login-form-input-container">
+                        <input className="user-login-form-input-field" type="text" placeholder="Password" name="password" onChange={e => setUserPassword(e.target.value)} />
+                    </div>
+                </form>
             </div>
             <div>
                 <button className="user-login-form-submit-btn" onClick={() => {console.log("clicked!")}}>
-                    Click me
+                    SIGN IN
                 </button>
             </div>
         </div>
