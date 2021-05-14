@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap');
 
-
 body, html {
     height: 100%;
     margin: 0;
@@ -10,6 +9,7 @@ body, html {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden;
 }
 
 img {
@@ -46,4 +46,10 @@ img {
 .user-login-form {
     display: flex;
     justify-content: center;
+}
+
+.user-login-form-input {
+    display: block;
+    border-radius: 25px;
+    padding: 5px;
 }

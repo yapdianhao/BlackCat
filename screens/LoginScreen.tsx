@@ -9,7 +9,7 @@ const LoginScreen = () => {
     const [userPassword, setUserPassword] = useState("");
 
     const handleSubmit= (event: any) => {
-        console.log("submitted!");
+        console.log(userName);
     }
 
     return (
@@ -24,10 +24,14 @@ const LoginScreen = () => {
                 <img src={require("../images/logo-cat.svg")}  />
             </div>
             <div className="user-login-form">
-                <form onSubmit={handleSubmit}>
+                <form>
                     <label>
                         Name:
-                        <input type="text" name="name" />
+                        <input className="user-login-form-input" type="text" name="name" onChange={e => setUserName(e.target.value)} />
+                    </label>
+                    <label>
+                        Password:
+                        <input className="user-login-form-input" type="text" name="name" onChange={e => setUserPassword(e.target.value)} />
                     </label>
                     <input type="submit" value="Submit" />
                 </form>
