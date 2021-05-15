@@ -1,11 +1,8 @@
-class User {
-    userId: number;
-    userName: string;
-    userPassword: string;
-    userEmail: string;
-}
+import {User} from "../model/user";
 
 let users:  User[] = [];
+
+// set up fake database here
 
 export const getUsers = (req: any, res: any) => {
     console.log(`Users in the database: ${users}`);
