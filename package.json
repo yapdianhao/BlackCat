@@ -56,5 +56,10 @@
     "cors": "^2.8.5",
     "react-router-dom": "^5.2.0",
     "ts-node": "^9.1.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }

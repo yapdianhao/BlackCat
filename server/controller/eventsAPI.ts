@@ -8,32 +8,45 @@ for (let i : number = 1; i <= 30; i++) {
     let fakeEventName: string = faker.lorem.words();
     let fakeEventDescription: string = faker.lorem.sentence();
     let fakeEventLocation: string = faker.address.streetAddress();
-    let fakeEventLikes: number = Math.floor(Math.random() * 100);
+    let fakeEventLikesCount: number = Math.floor(Math.random() * 100);
+    let fakeEventGoingCount: number = Math.floor(Math.random() * 100);
+    let fakeEventStartDateTime: Date = new Date();
+    let fakeEventEndDateTime: Date = new Date();
+
     events.push({
         eventId: i,
         eventName: fakeEventName,
         eventDescription: fakeEventDescription,
         eventLocation: fakeEventLocation,
-        eventLikes: fakeEventLikes
+        eventLikesCount: fakeEventLikesCount,
+        eventGoingCount: fakeEventGoingCount,
+        eventStartDateTime: fakeEventStartDateTime,
+        eventEndDateTime: fakeEventEndDateTime
     });
 }
 
-export const getEvents = (req: any, res: any) => {
+export const getEvents = () => {
+    console.log(`number of events in the database: ${events.length}`);
+};
+
+export const createEvents = () => {
 
 };
 
-export const createEvents = (req: any, res: any) => {
+export const getEvent = () => {
 
 };
 
-export const getEvent = (req: any, res: any) => {
-
+export const deleteEvent = (toDeleteEventId: number) => {
+    events = events.filter(event => event.eventId !== toDeleteEventId);
+    return events;
 };
 
-export const deleteEvent = (req: any, res: any) => {
-
-};
-
-export const updateEvent = (req: any, res: any) => {
+export const updateEvent = (toUpdateEventId: number, 
+                            newEventName: string, 
+                            newEventDescription: string,
+                            newEventLocation: string,
+                            newEventStartDateTime: Date, 
+                            newEventEndDateTime: Date) => {
 
 };

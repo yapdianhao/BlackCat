@@ -21,7 +21,7 @@ for (let i = 2; i <= 100; i++) {
 
 export const getUsers = () => {
     console.log(`number of users in the database: ${users}`);
-    return JSON.stringify(users);    
+    return users;    
 };
 
 export const createUser = (newUserName: string, newUserEmail: string, newUserPassword: string) => {
@@ -33,13 +33,13 @@ export const getUser = (id: number) => {
     return users[id - 1];
 };
 
-export const deleteUser = (toDeleteId: number) => {
-    users = users.filter(user => user.userId != toDeleteId);
+export const deleteUser = (toDeleteUserId: number) => {
+    users = users.filter(user => user.userId !== toDeleteUserId);
     return users;
 };
 
-export const updateUser = (toUpdateId: number, newUserName: string, newUserEmail: string, newUserPassword: string) => {
-    const userToUpdate: User = users[toUpdateId];
+export const updateUser = (toUpdateUserId: number, newUserName: string, newUserEmail: string, newUserPassword: string) => {
+    const userToUpdate: User = users[toUpdateUserId];
     userToUpdate.userName = newUserName;
     userToUpdate.userEmail = newUserEmail;
     userToUpdate.userPassword = newUserPassword;

@@ -17,11 +17,15 @@ const LoginScreen = () => {
         const users : User[] = await fetch('http://localhost:5000/api/users').then(
             (response) => response.json()
         ).then(data => {
+            console.log(data);
             return data;
         });
+        
         if (users.filter(user => user.userName === userName && user.userPassword === userPassword).length > 0) {
             history.push("/Home");
-        };
+        } else {
+            console.log("login failed!");
+        }
     }
 
     return (
