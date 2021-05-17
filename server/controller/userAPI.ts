@@ -5,7 +5,7 @@ const faker = require('faker');
 let users:  User[] = [
     {
         userId: 1,
-        userName: 'DianHao',
+        userName: 'yapdianhao',
         userEmail: 'dianhao.yap@shopee.com',
         userPassword: '???',
     }

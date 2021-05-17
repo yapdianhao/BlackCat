@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
-import { setConstantValue } from 'typescript';
+import { useHistory } from 'react-router-dom';
 
 import "../styles/LoginScreen.scss";
 
+import { User } from "../server/model/user";
 import BlackCatIcon from '../components/BlackCatIcon';
 import UserIcon from '../components/UserIcon';
 
 const LoginScreen = () => {
     const [userName, setUserName] = useState("");
     const [userPassword, setUserPassword] = useState("");
+    const history = useHistory();
 
     const handleSubmit = async (event: any) => {
         console.log("hello");
-        const users = await fetch('http://localhost:5000/api/users').then(
+        const users : User[] = await fetch('http://localhost:5000/api/users').then(
             (response) => response.json()
         ).then(data => {
             return data;
         });
-        console.log(users);
+        if (users.filter(user => user.userName === userName && user.userPassword === userPassword).length > 0) {
+            history.push("/Home");
+        };
     }
 
     return (
