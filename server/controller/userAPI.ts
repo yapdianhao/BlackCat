@@ -1,5 +1,7 @@
 import {User} from "../model/user";
 
+const faker = require('faker'); 
+
 let users:  User[] = [
     {
         userId: 1,
@@ -9,28 +11,37 @@ let users:  User[] = [
     }
 ];
 
+for (let i = 1; i <= 100; i++) {
+    let fakerUserId: number = i;
+    let fakerUserName: string = faker.name.firstName() + " " + faker.name.lastName();
+    let fakerUserEmail: string = faker.internet.email();
+    let fakerUserPassword: string = faker.internet.password();
+    users.push({userId: fakerUserId, userName: fakerUserName, userEmail: fakerUserEmail, userPassword: fakerUserPassword});
+}
 
-// set up fake database here
-
-export const getUsers = (req: any, res: any) => {
+export const getUsers = () => {
     console.log(`Users in the database: ${users}`);
-    res.send(users);    
+    return users;    
 };
 
-export const createUser = (req: any, res: any) => {
-    const user = req.body;
-    //users.push(user);
-    console.log(`User {user.username} added to database.`);
+export const createUser = (newUserName: string, newUserEmail: string, newUserPassword: string) => {
+    users.push({userId: users.length + 1, userName: newUserName, userEmail: newUserEmail, userPassword: newUserPassword});
+    console.log(`User {newUserName} added to database.`);
 };
 
-export const getUser = (req: any, res: any) => {
-    res.send(users[req.params.id]);
+export const getUser = (id: number) => {
+    return users[id - 1];
 };
 
-export const deleteUser = (req: any, res: any) => {
-    res.send("delete user! Are u sure?");
+export const deleteUser = (toDeleteId: number) => {
+    users = users.filter(user => user.userId != toDeleteId);
+    return users;
 };
 
-export const updateUser = (req: any, res: any) => {
-    res.send("update user!");
+export const updateUser = (toUpdateId: number, newUserName: string, newUserEmail: string, newUserPassword: string) => {
+    const userToUpdate: User = users[toUpdateId];
+    userToUpdate.userName = newUserName;
+    userToUpdate.userEmail = newUserEmail;
+    userToUpdate.userPassword = newUserPassword;
+    return userToUpdate;
 };
