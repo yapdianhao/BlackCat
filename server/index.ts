@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 app.use((req: any, res: any, next: any) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Origin", "*");
   next();
 });
 
@@ -32,10 +32,12 @@ app.get("/api/users/:id", (req: any, res: any) => {
 });
 
 app.get("/api/events", (req: any, res: any) => {
-  res.send("show all events");
-})
+  res.send(getEvents());
+});
 
-
+app.get("/api/events/:id", (req: any, res: any) => {
+  res.send("get an event");
+});
 
 app.listen(port, () => {
   console.log(`listening at port ${port}`);

@@ -27,14 +27,15 @@ for (let i : number = 1; i <= 30; i++) {
 
 export const getEvents = () => {
     console.log(`number of events in the database: ${events.length}`);
+    return events;
 };
 
 export const createEvents = () => {
-
+    // do something here
 };
 
 export const getEvent = () => {
-
+    // do something here
 };
 
 export const deleteEvent = (toDeleteEventId: number) => {
@@ -48,5 +49,5 @@ export const updateEvent = (toUpdateEventId: number,
                             newEventLocation: string,
                             newEventStartDateTime: Date, 
                             newEventEndDateTime: Date) => {
-
+                            // do something here
 };
