@@ -7,11 +7,11 @@ let users:  User[] = [
         userId: 1,
         userName: 'DianHao',
         userEmail: 'dianhao.yap@shopee.com',
-        userPassword: '!@#$%',
+        userPassword: '???',
     }
 ];
 
-for (let i = 1; i <= 100; i++) {
+for (let i = 2; i <= 100; i++) {
     let fakerUserId: number = i;
     let fakerUserName: string = faker.name.firstName() + " " + faker.name.lastName();
     let fakerUserEmail: string = faker.internet.email();
@@ -20,8 +20,8 @@ for (let i = 1; i <= 100; i++) {
 }
 
 export const getUsers = () => {
-    console.log(`Users in the database: ${users}`);
-    return users;    
+    console.log(`number of users in the database: ${users}`);
+    return JSON.stringify(users);    
 };
 
 export const createUser = (newUserName: string, newUserEmail: string, newUserPassword: string) => {
