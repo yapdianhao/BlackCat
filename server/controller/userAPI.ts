@@ -65,7 +65,7 @@ export const updateUser = (
   newUserEmail: string,
   newUserPassword: string
 ) => {
-  const userToUpdate: User = users[toUpdateUserId];
+  const userToUpdate: User = users[toUpdateUserId - 1];
   userToUpdate.userName = newUserName;
   userToUpdate.userEmail = newUserEmail;
   userToUpdate.userPassword = newUserPassword;

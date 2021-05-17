@@ -10,9 +10,9 @@ app.use((req: any, res: any, next: any) => {
   next();
 });
 
-//app.use(cors);
-
+// import the rest of the operations
 import { getUsers, getUser } from "./controller/userAPI";
+// import the rest of the operations
 import { getEvents, getEvent } from "./controller/eventsAPI";
 
 const port: string | number = process.env.PORT || 5000;
