@@ -12,8 +12,7 @@ const EventCard = () => {
         <div className="channel-name">Channel name</div>
       </div>
       <div className="activity-title">
-        This is a very long title, may be more than one line. May be very very
-        long. Longer than you think
+        This is a very long title, may be more than one line.
       </div>
     </div>
   );

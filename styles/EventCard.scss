@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap");
+
 .card-outline {
   width: 60%;
   margin: 0 auto;
@@ -22,9 +24,12 @@
 }
 
 .activity-title {
+  padding-top: 5px;
   display: flex;
   justify-content: center;
   font-size: 18px;
+  font-family: "Source Sans Pro";
+  font-weight: 600;
 }
 
 // .card-outline {
