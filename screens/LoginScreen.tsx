@@ -28,13 +28,15 @@ const LoginScreen = () => {
       ).length > 0
     ) {
       history.push("/Home");
+      localStorage.setItem("token", JSON.stringify(userName));
+      console.log(localStorage.getItem("token"));
     } else {
       console.log("login failed!");
     }
   };
 
   return (
-    <div>
+    <div className="login-bg">
       <div className="sub-title">FIND THE MOST LOVED ACTIVITIES</div>
       <div className="main-title">BLACK CAT</div>
       <div className="black-cat-logo">
@@ -54,9 +56,9 @@ const LoginScreen = () => {
           <div className="user-login-form-input-container">
             <input
               className="user-login-form-input-field"
-              type="text"
               placeholder="Password"
               name="password"
+              type="password"
               onChange={(e) => setUserPassword(e.target.value)}
             />
           </div>
