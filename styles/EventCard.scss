@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
 
 .card-outline {
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
   padding: 10px;
 }
@@ -17,10 +17,23 @@
   border-radius: 50%;
 }
 
+.user-name {
+  padding-left: 5px;
+  font-family: "Source Sans Pro";
+  font-weight: 600;
+  color: #67616d;
+  padding-top: 3px;
+}
+
 .channel-name {
   padding: 5px;
   font-size: 12px;
   margin-left: auto;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  border-radius: 25px;
+  color: #8560a9;
+  border: 1px solid #8560a9;
 }
 
 .activity-title {
@@ -30,72 +43,32 @@
   font-size: 18px;
   font-family: "Source Sans Pro";
   font-weight: 600;
+  color: #453257;
 }
 
-// .card-outline {
-//   padding-top: 50px;
-// }
+.activity-time-area {
+  display: flex;
+  justify-content: flex-start;
+  height: 12px;
+  font-size: 12px;
+  padding-top: 5px;
+}
 
-// .card-outline ~ .card-outline {
-//   padding-top: 0;
-// }
+.activity-time {
+  padding-left: 5px;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  color: #8560a9;
+}
 
-// .card-outline {
-//   padding: 5px 0;
+.activity-desc {
+  padding-top: 12px;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  color: #67616d;
+}
 
-//   .header {
-//     height: 30px;
-//     border-bottom: 1px solid #fff;
-//     margin: 7.5px 10px;
-
-//     .image {
-//       display: inline-block;
-//     }
-
-//     img {
-//       border-radius: 99px;
-//     }
-
-//     .username {
-//       position: relative;
-//       top: 3px;
-//       padding-left: 5px;
-//       font-size: 0.9rem;
-//       font-weight: bold;
-//     }
-//   }
-
-//   .level {
-//     margin-bottom: 0.5rem !important;
-//   }
-
-//   .image-container {
-//     height: 330px;
-//     background-repeat: no-repeat;
-//     background-position: center center;
-//     background-size: cover;
-//   }
-
-//   .content {
-//     margin: 7.5px 10px;
-//   }
-
-//   .likes {
-//     margin: 5px 0;
-//     margin-bottom: 5px !important;
-//     font-size: 0.85rem;
-//     font-weight: bold;
-//   }
-
-//   .caption {
-//     font-size: 0.85rem;
-
-//     span {
-//       font-weight: bold;
-//     }
-//   }
-// }
-
-// .card-outline:last-child {
-//   margin-bottom: 80px;
-// }
+.activity-stats-area {
+  display: flex;
+  padding-top: 5px;
+}
