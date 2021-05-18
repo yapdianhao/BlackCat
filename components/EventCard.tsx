@@ -4,6 +4,10 @@ import React from "react";
 import "../styles/EventCard.scss";
 const profilePic = require("../images/Street-Dance-01.jpg");
 import ClockIcon from "../components/ClockIcon";
+import HeartIcon from "./HeartIcon";
+import CheckIcon from "./CheckIcon";
+import HeartIconOutline from "./HeartIconOutline";
+import CheckIconOutline from "./CheckIconOutline";
 
 const EventCard = () => {
   return (
@@ -28,7 +32,12 @@ const EventCard = () => {
         Nunc tincidunt ante vitae massa. Duis ante orci, molestie vitae,
         vehicula venenatis, tincidunt ac, pede. Nulla accumsan, elit sit
       </div>
-      <div className="activity-stats-area"></div>
+      <div className="activity-stats-area">
+        <CheckIcon />
+        <div className="stats-desc">I am going</div>
+        <HeartIcon />
+        <div className="stats-desc">I like it</div>
+      </div>
     </div>
   );
 };
