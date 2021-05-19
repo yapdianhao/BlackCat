@@ -1,11 +1,18 @@
 import React from "react";
 
 import "../styles/HomeScreen.scss";
-import { store } from "../store/store";
+//import { store } from "../store/store";
+
+import SearchIcon from "../components/SearchIcon";
 
 const Home = () => {
-  console.log(store.getState());
-  return <div>Home</div>;
+  return (
+    <div>
+      <div>
+        <SearchIcon />
+      </div>
+    </div>
+  );
 };
 
 export default Home;
