@@ -3,13 +3,18 @@ import React from "react";
 
 import "../styles/EventCard.scss";
 const profilePic = require("../images/Street-Dance-01.jpg");
+import { Event } from "../server/model/event";
 import ClockIcon from "../components/ClockIcon";
 import HeartIcon from "./HeartIcon";
 import CheckIcon from "./CheckIcon";
 import HeartIconOutline from "./HeartIconOutline";
 import CheckIconOutline from "./CheckIconOutline";
 
-const EventCard = () => {
+interface EventCardProps {
+  eventToRender: Event;
+}
+
+const EventCard: React.FC<EventCardProps> = (props) => {
   return (
     <div className="card-outline">
       <div className="card-header">

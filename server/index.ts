@@ -13,7 +13,7 @@ app.use((req: any, res: any, next: any) => {
 // import the rest of the operations
 import { getUsers, getUser } from "./controller/userAPI";
 // import the rest of the operations
-import { getEvents, getEvent } from "./controller/eventsAPI";
+import { getEvents, getEventWithLimit } from "./controller/eventsAPI";
 
 const port: string | number = process.env.PORT || 5000;
 
@@ -37,6 +37,11 @@ app.get("/api/events", (req: any, res: any) => {
 
 app.get("/api/events/:id", (req: any, res: any) => {
   res.send("get an event");
+});
+
+app.get("/api/events/:limit/:offset", (req: any, res: any) => {
+  console.log("send limt + offset");
+  res.send(getEventWithLimit(req.params.limit, req.params.offset));
 });
 
 app.listen(port, () => {

@@ -1,0 +1,25 @@
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.navbar-area {
+  height: 40px;
+  background-color: #8560a9;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+
+  .blackcat-icon {
+    fill: #d5ef7f;
+    width: 40px;
+    height: 40px;
+  }
+
+  .profile-pic {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+}

@@ -53,6 +53,17 @@ export const getEvent = (id: number) => {
   return events[id - 1];
 };
 
+export const getEventWithLimit = (limit: number, offset: number) => {
+  // console.log(
+  //   `${limit} ${limit + offset} sent data: ${events.slice(
+  //     limit,
+  //     limit + offset
+  //   )}`
+  // );
+  console.log(`${limit} ${offset}`);
+  return events.slice(+limit, +limit + +offset);
+};
+
 export const deleteEvent = (toDeleteEventId: number) => {
   events = events.filter((event) => event.eventId !== toDeleteEventId);
   return events;

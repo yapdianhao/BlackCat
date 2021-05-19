@@ -30,7 +30,6 @@ for (let i = 2; i <= 100; i++) {
 }
 
 export const getUsers = () => {
-  console.log(`number of users in the database: ${users}`);
   return users;
 };
 
