@@ -15,8 +15,7 @@ let users: User[] = [
 
 for (let i = 2; i <= 100; i++) {
   let fakerUserId: number = i;
-  let fakerUserName: string =
-    faker.name.firstName() + " " + faker.name.lastName();
+  let fakerUserName: string = faker.name.firstName();
   let fakerUserEmail: string = faker.internet.email();
   let fakerUserPassword: string = faker.internet.password();
   users.push({

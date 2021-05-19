@@ -19,12 +19,10 @@ const EventCard: React.FC<EventCardProps> = (props) => {
     <div className="card-outline">
       <div className="card-header">
         <img src={String(profilePic)} className="profile-pic" />
-        <div className="user-name">Username</div>
-        <div className="channel-name">Channel name</div>
+        <div className="user-name">{props.eventToRender.eventPostedBy}</div>
+        <div className="channel-name">{props.eventToRender.eventChannel}</div>
       </div>
-      <div className="activity-title">
-        This is a very long title, may be more than one line.
-      </div>
+      <div className="activity-title">{props.eventToRender.eventName}</div>
       <div className="activity-time-area">
         <ClockIcon />
         <div className="activity-time">
@@ -32,10 +30,7 @@ const EventCard: React.FC<EventCardProps> = (props) => {
         </div>
       </div>
       <div className="activity-desc">
-        Morbi a metus. Phasellus enim erat, vestibulum vel, aliquam a, posuere
-        eu, velit. Nullam sapien sem, ornare ac, nonummy non, lobortis a, enim.
-        Nunc tincidunt ante vitae massa. Duis ante orci, molestie vitae,
-        vehicula venenatis, tincidunt ac, pede. Nulla accumsan, elit sit
+        {props.eventToRender.eventDescription}
       </div>
       <div className="activity-stats-area">
         <CheckIcon />

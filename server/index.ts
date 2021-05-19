@@ -40,7 +40,6 @@ app.get("/api/events/:id", (req: any, res: any) => {
 });
 
 app.get("/api/events/:limit/:offset", (req: any, res: any) => {
-  console.log("send limt + offset");
   res.send(getEventWithLimit(req.params.limit, req.params.offset));
 });
 

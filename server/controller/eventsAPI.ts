@@ -11,10 +11,15 @@ let usersForEvents = getUsers();
 
 for (let i: number = 1; i <= 30; i++) {
   let fakeEventName: string = faker.lorem.words();
-  let fakeEventDescription: string = faker.lorem.sentence();
+  let fakeEventDescription: string =
+    faker.lorem.sentence() +
+    " " +
+    faker.lorem.sentence() +
+    " " +
+    faker.lorem.sentence();
   let fakeEventLocation: string = faker.address.streetAddress();
   let fakePosterName: string =
-    usersForEvents[Math.random() * usersForEvents.length].userName;
+    usersForEvents[Math.floor(Math.random() * usersForEvents.length)].userName;
   let fakeEventLikesCount: number = Math.floor(
     Math.random() * usersForEvents.length
   );
@@ -74,13 +79,6 @@ export const getEvent = (id: number) => {
 };
 
 export const getEventWithLimit = (limit: number, offset: number) => {
-  // console.log(
-  //   `${limit} ${limit + offset} sent data: ${events.slice(
-  //     limit,
-  //     limit + offset
-  //   )}`
-  // );
-  console.log(`${limit} ${offset}`);
   return events.slice(+limit, +limit + +offset);
 };
 
