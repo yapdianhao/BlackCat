@@ -1,4 +1,5 @@
 import { Event } from "../model/event";
+import { getUsers } from "../controller/userAPI";
 import { getChannels } from "./channelAPI";
 
 const faker = require("faker");
@@ -6,13 +7,20 @@ const faker = require("faker");
 let events: Event[] = [];
 
 let channelsForEvents = getChannels();
+let usersForEvents = getUsers();
 
 for (let i: number = 1; i <= 30; i++) {
   let fakeEventName: string = faker.lorem.words();
   let fakeEventDescription: string = faker.lorem.sentence();
   let fakeEventLocation: string = faker.address.streetAddress();
-  let fakeEventLikesCount: number = Math.floor(Math.random() * 100);
-  let fakeEventGoingCount: number = Math.floor(Math.random() * 100);
+  let fakePosterName: string =
+    usersForEvents[Math.random() * usersForEvents.length].userName;
+  let fakeEventLikesCount: number = Math.floor(
+    Math.random() * usersForEvents.length
+  );
+  let fakeEventGoingCount: number = Math.floor(
+    Math.random() * usersForEvents.length
+  );
   let fakeChannelName: string =
     channelsForEvents[Math.floor(Math.random() * channelsForEvents.length)]
       .channelName;
@@ -29,6 +37,7 @@ for (let i: number = 1; i <= 30; i++) {
     eventStartDateTime: fakeEventStartDateTime,
     eventEndDateTime: fakeEventEndDateTime,
     eventChannel: fakeChannelName,
+    eventPostedBy: fakePosterName,
   });
 }
 
@@ -42,6 +51,7 @@ export const createEvents = (
   newEventDescription: string,
   newEventLocation: string,
   newEventChannel: string,
+  newPosterName: string,
   newEventStartDateTime: Date,
   newEventEndDateTime: Date
 ) => {
@@ -55,6 +65,7 @@ export const createEvents = (
     eventChannel: newEventChannel,
     eventLikesCount: 0,
     eventGoingCount: 0,
+    eventPostedBy: newPosterName,
   });
 };
 
@@ -84,6 +95,7 @@ export const updateEvent = (
   newEventDescription: string,
   newEventLocation: string,
   newEventChannel: string,
+  newPosterName: string,
   newEventStartDateTime: Date,
   newEventEndDateTime: Date
 ) => {
@@ -94,5 +106,6 @@ export const updateEvent = (
   eventToUpdate.eventStartDateTime = newEventStartDateTime;
   eventToUpdate.eventEndDateTime = newEventEndDateTime;
   eventToUpdate.eventChannel = newEventChannel;
+  eventToUpdate.eventPostedBy = newPosterName;
   return eventToUpdate;
 };
