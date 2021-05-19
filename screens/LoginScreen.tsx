@@ -33,11 +33,11 @@ const LoginScreen = () => {
           user.userName === userName && user.userPassword === userPassword
       ).length > 0
     ) {
-      history.push("/Home");
       dispatch({
         type: "SET_USERNAME",
         payload: userName,
       });
+      history.push("/Home");
     } else {
       console.log("login failed!");
     }

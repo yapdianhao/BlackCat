@@ -17,6 +17,7 @@ export const userReducer = (
 ) => {
   switch (action.type) {
     case "SET_USERNAME":
+      console.log("called!");
       return {
         ...state,
         userName: action.payload,
