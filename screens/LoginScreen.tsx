@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { createStore } from "redux";
+import { useDispatch } from "react-redux";
 
 import "../styles/LoginScreen.scss";
 
@@ -10,7 +12,10 @@ import UserIcon from "../components/UserIcon";
 const LoginScreen = () => {
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
+
   const history = useHistory();
+
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event: any) => {
     console.log("hello");
@@ -21,6 +26,7 @@ const LoginScreen = () => {
         return data;
       });
 
+    // user is found in database
     if (
       users.filter(
         (user) =>
@@ -28,8 +34,10 @@ const LoginScreen = () => {
       ).length > 0
     ) {
       history.push("/Home");
-      localStorage.setItem("token", JSON.stringify(userName));
-      console.log(localStorage.getItem("token"));
+      dispatch({
+        type: "SET_USERNAME",
+        payload: userName,
+      });
     } else {
       console.log("login failed!");
     }
