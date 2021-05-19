@@ -1,8 +1,11 @@
 import { Event } from "../model/event";
+import { getChannels } from "./channelAPI";
 
 const faker = require("faker");
 
 let events: Event[] = [];
+
+let channelsForEvents = getChannels();
 
 for (let i: number = 1; i <= 30; i++) {
   let fakeEventName: string = faker.lorem.words();
@@ -10,6 +13,9 @@ for (let i: number = 1; i <= 30; i++) {
   let fakeEventLocation: string = faker.address.streetAddress();
   let fakeEventLikesCount: number = Math.floor(Math.random() * 100);
   let fakeEventGoingCount: number = Math.floor(Math.random() * 100);
+  let fakeChannelName: string =
+    channelsForEvents[Math.floor(Math.random() * channelsForEvents.length)]
+      .channelName;
   let fakeEventStartDateTime: Date = new Date();
   let fakeEventEndDateTime: Date = new Date();
 
@@ -22,6 +28,7 @@ for (let i: number = 1; i <= 30; i++) {
     eventGoingCount: fakeEventGoingCount,
     eventStartDateTime: fakeEventStartDateTime,
     eventEndDateTime: fakeEventEndDateTime,
+    eventChannel: fakeChannelName,
   });
 }
 
@@ -34,6 +41,7 @@ export const createEvents = (
   newEventName: string,
   newEventDescription: string,
   newEventLocation: string,
+  newEventChannel: string,
   newEventStartDateTime: Date,
   newEventEndDateTime: Date
 ) => {
@@ -44,6 +52,7 @@ export const createEvents = (
     eventLocation: newEventLocation,
     eventStartDateTime: newEventStartDateTime,
     eventEndDateTime: newEventEndDateTime,
+    eventChannel: newEventChannel,
     eventLikesCount: 0,
     eventGoingCount: 0,
   });
@@ -74,6 +83,7 @@ export const updateEvent = (
   newEventName: string,
   newEventDescription: string,
   newEventLocation: string,
+  newEventChannel: string,
   newEventStartDateTime: Date,
   newEventEndDateTime: Date
 ) => {
@@ -83,5 +93,6 @@ export const updateEvent = (
   eventToUpdate.eventLocation = newEventLocation;
   eventToUpdate.eventStartDateTime = newEventStartDateTime;
   eventToUpdate.eventEndDateTime = newEventEndDateTime;
+  eventToUpdate.eventChannel = newEventChannel;
   return eventToUpdate;
 };

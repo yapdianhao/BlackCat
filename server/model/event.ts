@@ -3,6 +3,7 @@ export interface Event {
   eventName: string;
   eventDescription: string;
   eventLocation: string;
+  eventChannel: string;
   eventLikesCount: number;
   eventGoingCount: number;
   eventStartDateTime: Date;
