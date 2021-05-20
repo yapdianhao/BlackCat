@@ -11,7 +11,7 @@ import { Event } from "../server/model/event";
 
 const Home = () => {
   const [eventPosts, setEventPosts] = useState<Event[]>([]);
-  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(true);
 
   const handleDrawerToggleClick: React.MouseEventHandler<HTMLButtonElement> =
     () => {

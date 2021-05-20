@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+
 .side-drawer {
   height: 100%;
   background: #453257;
@@ -16,5 +18,23 @@
 
 .date-title {
   display: flex;
+  justify-content: center;
+  font-family: "Source Sans Pro";
+  color: #ac8ec9;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 15px;
   // use font family
+
+  div {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ac8ec9;
+  }
+}
+
+.filter-button-area {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 5px;
 }
