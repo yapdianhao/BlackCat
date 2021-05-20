@@ -9,7 +9,7 @@ let events: Event[] = [];
 let channelsForEvents = getChannels();
 let usersForEvents = getUsers();
 
-for (let i: number = 1; i <= 30; i++) {
+for (let i: number = 1; i <= 100; i++) {
   let fakeEventName: string = faker.lorem.words();
   let fakeEventDescription: string =
     faker.lorem.sentence() +
@@ -79,6 +79,7 @@ export const getEvent = (id: number) => {
 };
 
 export const getEventWithLimit = (limit: number, offset: number) => {
+  console.log(`${limit} {offset}`);
   return events.slice(+limit, +limit + +offset);
 };
 

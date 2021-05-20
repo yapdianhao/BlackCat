@@ -1,115 +1,58 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 import "../styles/Dashboard.scss";
 import { Event } from "../server/model/event";
+import useFetch from "../helper/useFetch";
 import EventCard from "./EventCard";
 import Divider from "./Divider";
+import { off } from "process";
 
-interface DashBoardProps {
-  state: Event[];
-  setState: React.Dispatch<React.SetStateAction<Event[]>>;
-}
+// interface DashBoardProps {
+//   state: Event[];
+//   setState: React.Dispatch<React.SetStateAction<Event[]>>;
+// }
 
-const Dashboard: React.FC<DashBoardProps> = (props) => {
-  // const [eventPosts, setEventPosts] = useState<Event[]>([]);
-  // const eventPosts: Event[] = props.state;
-  // const setEventPosts: React.Dispatch<React.SetStateAction<Event[]>> = props.setState;
+const Dashboard = () => {
   const [offset, setOffset] = useState(0);
-  const [loadMore, setLoadMore] = useState(true);
+  const { loading, error, list, hasMore } = useFetch(offset);
+  const observer = useRef<IntersectionObserver>();
 
-  // const updateEventPosts = (newEventPosts: Event[]) => {
-  //   setEventPosts((eventPosts) => [...eventPosts, ...newEventPosts]);
-  // };
+  const lastItemRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setOffset((offset) => offset + 10);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading, hasMore]
+  );
 
-  // const updateOffSet = () => {
-  //   setOffset(offset + 1);
-  //   console.log(offset);
-  // };
-
-  // const fetchEventData = async () => {
-  //   // todo: set url, call fetch, setstate, update eventposts, use eventPosts.length as next offset
-  //   console.log("here");
-
-  //   const limit = 10;
-
-  // const fetchedData = await fetch(
-  //   `http://localhost:5000/api/events/${offset}/${limit}`
-  // )
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     setEventPosts([...eventPosts, ...data]);
-  //     setOffset(offset + 1);
-  //   });
-
-  //updateEventPosts(fetchedData);
-  //updateOffSet();
-  // console.log([...eventPosts, ...fetchedData]);
-  // setEventPosts((eventPosts) => [...eventPosts, ...fetchedData]);
-  // setOffset(offset + 10);
-  // console.log(eventPosts);
-  // console.log(offset);
-  // };
-
-  // const infiniteScroll = () => {
-  //   console.log(
-  //     window.innerHeight + document.documentElement.scrollTop ===
-  //       document.documentElement.offsetHeight
-  //   );
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop ===
-  //     document.documentElement.offsetHeight
-  //   ) {
-  //     fetchEventData();
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   // window.addEventListener("scroll", infiniteScroll);
-  //   // fetchEventData();
-  //   fetch(`http://localhost:5000/api/events/${offset}/${limit}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setEventPosts([...eventPosts, ...data]);
-  //       setOffset(offset + 1);
-  //     });
-  // }, []);
-
-  const getData = (needToLoad: boolean) => {
-    if (needToLoad) {
-      fetch(`http://localhost:5000/api/events/${offset}/10`)
-        .then((response) => response.json())
-        .then((data) => {
-          props.setState([...props.state, ...data]);
-        });
-    }
-  };
-
-  useEffect(() => {
-    getData(loadMore);
-    setLoadMore(false);
-  }, [loadMore]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        setOffset(offset + 10);
-        setLoadMore(true);
-      }
-    });
-  }, [props.state]);
+  console.log(offset);
 
   return (
     <div>
-      {props.state.map((eventPost: Event, idx: number) => (
-        <div key={idx}>
-          <EventCard eventToRender={eventPost} />
-          <Divider />
-        </div>
-      ))}
+      {list &&
+        list.map((eventPost: Event, idx: number) => {
+          if (idx + 1 === list.length) {
+            return (
+              <div key={eventPost.eventId} ref={lastItemRef}>
+                <EventCard eventToRender={eventPost} />
+                <Divider />
+              </div>
+            );
+          } else
+            return (
+              <div key={eventPost.eventId}>
+                <EventCard eventToRender={eventPost} />
+                <Divider />
+              </div>
+            );
+        })}
     </div>
   );
 };

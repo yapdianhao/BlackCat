@@ -10,8 +10,8 @@ import { Event } from "../server/model/event";
 //import { store } from "../store/store";
 
 const Home = () => {
-  const [eventPosts, setEventPosts] = useState<Event[]>([]);
-  const [sideDrawerOpen, setSideDrawerOpen] = useState(true);
+  // const [eventPosts, setEventPosts] = useState<Event[]>([]);
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
 
   const handleDrawerToggleClick: React.MouseEventHandler<HTMLButtonElement> =
     () => {
@@ -30,7 +30,7 @@ const Home = () => {
       {sideDrawerOpen ? (
         <BackDrop backDropClickHandler={handleBackDropToggleClick} />
       ) : null}
-      <Dashboard state={eventPosts} setState={setEventPosts} />
+      <Dashboard />
     </>
   );
 };
