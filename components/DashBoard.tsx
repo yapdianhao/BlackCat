@@ -6,7 +6,6 @@ import { Event } from "../server/model/event";
 import useFetch from "../helper/useFetch";
 import EventCard from "./EventCard";
 import Divider from "./Divider";
-import { off } from "process";
 
 // interface DashBoardProps {
 //   state: Event[];

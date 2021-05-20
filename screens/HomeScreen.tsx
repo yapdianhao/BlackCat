@@ -6,7 +6,6 @@ import Toolbar from "../components/Toolbar";
 import Dashboard from "../components/DashBoard";
 import SideDrawer from "../components/SideDrawer";
 import BackDrop from "../components/BackDrop";
-import { Event } from "../server/model/event";
 //import { store } from "../store/store";
 
 const Home = () => {

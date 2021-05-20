@@ -31,6 +31,16 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     "Channel 6",
   ];
 
+  const fetchAllEvents = async () => {
+    const allEvents: Event[] = await fetch("http://localhost:5000/api/events")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        return data;
+      });
+    return allEvents;
+  };
+
   return (
     <div className={drawerClass}>
       <div className="date-title">
