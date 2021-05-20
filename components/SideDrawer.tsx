@@ -21,6 +21,16 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     "LATER",
   ];
 
+  const channelFilterKeyWords = [
+    "Channel 1",
+    "Channel 2",
+    "Channel 3",
+    "Channel 4",
+    "Channel 5",
+    "Channel Long Name",
+    "Channel 6",
+  ];
+
   return (
     <div className={drawerClass}>
       <div className="date-title">
@@ -28,11 +38,16 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
       </div>
       <div className="filter-button-area">
         {dateFilterKeyWords.map((keyword, index) => (
-          <FilterButton buttonText={keyword} key={keyword} />
+          <FilterButton buttonText={keyword} key={keyword} type="time" />
         ))}
       </div>
       <div className="date-title">
         <div>CHANNEL</div>
+      </div>
+      <div className="filter-button-area">
+        {channelFilterKeyWords.map((keyword, index) => (
+          <FilterButton buttonText={keyword} key={keyword} type="channel" />
+        ))}
       </div>
     </div>
   );
