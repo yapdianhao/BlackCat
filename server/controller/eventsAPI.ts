@@ -1,6 +1,11 @@
 import { Event } from "../model/event";
 import { getUsers } from "../controller/userAPI";
 import { getChannels } from "./channelAPI";
+import {
+  dateIsTomorrow,
+  dateIsWithinWeek,
+  dateIsWithinMonth,
+} from "../../helper/DateCalculator";
 
 const faker = require("faker");
 
@@ -220,21 +225,28 @@ export const getTodayEvents = (filteredEvents: Event[]) => {
 };
 
 export const getTomorrowEvents = (filteredEvents: Event[]) => {
-  let currDate = new Date();
-  // filter event here
+  return filteredEvents.filter((event) =>
+    dateIsTomorrow(event.eventStartDateTime)
+  );
 };
 
 export const getThisWeekEvents = (filteredEvents: Event[]) => {
-  // filter event of this week;
+  return filteredEvents.filter((event) =>
+    dateIsWithinWeek(event.eventStartDateTime)
+  );
 };
 
 export const getThisMonthEvent = (filteredEvents: Event[]) => {
-  // filter event of this month;
+  return filteredEvents.filter((event) =>
+    dateIsWithinMonth(event.eventStartDateTime)
+  );
 };
 
 export const getEventByChannel = (
   filteredEvents: Event[],
   filterChannelName: string
 ) => {
-  // filter event by channel;
+  return filteredEvents.filter((event) => {
+    return event.eventChannel === filterChannelName;
+  });
 };

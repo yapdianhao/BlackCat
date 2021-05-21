@@ -62,7 +62,7 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
           <FilterButton buttonText={keyword} key={keyword} type="channel" />
         ))}
       </div>
-      <SideDrawerSearchButton />
+      <SideDrawerSearchButton handleClick={() => console.log("clicked!")} />
     </div>
   );
 };
