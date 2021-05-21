@@ -11,6 +11,7 @@ import BackDrop from "../components/BackDrop";
 const Home = () => {
   // const [eventPosts, setEventPosts] = useState<Event[]>([]);
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  const [userSearchedResults, setUserSearchedResults] = useState(false);
 
   const handleDrawerToggleClick: React.MouseEventHandler<HTMLButtonElement> =
     () => {
@@ -25,7 +26,10 @@ const Home = () => {
   return (
     <>
       <Toolbar drawerClickHandler={handleDrawerToggleClick} />
-      <SideDrawer shouldShow={sideDrawerOpen} />
+      <SideDrawer
+        shouldShow={sideDrawerOpen}
+        shouldShowSearchResults={setUserSearchedResults}
+      />
       {sideDrawerOpen ? (
         <BackDrop backDropClickHandler={handleBackDropToggleClick} />
       ) : null}

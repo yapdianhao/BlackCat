@@ -4,7 +4,7 @@ const faker = require("faker");
 
 let channels: Channel[] = [];
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 6; i++) {
   let fakeChannelName: string = faker.internet.domainName();
   channels.push({ channelName: fakeChannelName });
 }

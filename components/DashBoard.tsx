@@ -31,8 +31,6 @@ const Dashboard = () => {
     [loading, hasMore]
   );
 
-  console.log(offset);
-
   return (
     <div className="dashboard">
       {list &&

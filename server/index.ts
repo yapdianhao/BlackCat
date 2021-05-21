@@ -22,6 +22,8 @@ import {
   getThisMonthEvents,
   getEventsByChannel,
 } from "./controller/eventsAPI";
+import { getChannels } from "./controller/channelAPI";
+import { resolveSoa } from "dns";
 
 const port: string | number = process.env.PORT || 5000;
 
@@ -43,37 +45,38 @@ app.get("/api/events", (req: any, res: any) => {
   res.send(getEvents());
 });
 
-app.get("/api/events/:id", (req: any, res: any) => {
-  res.send("get an event");
-});
+// app.get("/api/events/:id", (req: any, res: any) => {
+//   res.send("get an event");
+// });
 
 app.get("/api/events/:limit/:offset", (req: any, res: any) => {
   res.send(getEventWithLimit(req.params.limit, req.params.offset));
 });
 
-app.get("/api/events/today"),
-  (req: any, res: any) => {
-    console.log("requested today events");
-    res.send(getTodayEvents());
-  };
+app.get("/api/events/today", (req: any, res: any) => {
+  console.log("requested today events");
+  res.send(getTodayEvents());
+});
 
-app.get("api/events/tomorrow"),
-  (req: any, res: any) => {
-    console.log("requested tomorrow events");
-    res.send(getTomorrowEvents());
-  };
+app.get("/api/events/tomorrow", (req: any, res: any) => {
+  console.log("requested tomorrow events");
+  res.send(getTomorrowEvents());
+});
 
-app.get("api/events/thisweek"),
-  (req: any, res: any) => {
-    console.log("requested this week events");
-    res.send(getThisWeekEvents());
-  };
+app.get("/api/events/thisweek", (req: any, res: any) => {
+  console.log("requested this week events");
+  res.send(getThisWeekEvents());
+});
 
-app.get("api/events/thismonth"),
-  (req: any, res: any) => {
-    console.log("requested this month events");
-    res.send(getThisMonthEvents());
-  };
+app.get("/api/events/thismonth", (req: any, res: any) => {
+  console.log("requested this month events");
+  res.send(getThisMonthEvents());
+});
+
+app.get("/api/channels", (req: any, res: any) => {
+  console.log("get all channels");
+  res.send(getChannels());
+});
 
 app.listen(port, () => {
   console.log(`listening at port ${port}`);

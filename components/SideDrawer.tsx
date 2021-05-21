@@ -1,18 +1,25 @@
 import React from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import "../styles/SideDrawer.scss";
 import FilterButton from "../components/FilterButton";
 import SideDrawerSearchButton from "./SideDrawerSearchButton";
+import { Event } from "../server/model/event";
+import { Channel } from "../server/model/channel";
+import { store } from "../store/store";
 
 interface SideDrawerProps {
   shouldShow: boolean;
+  shouldShowSearchResults: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SideDrawer: React.FC<SideDrawerProps> = (props) => {
   // css style to render drawer
   let drawerClass = props.shouldShow ? "side-drawer open" : "side-drawer";
+
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>();
+  const [allChannels, setChannels] = useState<Channel[]>();
 
   // filterkeywords, map each into button later
   const dateFilterKeyWords = [
@@ -44,6 +51,24 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     return allEvents;
   };
 
+  const fetchAllChannels = async () => {
+    await fetch("http://localhost:5000/api/channels")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setChannels((allChannels) => {
+          if (allChannels === undefined) return data;
+          else return [...allChannels, ...data];
+        });
+      });
+  };
+
+  useEffect(() => {
+    fetchAllChannels();
+  }, []);
+
+  console.log(store.getState());
+
   return (
     <div className={drawerClass}>
       <div className="date-title">
@@ -51,18 +76,25 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
       </div>
       <div className="filter-button-area">
         {dateFilterKeyWords.map((keyword, index) => (
-          <FilterButton buttonText={keyword} key={keyword} type="time" />
+          <FilterButton buttonText={keyword} key={index} type="time" />
         ))}
       </div>
       <div className="date-title">
         <div>CHANNEL</div>
       </div>
       <div className="filter-button-area">
-        {channelFilterKeyWords.map((keyword, index) => (
-          <FilterButton buttonText={keyword} key={keyword} type="channel" />
-        ))}
+        {allChannels &&
+          allChannels.map((channel, index) => (
+            <FilterButton
+              buttonText={channel.channelName}
+              key={index}
+              type="channel"
+            />
+          ))}
       </div>
-      <SideDrawerSearchButton handleClick={() => console.log("clicked!")} />
+      <SideDrawerSearchButton
+        handleClick={() => props.shouldShowSearchResults(true)}
+      />
     </div>
   );
 };

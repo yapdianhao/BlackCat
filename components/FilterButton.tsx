@@ -4,7 +4,7 @@ import "../styles/FilterButtons.scss";
 
 interface FilterButtonProp {
   buttonText: string;
-  key: string;
+  key: number;
   type: string;
 }
 
