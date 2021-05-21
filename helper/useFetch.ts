@@ -4,7 +4,7 @@ import { Event } from "../server/model/event";
 import { store } from "../store/store";
 
 const useFetch = (offset: number) => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -24,16 +24,16 @@ const useFetch = (offset: number) => {
           console.log(data);
           setList((list) => {
             if (list === undefined) {
-              dispatch({
-                type: "SET_EVENT",
-                payload: data,
-              });
+              // dispatch({
+              //   type: "SET_EVENT",
+              //   payload: data,
+              // });
               return data;
             } else {
-              dispatch({
-                type: "SET_EVENT",
-                payload: [...list, ...data],
-              });
+              // dispatch({
+              //   type: "SET_EVENT",
+              //   payload: [...list, ...data],
+              // });
               return [...list, ...data];
             }
           });

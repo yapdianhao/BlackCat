@@ -73,6 +73,11 @@ app.get("/api/events/thismonth", (req: any, res: any) => {
   res.send(getThisMonthEvents());
 });
 
+app.get("/api/events/later", (req: any, res: any) => {
+  console.log("requested later events");
+  // res.send(getLaterEvents());
+});
+
 app.get("/api/channels", (req: any, res: any) => {
   console.log("get all channels");
   res.send(getChannels());

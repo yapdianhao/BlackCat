@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import "../styles/FilterButtons.scss";
+import { store } from "../store/store";
 
 interface FilterButtonProp {
   buttonText: string;
@@ -13,9 +14,16 @@ interface FilterButtonProp {
 const FilterButton: React.FC<FilterButtonProp> = (props) => {
   const [isActive, toggleActive] = useState(false);
 
+  const dispatch = useDispatch();
+  const renderingEvents = store.getState().eventsReducer;
+
   const handleClick = async () => {
     toggleActive(!isActive);
     const filteredData = await props.handleClick();
+    dispatch({
+      type: "SET_EVENT",
+      payload: Array.from(new Set([...renderingEvents, ...filteredData])),
+    });
     console.log(filteredData);
   };
 

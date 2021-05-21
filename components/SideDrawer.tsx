@@ -19,7 +19,7 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
   // css style to render drawer
   let drawerClass = props.shouldShow ? "side-drawer open" : "side-drawer";
 
-  const [filteredEvents, setFilteredEvents] = useState<Event[]>();
+  //const [filteredEvents, setFilteredEvents] = useState<Event[]>();
   const [allChannels, setChannels] = useState<Channel[]>([
     { channelName: "All Channels" },
   ]);

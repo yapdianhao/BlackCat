@@ -31,16 +31,38 @@ const getToday = async () => {
   return filteredData;
 };
 
-const getTomorrow = () => {
-  // filter with tomorrow;
+const getTomorrow = async () => {
+  const filteredData = await fetch("http://localhost:5000/api/events/tomorrow")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return filteredData;
 };
 
-const getThisWeek = () => {
-  // filter this week
+const getThisWeek = async () => {
+  const filteredData = await fetch("http://localhost:5000/api/events/thisweek")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return filteredData;
 };
 
-const getThisMonth = () => {
+const getThisMonth = async () => {
   // filter with same month;
+  const filteredData = await fetch("http://localhost:5000/api/events/thismonth")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return filteredData;
 };
 
 const getLater = () => {

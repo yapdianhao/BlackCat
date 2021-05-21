@@ -6,6 +6,7 @@ import {
   dateIsTomorrow,
   dateIsWithinWeek,
   dateIsWithinMonth,
+  dateIsLater,
 } from "../../helper/DateCalculator";
 
 const faker = require("faker");
@@ -229,6 +230,10 @@ export const getThisWeekEvents = () => {
 
 export const getThisMonthEvents = () => {
   return events.filter((event) => dateIsWithinMonth(event.eventStartDateTime));
+};
+
+export const getLaterEvents = () => {
+  return events.filter((event) => dateIsLater(event.eventStartDateTime));
 };
 
 export const getEventsByChannel = (filterChannelName: string) => {
