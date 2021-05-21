@@ -1,4 +1,6 @@
 import React from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import "../styles/SideDrawer.scss";
 import FilterButton from "../components/FilterButton";

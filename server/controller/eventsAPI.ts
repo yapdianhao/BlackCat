@@ -9,7 +9,20 @@ let events: Event[] = [];
 let channelsForEvents = getChannels();
 let usersForEvents = getUsers();
 
+let eventType = [
+  "Past",
+  "Ongoing",
+  "Future",
+  "Yesterday",
+  "Today",
+  "Tomorrow",
+  "This week",
+  "This month",
+];
+
 for (let i: number = 1; i <= 100; i++) {
+  let randomEventTypeIdx = Math.floor(Math.random() * eventType.length);
+  console.log(randomEventTypeIdx);
   let fakeEventName: string = faker.lorem.words();
   let fakeEventDescription: string =
     faker.lorem.sentence() +
@@ -29,8 +42,95 @@ for (let i: number = 1; i <= 100; i++) {
   let fakeChannelName: string =
     channelsForEvents[Math.floor(Math.random() * channelsForEvents.length)]
       .channelName;
-  let fakeEventStartDateTime: Date = new Date();
-  let fakeEventEndDateTime: Date = new Date();
+  let fakeEventStartDateTime: Date;
+  let fakeEventEndDateTime: Date;
+  switch (randomEventTypeIdx) {
+    case 0: {
+      let startDate = new Date();
+      let endDate = new Date();
+      startDate.setDate(
+        startDate.getDate() - Math.floor(Math.random() * 5) + 1
+      );
+      endDate.setDate(startDate.getDate() - Math.floor(Math.random() * 10) + 5);
+      fakeEventStartDateTime = startDate;
+      fakeEventEndDateTime = endDate;
+    }
+    case 1: {
+      let startDate = new Date();
+      let endDate = new Date();
+      startDate.setDate(
+        startDate.getDate() - Math.floor(Math.random() * 5) + 1
+      );
+      endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 5) + 1);
+      fakeEventStartDateTime = startDate;
+      fakeEventEndDateTime = endDate;
+    }
+    case 2: {
+      let startDate = new Date();
+      let endDate = new Date();
+      startDate.setDate(
+        startDate.getDate() + Math.floor(Math.random() * 50) + 1
+      );
+      endDate.setDate(
+        startDate.getDate() + Math.floor(Math.random() * 100) + 51
+      );
+      fakeEventStartDateTime = startDate;
+      fakeEventEndDateTime = endDate;
+
+      console.log(fakeEventStartDateTime);
+      console.log(fakeEventEndDateTime);
+    }
+    case 3: {
+      let startDate = new Date();
+      let endDate = new Date();
+      startDate.setDate(startDate.getDate() - 1);
+      endDate.setDate(startDate.getDate() - 1);
+      endDate.setHours(endDate.getHours() + 1);
+      fakeEventStartDateTime = startDate;
+      fakeEventEndDateTime = endDate;
+    }
+    case 4: {
+      let startDate = new Date();
+      let endDate = new Date();
+      startDate.setDate(startDate.getHours() + 1);
+      endDate.setDate(startDate.getHours() + 3);
+      fakeEventStartDateTime = startDate;
+      fakeEventEndDateTime = endDate;
+    }
+    case 5: {
+      let startDate = new Date();
+      let endDate = new Date();
+      startDate.setDate(startDate.getDate() + 1);
+      startDate.setHours(startDate.getHours() - 1);
+      endDate.setDate(endDate.getDate() + 1);
+      endDate.setHours(endDate.getHours() + 5);
+      fakeEventStartDateTime = startDate;
+      fakeEventEndDateTime = endDate;
+    }
+    case 6: {
+      let startDate = new Date();
+      let endDate = new Date();
+      startDate.setDate(
+        startDate.getDate() + Math.floor(Math.random() * 3) + 1
+      );
+      endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 7) + 4);
+      fakeEventStartDateTime = startDate;
+      fakeEventEndDateTime = endDate;
+    }
+    case 7: {
+      let startDate = new Date();
+      let endDate = new Date();
+      startDate.setDate(
+        startDate.getDate() + Math.floor(Math.random() * 7) + 1
+      );
+      endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 10) + 7);
+      fakeEventStartDateTime = startDate;
+      fakeEventEndDateTime = endDate;
+    }
+    default: {
+      break;
+    }
+  }
 
   events.push({
     eventId: i,
@@ -79,7 +179,7 @@ export const getEvent = (id: number) => {
 };
 
 export const getEventWithLimit = (limit: number, offset: number) => {
-  console.log(`${limit} {offset}`);
+  console.log(`${limit} ${offset}`);
   return events.slice(+limit, +limit + +offset);
 };
 
@@ -108,3 +208,5 @@ export const updateEvent = (
   eventToUpdate.eventPostedBy = newPosterName;
   return eventToUpdate;
 };
+
+// export const;
