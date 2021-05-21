@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { createStore } from "redux";
 import { useDispatch } from "react-redux";
 
 import "../styles/LoginScreen.scss";

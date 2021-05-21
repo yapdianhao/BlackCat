@@ -15,6 +15,22 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = (props) => {
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dev",
+  ];
+  const passedStartDate = new Date(props.eventToRender.eventStartDateTime);
+  const passedEndDate = new Date(props.eventToRender.eventEndDateTime);
   return (
     <div className="card-outline">
       <div className="card-header">
@@ -25,9 +41,11 @@ const EventCard: React.FC<EventCardProps> = (props) => {
       <div className="activity-title">{props.eventToRender.eventName}</div>
       <div className="activity-time-area">
         <ClockIcon />
-        <div className="activity-time">
-          14 May 2016 22:30 - 14 May 2016 23:00
-        </div>
+        <div className="activity-time">{`${passedStartDate.getDate()} ${
+          monthNames[passedStartDate.getMonth()]
+        } ${passedStartDate.getFullYear()} ${passedStartDate.getHours()}:${passedStartDate.getMinutes()} - ${passedEndDate.getDate()} ${
+          monthNames[passedEndDate.getMonth()]
+        } ${passedEndDate.getFullYear()} ${passedEndDate.getHours()}:${passedEndDate.getMinutes()}`}</div>
       </div>
       <div className="activity-desc">
         {props.eventToRender.eventDescription}

@@ -34,7 +34,7 @@ const Dashboard = () => {
   console.log(offset);
 
   return (
-    <div>
+    <div className="dashboard">
       {list &&
         list.map((eventPost: Event, idx: number) => {
           if (idx + 1 === list.length) {

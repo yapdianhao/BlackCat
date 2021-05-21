@@ -29,7 +29,9 @@ const Home = () => {
       {sideDrawerOpen ? (
         <BackDrop backDropClickHandler={handleBackDropToggleClick} />
       ) : null}
-      <Dashboard />
+      <main>
+        <Dashboard />
+      </main>
     </>
   );
 };
