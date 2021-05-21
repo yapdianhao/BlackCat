@@ -4,4 +4,4 @@
 /server/*.js
 /server/model/*.js
 /server/controller/*.js
-./helper/*.js
+/helper/*.js

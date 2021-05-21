@@ -8,6 +8,7 @@ import SideDrawerSearchButton from "./SideDrawerSearchButton";
 import { Event } from "../server/model/event";
 import { Channel } from "../server/model/channel";
 import { store } from "../store/store";
+import ButtonHelperFunctions from "../helper/FilterButtonFunctions";
 
 interface SideDrawerProps {
   shouldShow: boolean;
@@ -19,7 +20,9 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
   let drawerClass = props.shouldShow ? "side-drawer open" : "side-drawer";
 
   const [filteredEvents, setFilteredEvents] = useState<Event[]>();
-  const [allChannels, setChannels] = useState<Channel[]>();
+  const [allChannels, setChannels] = useState<Channel[]>([
+    { channelName: "All Channels" },
+  ]);
 
   // filterkeywords, map each into button later
   const dateFilterKeyWords = [
@@ -76,7 +79,12 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
       </div>
       <div className="filter-button-area">
         {dateFilterKeyWords.map((keyword, index) => (
-          <FilterButton buttonText={keyword} key={index} type="time" />
+          <FilterButton
+            buttonText={keyword}
+            key={index}
+            type="time"
+            handleClick={ButtonHelperFunctions[index]}
+          />
         ))}
       </div>
       <div className="date-title">
@@ -89,6 +97,7 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
               buttonText={channel.channelName}
               key={index}
               type="channel"
+              handleClick={() => console.log("click channel")}
             />
           ))}
       </div>

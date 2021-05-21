@@ -1,26 +1,49 @@
+import { useDispatch } from "react-redux";
+
 import { Event } from "../server/model/event";
+import { store } from "../store/store";
 
-const getAnyTime = (allEvents: Event[]) => {
-  return allEvents;
+const getAnyTime = async () => {
+  // const dispatch = useDispatch();
+  // const currRenderingEvents: Event[] = store.getState().eventsReducer;
+
+  const filteredData = await fetch("http://localhost:5000/api/events")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return filteredData;
 };
 
-const getToday = (allEvents: Event[]) => {
-  // filter with same date;
+const getToday = async () => {
+  // const dispatch = useDispatch();
+  // const currRenderingEvents: Event[] = store.getState().eventsReducer;
+
+  const filteredData = await fetch("http://localhost:5000/api/events/today")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return filteredData;
 };
 
-const getTomorrow = (allEvents: Event[]) => {
+const getTomorrow = () => {
   // filter with tomorrow;
 };
 
-const getThisWeek = (allEvents: Event[]) => {
+const getThisWeek = () => {
   // filter this week
 };
 
-const getThisMonth = (allEvents: Event[]) => {
+const getThisMonth = () => {
   // filter with same month;
 };
 
-const getLater = (allEvents: Event[]) => {
+const getLater = () => {
   // filter events that not passed
 };
 
