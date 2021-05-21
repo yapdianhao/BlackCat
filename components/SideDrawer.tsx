@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import "../styles/SideDrawer.scss";
 import FilterButton from "../components/FilterButton";
+import SideDrawerSearchButton from "./SideDrawerSearchButton";
 
 interface SideDrawerProps {
   shouldShow: boolean;
@@ -61,6 +62,7 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
           <FilterButton buttonText={keyword} key={keyword} type="channel" />
         ))}
       </div>
+      <SideDrawerSearchButton />
     </div>
   );
 };

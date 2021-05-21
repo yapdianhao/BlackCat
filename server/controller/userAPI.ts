@@ -18,13 +18,19 @@ for (let i = 2; i <= 100; i++) {
   let fakerUserName: string = faker.name.firstName();
   let fakerUserEmail: string = faker.internet.email();
   let fakerUserPassword: string = faker.internet.password();
+  let randomGoingEventNum = Math.floor(Math.random() * 100);
+  let randomLikeEventNum = Math.floor(Math.random() * 100);
   users.push({
     userId: fakerUserId,
     userName: fakerUserName,
     userEmail: fakerUserEmail,
     userPassword: fakerUserPassword,
-    userLikedEvents: [],
-    userGoingEvents: [],
+    userLikedEvents: Array.from({ length: randomLikeEventNum }, () =>
+      Math.floor(Math.random() * 100)
+    ),
+    userGoingEvents: Array.from({ length: randomGoingEventNum }, () =>
+      Math.floor(Math.random() * 100)
+    ),
   });
 }
 

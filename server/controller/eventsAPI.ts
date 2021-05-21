@@ -209,4 +209,32 @@ export const updateEvent = (
   return eventToUpdate;
 };
 
-// export const;
+export const getTodayEvents = (filteredEvents: Event[]) => {
+  let currDate = new Date();
+  return filteredEvents.filter(
+    (event) =>
+      event.eventStartDateTime.getDate() == currDate.getDate() &&
+      event.eventStartDateTime.getMonth() == currDate.getMonth() &&
+      event.eventStartDateTime.getFullYear() == currDate.getFullYear()
+  );
+};
+
+export const getTomorrowEvents = (filteredEvents: Event[]) => {
+  let currDate = new Date();
+  // filter event here
+};
+
+export const getThisWeekEvents = (filteredEvents: Event[]) => {
+  // filter event of this week;
+};
+
+export const getThisMonthEvent = (filteredEvents: Event[]) => {
+  // filter event of this month;
+};
+
+export const getEventByChannel = (
+  filteredEvents: Event[],
+  filterChannelName: string
+) => {
+  // filter event by channel;
+};
