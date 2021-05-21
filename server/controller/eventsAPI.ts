@@ -2,6 +2,7 @@ import { Event } from "../model/event";
 import { getUsers } from "../controller/userAPI";
 import { getChannels } from "./channelAPI";
 import {
+  dateIsToday,
   dateIsTomorrow,
   dateIsWithinWeek,
   dateIsWithinMonth,
@@ -214,39 +215,24 @@ export const updateEvent = (
   return eventToUpdate;
 };
 
-export const getTodayEvents = (filteredEvents: Event[]) => {
-  let currDate = new Date();
-  return filteredEvents.filter(
-    (event) =>
-      event.eventStartDateTime.getDate() == currDate.getDate() &&
-      event.eventStartDateTime.getMonth() == currDate.getMonth() &&
-      event.eventStartDateTime.getFullYear() == currDate.getFullYear()
-  );
+export const getTodayEvents = () => {
+  return events.filter((event) => dateIsToday(event.eventStartDateTime));
 };
 
-export const getTomorrowEvents = (filteredEvents: Event[]) => {
-  return filteredEvents.filter((event) =>
-    dateIsTomorrow(event.eventStartDateTime)
-  );
+export const getTomorrowEvents = () => {
+  return events.filter((event) => dateIsTomorrow(event.eventStartDateTime));
 };
 
-export const getThisWeekEvents = (filteredEvents: Event[]) => {
-  return filteredEvents.filter((event) =>
-    dateIsWithinWeek(event.eventStartDateTime)
-  );
+export const getThisWeekEvents = () => {
+  return events.filter((event) => dateIsWithinWeek(event.eventStartDateTime));
 };
 
-export const getThisMonthEvent = (filteredEvents: Event[]) => {
-  return filteredEvents.filter((event) =>
-    dateIsWithinMonth(event.eventStartDateTime)
-  );
+export const getThisMonthEvents = () => {
+  return events.filter((event) => dateIsWithinMonth(event.eventStartDateTime));
 };
 
-export const getEventByChannel = (
-  filteredEvents: Event[],
-  filterChannelName: string
-) => {
-  return filteredEvents.filter((event) => {
+export const getEventsByChannel = (filterChannelName: string) => {
+  return events.filter((event) => {
     return event.eventChannel === filterChannelName;
   });
 };

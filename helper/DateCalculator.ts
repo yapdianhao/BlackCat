@@ -1,3 +1,12 @@
+export const dateIsToday = (inputDate: Date) => {
+  const today = new Date();
+  return (
+    inputDate.getDate() == today.getDate() &&
+    inputDate.getMonth() == today.getMonth() &&
+    inputDate.getFullYear() == today.getFullYear()
+  );
+};
+
 export const dateIsTomorrow = (inputDate: Date) => {
   const today = new Date();
   const date1UTC = Date.UTC(
