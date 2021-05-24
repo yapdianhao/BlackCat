@@ -1,12 +1,4 @@
-import { useDispatch } from "react-redux";
-
-import { Event } from "../server/model/event";
-import { store } from "../store/store";
-
-const getAnyTime = async () => {
-  // const dispatch = useDispatch();
-  // const currRenderingEvents: Event[] = store.getState().eventsReducer;
-
+export const getAll = async (filterChannelName?: string) => {
   const filteredData = await fetch("http://localhost:5000/api/events")
     .then((response) => response.json())
     .then((data) => {
@@ -17,10 +9,7 @@ const getAnyTime = async () => {
   return filteredData;
 };
 
-const getToday = async () => {
-  // const dispatch = useDispatch();
-  // const currRenderingEvents: Event[] = store.getState().eventsReducer;
-
+const getToday = async (filterChannelName?: string) => {
   const filteredData = await fetch("http://localhost:5000/api/events/today")
     .then((response) => response.json())
     .then((data) => {
@@ -31,7 +20,7 @@ const getToday = async () => {
   return filteredData;
 };
 
-const getTomorrow = async () => {
+const getTomorrow = async (filterChannelName?: string) => {
   const filteredData = await fetch("http://localhost:5000/api/events/tomorrow")
     .then((response) => response.json())
     .then((data) => {
@@ -42,7 +31,7 @@ const getTomorrow = async () => {
   return filteredData;
 };
 
-const getThisWeek = async () => {
+const getThisWeek = async (filterChannelName?: string) => {
   const filteredData = await fetch("http://localhost:5000/api/events/thisweek")
     .then((response) => response.json())
     .then((data) => {
@@ -53,7 +42,7 @@ const getThisWeek = async () => {
   return filteredData;
 };
 
-const getThisMonth = async () => {
+const getThisMonth = async (filterChannelName?: string) => {
   // filter with same month;
   const filteredData = await fetch("http://localhost:5000/api/events/thismonth")
     .then((response) => response.json())
@@ -65,15 +54,28 @@ const getThisMonth = async () => {
   return filteredData;
 };
 
-const getLater = () => {
-  // filter events that not passed
+const getLater = async (filterChannelName?: string) => {
+  const filteredData = await fetch("http://localhost:5000/api/events/later")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return filteredData;
 };
 
-export default [
-  getAnyTime,
-  getToday,
-  getTomorrow,
-  getThisWeek,
-  getThisMonth,
-  getLater,
-];
+export const getByChannel = async (filterChannelName?: string) => {
+  const filteredData = await fetch(
+    `http://localhost:5000/api/events/${filterChannelName}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return filteredData;
+};
+
+export default [getToday, getTomorrow, getThisWeek, getThisMonth, getLater];

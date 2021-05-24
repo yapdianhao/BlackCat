@@ -19,10 +19,19 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
 
   const handleClick = async () => {
     toggleActive(!isActive);
-    const filteredData = await props.handleClick();
+    const filteredData = await props.handleClick(props.buttonText);
+    const jsonEventArr: Event[] = [];
+    const eventSet = new Set();
+    for (const eventObj of [...renderingEvents, ...filteredData]) {
+      const eventJson = JSON.stringify(eventObj);
+      if (!eventSet.has(eventJson)) {
+        jsonEventArr.push(eventObj);
+      }
+      eventSet.add(eventJson);
+    }
     dispatch({
       type: "SET_EVENT",
-      payload: Array.from(new Set([...renderingEvents, ...filteredData])),
+      payload: jsonEventArr,
     });
     console.log(filteredData);
   };

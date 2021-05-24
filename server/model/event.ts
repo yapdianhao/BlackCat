@@ -5,6 +5,7 @@ export interface Event {
   eventLocation: string;
   eventChannel: string;
   eventPostedBy: string;
+  eventPostedOn: Date;
   eventLikesCount: number;
   eventGoingCount: number;
   eventStartDateTime: Date;

@@ -49,6 +49,10 @@ for (let i: number = 1; i <= 30; i++) {
   let fakeChannelName: string =
     channelsForEvents[Math.floor(Math.random() * channelsForEvents.length)]
       .channelName;
+  let fakePublishDate = new Date();
+  fakePublishDate.setDate(
+    fakePublishDate.getDate() - Math.floor(Math.random() * 7) + 1
+  );
   let fakeEventStartDateTime: Date;
   let fakeEventEndDateTime: Date;
   switch (randomEventTypeIdx) {
@@ -150,6 +154,7 @@ for (let i: number = 1; i <= 30; i++) {
     eventEndDateTime: fakeEventEndDateTime,
     eventChannel: fakeChannelName,
     eventPostedBy: fakePosterName,
+    eventPostedOn: fakePublishDate,
   });
 }
 
@@ -158,28 +163,28 @@ export const getEvents = () => {
   return events;
 };
 
-export const createEvents = (
-  newEventName: string,
-  newEventDescription: string,
-  newEventLocation: string,
-  newEventChannel: string,
-  newPosterName: string,
-  newEventStartDateTime: Date,
-  newEventEndDateTime: Date
-) => {
-  events.push({
-    eventId: events.length + 1,
-    eventName: newEventName,
-    eventDescription: newEventDescription,
-    eventLocation: newEventLocation,
-    eventStartDateTime: newEventStartDateTime,
-    eventEndDateTime: newEventEndDateTime,
-    eventChannel: newEventChannel,
-    eventLikesCount: 0,
-    eventGoingCount: 0,
-    eventPostedBy: newPosterName,
-  });
-};
+// export const createEvents = (
+//   newEventName: string,
+//   newEventDescription: string,
+//   newEventLocation: string,
+//   newEventChannel: string,
+//   newPosterName: string,
+//   newEventStartDateTime: Date,
+//   newEventEndDateTime: Date
+// ) => {
+//   events.push({
+//     eventId: events.length + 1,
+//     eventName: newEventName,
+//     eventDescription: newEventDescription,
+//     eventLocation: newEventLocation,
+//     eventStartDateTime: newEventStartDateTime,
+//     eventEndDateTime: newEventEndDateTime,
+//     eventChannel: newEventChannel,
+//     eventLikesCount: 0,
+//     eventGoingCount: 0,
+//     eventPostedBy: newPosterName,
+//   });
+// };
 
 export const getEvent = (id: number) => {
   return events[id - 1];
@@ -237,6 +242,7 @@ export const getLaterEvents = () => {
 };
 
 export const getEventsByChannel = (filterChannelName: string) => {
+  console.log(filterChannelName);
   return events.filter((event) => {
     return event.eventChannel === filterChannelName;
   });

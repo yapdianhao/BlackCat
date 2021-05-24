@@ -8,11 +8,13 @@ import SideDrawerSearchButton from "./SideDrawerSearchButton";
 import { Event } from "../server/model/event";
 import { Channel } from "../server/model/channel";
 import { store } from "../store/store";
+import { getAll, getByChannel } from "../helper/FilterButtonFunctions";
 import ButtonHelperFunctions from "../helper/FilterButtonFunctions";
 
 interface SideDrawerProps {
   shouldShow: boolean;
-  shouldShowSearchResults: React.Dispatch<React.SetStateAction<boolean>>;
+  shouldShowSearchResults: boolean;
+  handleShouldShowSearchResults: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const SideDrawer: React.FC<SideDrawerProps> = (props) => {
@@ -34,26 +36,6 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     "LATER",
   ];
 
-  const channelFilterKeyWords = [
-    "Channel 1",
-    "Channel 2",
-    "Channel 3",
-    "Channel 4",
-    "Channel 5",
-    "Channel Long Name",
-    "Channel 6",
-  ];
-
-  const fetchAllEvents = async () => {
-    const allEvents: Event[] = await fetch("http://localhost:5000/api/events")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        return data;
-      });
-    return allEvents;
-  };
-
   const fetchAllChannels = async () => {
     await fetch("http://localhost:5000/api/channels")
       .then((response) => response.json())
@@ -70,8 +52,6 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     fetchAllChannels();
   }, []);
 
-  console.log(store.getState());
-
   return (
     <div className={drawerClass}>
       <div className="date-title">
@@ -83,7 +63,9 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
             buttonText={keyword}
             key={index}
             type="time"
-            handleClick={ButtonHelperFunctions[index]}
+            handleClick={
+              index === 0 ? getAll : ButtonHelperFunctions[index - 1]
+            }
           />
         ))}
       </div>
@@ -97,12 +79,13 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
               buttonText={channel.channelName}
               key={index}
               type="channel"
-              handleClick={() => console.log("click channel")}
+              handleClick={index === 0 ? getAll : getByChannel}
             />
           ))}
       </div>
       <SideDrawerSearchButton
-        handleClick={() => props.shouldShowSearchResults(true)}
+        shouldShowSearchResults={props.shouldShowSearchResults}
+        handleSearchClick={props.handleShouldShowSearchResults}
       />
     </div>
   );

@@ -4,14 +4,15 @@ import "../styles/SideDrawerSearchButton.scss";
 import SearchIcon from "./SearchIcon";
 
 interface SideDrawerSearchButtonProps {
-  handleClick: React.MouseEventHandler<HTMLDivElement>;
+  handleSearchClick: React.MouseEventHandler<HTMLDivElement>;
+  shouldShowSearchResults: boolean;
 }
 
 const SideDrawerSearchButton: React.FC<SideDrawerSearchButtonProps> = (
   props
 ) => {
   return (
-    <div onClick={props.handleClick} className="search-button-sidedrawer">
+    <div onClick={props.handleSearchClick} className="search-button-sidedrawer">
       <div className="search-button-sidedrawer-contents">
         <SearchIcon />
         <div>SEARCH</div>

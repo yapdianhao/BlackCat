@@ -83,6 +83,11 @@ app.get("/api/channels", (req: any, res: any) => {
   res.send(getChannels());
 });
 
+app.get("/api/events/:channelName", (req: any, res: any) => {
+  console.log("get filter with channel");
+  res.send(getEventsByChannel(req.params.channelName));
+});
+
 app.listen(port, () => {
   console.log(`listening at port ${port}`);
 });

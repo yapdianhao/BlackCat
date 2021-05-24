@@ -6,16 +6,17 @@ import { Event } from "../server/model/event";
 import useFetch from "../helper/useFetch";
 import EventCard from "./EventCard";
 import Divider from "./Divider";
+import { store } from "../store/store";
 
-// interface DashBoardProps {
-//   state: Event[];
-//   setState: React.Dispatch<React.SetStateAction<Event[]>>;
-// }
+interface DashBoardProps {
+  shouldShowSearchResults: boolean;
+}
 
-const Dashboard = () => {
+const Dashboard: React.FC<DashBoardProps> = (props) => {
   const [offset, setOffset] = useState(0);
   const { loading, error, list, hasMore } = useFetch(offset);
   const observer = useRef<IntersectionObserver>();
+  const searchedResults: Event[] = store.getState().eventsReducer;
 
   const lastItemRef = useCallback(
     (node) => {
@@ -33,23 +34,33 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      {list &&
-        list.map((eventPost: Event, idx: number) => {
-          if (idx + 1 === list.length) {
-            return (
-              <div key={eventPost.eventId} ref={lastItemRef}>
-                <EventCard eventToRender={eventPost} />
-                <Divider />
-              </div>
-            );
-          } else
+      {props.shouldShowSearchResults
+        ? searchedResults &&
+          searchedResults.map((eventPost: Event, idx: number) => {
             return (
               <div key={eventPost.eventId}>
                 <EventCard eventToRender={eventPost} />
                 <Divider />
               </div>
             );
-        })}
+          })
+        : list &&
+          list.map((eventPost: Event, idx: number) => {
+            if (idx + 1 === list.length) {
+              return (
+                <div key={eventPost.eventId} ref={lastItemRef}>
+                  <EventCard eventToRender={eventPost} />
+                  <Divider />
+                </div>
+              );
+            } else
+              return (
+                <div key={eventPost.eventId}>
+                  <EventCard eventToRender={eventPost} />
+                  <Divider />
+                </div>
+              );
+          })}
     </div>
   );
 };
