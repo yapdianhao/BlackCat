@@ -7,6 +7,8 @@ import PeopleIconOutline from "./PeopleIconOutline";
 import PeopleIcon from "./PeopleIcon";
 import InfoIcon from "./InfoIcon";
 import InfoIconOutline from "./InfoIconOutline";
+import DateFromIcon from "./DateFromIcon";
+import DateToIcon from "./DateToIcon";
 
 const profilePic = require("../images/Street-Dance-01.jpg");
 
@@ -115,7 +117,7 @@ const EventDetailsBody = () => {
           a very long text how long can it be it can be very long more than two
           lines more than three lines this is going to be very very long wow
           long long text!! but its not long enough so here are more words long
-          long words this is a veryverylongword word word word
+          long words this is a veryver
         </div>
         {showHidden ? null : <div className="blur-effect" />}
         <div className="expand-btn">
@@ -123,6 +125,27 @@ const EventDetailsBody = () => {
             {showHidden ? "VIEW LESS" : "VIEW ALL"}
           </button>
         </div>
+      </div>
+      <hr className="divider" />
+      <div className="section-time-starter">
+        <div className="section-time-shape" />
+        <div className="section-time-text">When</div>
+      </div>
+      <div className="time-row">
+        <div className="time-col">
+          <div className="time-col-row">
+            <DateFromIcon />
+            <div>5 April 2015</div>
+          </div>
+        </div>
+        <div className="time-col-big-row">8:30 pm</div>
+        <div className="time-col">
+          <div className="time-col-row">
+            <DateFromIcon />
+            <div>5 April 2015</div>
+          </div>
+        </div>
+        <div className="time-col-big-row">8:30 pm</div>
       </div>
     </div>
   );
