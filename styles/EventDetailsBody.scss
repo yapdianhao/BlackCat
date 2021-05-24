@@ -4,6 +4,8 @@
   display: inline-block;
   margin-top: 40px;
   padding: 20px;
+  overflow-x: hidden;
+  overflow: scroll;
 }
 
 .event-header {
@@ -109,4 +111,61 @@
 
 .divider {
   border: 1px solid #e8e8e8;
+}
+
+.gallery {
+  width: 95vw;
+  padding: 5px;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  img {
+    padding: 5px;
+    width: 180px;
+    height: 100px;
+    border-radius: 10px;
+  }
+}
+
+.desc {
+  padding: 10px;
+  position: relative;
+  display: flex;
+  font-family: "Source Sans Pro";
+  color: #67616d;
+  font-size: 14px;
+  font-weight: 400;
+  background: linear-gradient(transparent 150px, white);
+
+  .text-area-hidden {
+    max-height: 180px;
+    overflow: hidden;
+  }
+
+  .text-area-unhidden {
+    max-height: 100%;
+  }
+
+  .blur-effect {
+    position: absolute;
+    width: 100%;
+    top: 150px;
+    height: 50px;
+    background: linear-gradient(transparent, #ffffff);
+  }
+
+  .expand-btn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    button {
+      background-color: #d5ef7f;
+      font-family: "Source Sans Pro";
+      font-size: 10px;
+      font-weight: 400;
+      padding: 5px;
+      border-radius: 20px;
+    }
+  }
 }

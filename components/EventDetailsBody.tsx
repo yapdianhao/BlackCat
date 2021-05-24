@@ -14,6 +14,7 @@ const EventDetailsBody = () => {
   const [detailTabSelected, setDetailTabSelected] = useState(true);
   const [participantTabSelected, setParticipantTabSelected] = useState(false);
   const [commentsTabSelected, setCommentsTabSelected] = useState(false);
+  const [showHidden, setShowHidden] = useState(false);
 
   const handleDetailTabClicked = () => {
     setDetailTabSelected(true);
@@ -31,6 +32,10 @@ const EventDetailsBody = () => {
     setDetailTabSelected(false);
     setParticipantTabSelected(false);
     setCommentsTabSelected(true);
+  };
+
+  const handleShowHiddenButtonClick = () => {
+    setShowHidden(!showHidden);
   };
 
   return (
@@ -61,8 +66,8 @@ const EventDetailsBody = () => {
             detailTabSelected ? "chosen" : "not-chosen"
           }`}
         >
-          <InfoIcon />
-          details
+          {detailTabSelected ? <InfoIcon /> : <InfoIconOutline />}
+          Details
         </div>
         <div
           onClick={handleParticipantTabSelected}
@@ -70,8 +75,8 @@ const EventDetailsBody = () => {
             participantTabSelected ? "chosen" : "not-chosen"
           }`}
         >
-          <PeopleIcon />
-          participants
+          {participantTabSelected ? <PeopleIcon /> : <PeopleIconOutline />}
+          Participants
         </div>
         <div
           onClick={handleCommentsTabSelected}
@@ -79,11 +84,46 @@ const EventDetailsBody = () => {
             commentsTabSelected ? "chosen" : "not-chosen"
           }`}
         >
-          <CommentIcon />
-          comments
+          {commentsTabSelected ? <CommentIcon /> : <CommentIconOutline />}
+          Comments
         </div>
       </div>
       <hr className="divider" />
+      <div className="gallery">
+        <img src={String(profilePic)} />
+        <img src={String(profilePic)} />
+        <img src={String(profilePic)} />
+        <img src={String(profilePic)} />
+        <img src={String(profilePic)} />
+      </div>
+      <div className="desc">
+        <div className={showHidden ? "text-area-unhidden" : "text-area-hidden"}>
+          this is a very long text this is really a very long text how long can
+          it be it can be very long more than two lines more than three lines
+          this is going to be very very long wow long long text!! but its not
+          long enough so here are more words long long words this is a
+          veryverylongword word word word this is a very long text this is
+          really a very long text how long can it be it can be very long more
+          than two lines more than three lines this is going to be very very
+          long wow long long text!! but its not long enough so here are more
+          words long long words this is a veryverylongword word word word his is
+          a very long text this is really a very long text how long can it be it
+          can be very long more than two lines more than three lines this is
+          going to be very very long wow long long text!! but its not long
+          enough so here are more words long long words this is a
+          veryverylongword word word word his is a very long text this is really
+          a very long text how long can it be it can be very long more than two
+          lines more than three lines this is going to be very very long wow
+          long long text!! but its not long enough so here are more words long
+          long words this is a veryverylongword word word word
+        </div>
+        {showHidden ? null : <div className="blur-effect" />}
+        <div className="expand-btn">
+          <button onClick={handleShowHiddenButtonClick}>
+            {showHidden ? "VIEW LESS" : "VIEW ALL"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
