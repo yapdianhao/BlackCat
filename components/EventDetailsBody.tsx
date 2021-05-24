@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
 import "../styles/EventDetailsBody.scss";
+import CommentIcon from "./CommentIcon";
+import CommentIconOutline from "./CommentIconOutline";
+import PeopleIconOutline from "./PeopleIconOutline";
+import PeopleIcon from "./PeopleIcon";
+import InfoIcon from "./InfoIcon";
+import InfoIconOutline from "./InfoIconOutline";
 
 const profilePic = require("../images/Street-Dance-01.jpg");
 
@@ -55,6 +61,7 @@ const EventDetailsBody = () => {
             detailTabSelected ? "chosen" : "not-chosen"
           }`}
         >
+          <InfoIcon />
           details
         </div>
         <div
@@ -63,6 +70,7 @@ const EventDetailsBody = () => {
             participantTabSelected ? "chosen" : "not-chosen"
           }`}
         >
+          <PeopleIcon />
           participants
         </div>
         <div
@@ -71,6 +79,7 @@ const EventDetailsBody = () => {
             commentsTabSelected ? "chosen" : "not-chosen"
           }`}
         >
+          <CommentIcon />
           comments
         </div>
       </div>

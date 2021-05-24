@@ -87,6 +87,13 @@
   .individual-stats {
     display: flex;
     justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 16.7px;
+      height: 16.7px;
+      padding: 5px;
+    }
   }
 
   .chosen {
