@@ -186,7 +186,7 @@ export const getEvents = () => {
 //   });
 // };
 
-export const getEvent = (id: number) => {
+export const getEventById = (id: number) => {
   return events[id - 1];
 };
 

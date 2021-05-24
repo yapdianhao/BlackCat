@@ -22,9 +22,11 @@ const Home = () => {
 
   const handleClickSearch: React.MouseEventHandler<HTMLDivElement> = () => {
     setUserSearchedResults((userSearchedResults) => !userSearchedResults);
+    setSideDrawerOpen(false);
   };
 
   console.log(userSearchedResults);
+  console.log(sideDrawerOpen);
   return (
     <>
       <Toolbar drawerClickHandler={handleDrawerToggleClick} />

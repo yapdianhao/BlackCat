@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+
+.event-details-body {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.event-header {
+  display: flex;
+}
+
+.filler {
+  flex: 1;
+}
+
+.event-channel-name {
+  padding: 5px;
+  font-size: 12px;
+  margin-left: auto;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  border-radius: 25px;
+  color: #8560a9;
+  border: 1px solid #8560a9;
+}
+
+.event-title {
+  padding-top: 5px;
+  font-size: 18px;
+  font-family: "Source Sans Pro";
+  font-weight: 600;
+  color: #453257;
+}
+
+.event-info-row {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.event-info-col-img {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-profile-pic {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+}
+
+.event-info-row-publish-details-area {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.event-info-col-publish-details {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+
+  .username {
+    font-size: 14px;
+    color: #67616d;
+  }
+
+  .last-publish {
+    color: #bababa;
+    font-size: 12px;
+  }
+}
+
+.event-stats {
+  font-family: "Source Sans Pro";
+  font-weight: 400px;
+  padding: 5px;
+  column-count: 3;
+  column-rule-style: solid;
+  column-rule-width: 1px;
+  column-rule-color: #e8e8e8;
+
+  .individual-stats {
+    display: flex;
+    justify-content: center;
+  }
+
+  .chosen {
+    color: #aecb4f;
+    fill: #aecb4f;
+  }
+
+  .not-chosen {
+    color: #8c8c8c;
+    fill: #8c8c8c;
+  }
+}
+
+.divider {
+  border: 1px solid #e8e8e8;
+}

@@ -1,5 +1,5 @@
-import { profile } from "console";
 import React from "react";
+import { useHistory } from "react-router";
 
 import "../styles/EventCard.scss";
 const profilePic = require("../images/Street-Dance-01.jpg");
@@ -15,6 +15,8 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = (props) => {
+  const history = useHistory();
+
   const monthNames = [
     "Jan",
     "Feb",
@@ -31,8 +33,13 @@ const EventCard: React.FC<EventCardProps> = (props) => {
   ];
   const passedStartDate = new Date(props.eventToRender.eventStartDateTime);
   const passedEndDate = new Date(props.eventToRender.eventEndDateTime);
+
+  const handleClickEventCard = () => {
+    history.push(`/events/${props.eventToRender.eventId}`);
+  };
+
   return (
-    <div className="card-outline">
+    <div className="card-outline" onClick={handleClickEventCard}>
       <div className="card-header">
         <img src={String(profilePic)} className="profile-pic" />
         <div className="user-name">{props.eventToRender.eventPostedBy}</div>

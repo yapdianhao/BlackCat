@@ -15,15 +15,16 @@ import { getUsers, getUser } from "./controller/userAPI";
 // import the rest of the operations
 import {
   getEvents,
+  getEventById,
   getEventWithLimit,
   getTodayEvents,
   getTomorrowEvents,
   getThisWeekEvents,
   getThisMonthEvents,
   getEventsByChannel,
+  getLaterEvents,
 } from "./controller/eventsAPI";
 import { getChannels } from "./controller/channelAPI";
-import { resolveSoa } from "dns";
 
 const port: string | number = process.env.PORT || 5000;
 
@@ -45,9 +46,9 @@ app.get("/api/events", (req: any, res: any) => {
   res.send(getEvents());
 });
 
-// app.get("/api/events/:id", (req: any, res: any) => {
-//   res.send("get an event");
-// });
+app.get("/api/events/:id", (req: any, res: any) => {
+  res.send(getEventById(req.params.id));
+});
 
 app.get("/api/events/:limit/:offset", (req: any, res: any) => {
   res.send(getEventWithLimit(req.params.limit, req.params.offset));
@@ -75,7 +76,7 @@ app.get("/api/events/thismonth", (req: any, res: any) => {
 
 app.get("/api/events/later", (req: any, res: any) => {
   console.log("requested later events");
-  // res.send(getLaterEvents());
+  res.send(getLaterEvents());
 });
 
 app.get("/api/channels", (req: any, res: any) => {
