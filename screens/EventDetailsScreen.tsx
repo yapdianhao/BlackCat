@@ -32,7 +32,9 @@ const EventDetailsScreen = () => {
     <div>
       <EventDetailsToolBar />
       <main>
-        <EventDetailsBody />
+        {eventToRender === undefined ? null : (
+          <EventDetailsBody eventToRender={eventToRender} />
+        )}
       </main>
     </div>
   );

@@ -7,6 +7,7 @@ let users: User[] = [
     userId: 1,
     userName: "yapdianhao",
     userEmail: "dianhao.yap@shopee.com",
+    userImgUrl: "",
     userPassword: "???",
     userLikedEvents: [],
     userGoingEvents: [],
@@ -17,6 +18,7 @@ for (let i = 2; i <= 100; i++) {
   let fakerUserId: number = i;
   let fakerUserName: string = faker.name.firstName();
   let fakerUserEmail: string = faker.internet.email();
+  let fakeImgUrl: string = faker.image.imageUrl();
   let fakerUserPassword: string = faker.internet.password();
   let randomGoingEventNum = Math.floor(Math.random() * 100);
   let randomLikeEventNum = Math.floor(Math.random() * 100);
@@ -25,6 +27,7 @@ for (let i = 2; i <= 100; i++) {
     userName: fakerUserName,
     userEmail: fakerUserEmail,
     userPassword: fakerUserPassword,
+    userImgUrl: fakeImgUrl,
     userLikedEvents: Array.from({ length: randomLikeEventNum }, () =>
       Math.floor(Math.random() * 100)
     ),
@@ -38,21 +41,21 @@ export const getUsers = () => {
   return users;
 };
 
-export const createUser = (
-  newUserName: string,
-  newUserEmail: string,
-  newUserPassword: string
-) => {
-  users.push({
-    userId: users.length + 1,
-    userName: newUserName,
-    userEmail: newUserEmail,
-    userPassword: newUserPassword,
-    userLikedEvents: [],
-    userGoingEvents: [],
-  });
-  console.log(`User {newUserName} added to database.`);
-};
+// export const createUser = (
+//   newUserName: string,
+//   newUserEmail: string,
+//   newUserPassword: string
+// ) => {
+//   users.push({
+//     userId: users.length + 1,
+//     userName: newUserName,
+//     userEmail: newUserEmail,
+//     userPassword: newUserPassword,
+//     userLikedEvents: [],
+//     userGoingEvents: [],
+//   });
+//   console.log(`User {newUserName} added to database.`);
+// };
 
 export const getUser = (id: number) => {
   return users[id - 1];

@@ -1,6 +1,8 @@
 import { Event } from "../model/event";
+import { Comment } from "../model/comment";
 import { getUsers } from "../controller/userAPI";
 import { getChannels } from "./channelAPI";
+import { getComments } from "./commentsAPI";
 import {
   dateIsToday,
   dateIsTomorrow,
@@ -8,6 +10,7 @@ import {
   dateIsWithinMonth,
   dateIsLater,
 } from "../../helper/DateCalculator";
+import { User } from "../model/user";
 
 const faker = require("faker");
 
@@ -15,6 +18,7 @@ let events: Event[] = [];
 
 let channelsForEvents = getChannels();
 let usersForEvents = getUsers();
+let commentsForEvents = getComments();
 
 let eventType = [
   "Past",
@@ -38,14 +42,26 @@ for (let i: number = 1; i <= 30; i++) {
     " " +
     faker.lorem.sentence();
   let fakeEventLocation: string = faker.address.streetAddress();
-  let fakePosterName: string =
-    usersForEvents[Math.floor(Math.random() * usersForEvents.length)].userName;
+  let fakePosterName: number =
+    usersForEvents[Math.floor(Math.random() * usersForEvents.length)].userId;
+  // random number of users who like this event.
+  let fakeUsersWhoLikesEvent: User[] = [];
   let fakeEventLikesCount: number = Math.floor(
     Math.random() * usersForEvents.length
   );
+  for (let i = 0; i < fakeEventLikesCount; i++) {
+    let fakeUserIdx = Math.floor(Math.random() * usersForEvents.length);
+    fakeUsersWhoLikesEvent.push(usersForEvents[fakeUserIdx]);
+  }
+  // random number of users who is going to this event.
+  let fakeUsersWhoGoesEvent: User[] = [];
   let fakeEventGoingCount: number = Math.floor(
     Math.random() * usersForEvents.length
   );
+  for (let i = 0; i < fakeEventGoingCount; i++) {
+    let fakeUserIdx = Math.floor(Math.random() * usersForEvents.length);
+    fakeUsersWhoGoesEvent.push(usersForEvents[fakeUserIdx]);
+  }
   let fakeChannelName: string =
     channelsForEvents[Math.floor(Math.random() * channelsForEvents.length)]
       .channelName;
@@ -53,8 +69,22 @@ for (let i: number = 1; i <= 30; i++) {
   fakePublishDate.setDate(
     fakePublishDate.getDate() - Math.floor(Math.random() * 7) + 1
   );
+
+  let fakeGallerySize = Math.floor(Math.random() * 10);
+  let fakeGalleryUrls: string[] = [];
+  for (let i = 0; i < fakeGallerySize; i++) {
+    fakeGalleryUrls.push(faker.image.imageUrl());
+  }
+
   let fakeEventStartDateTime: Date;
   let fakeEventEndDateTime: Date;
+  let fakeEventComments: Comment[] = [];
+  // random number of comments of this post
+  let fakeCommentNumbers = Math.floor(Math.random() * 12);
+  for (let i = 0; i < fakeCommentNumbers; i++) {
+    let fakeCommentIndex = Math.floor(Math.random() * commentsForEvents.length);
+    fakeEventComments.push(commentsForEvents[fakeCommentIndex]);
+  }
   switch (randomEventTypeIdx) {
     case 0: {
       let startDate = new Date();
@@ -148,13 +178,15 @@ for (let i: number = 1; i <= 30; i++) {
     eventName: fakeEventName,
     eventDescription: fakeEventDescription,
     eventLocation: fakeEventLocation,
-    eventLikesCount: fakeEventLikesCount,
-    eventGoingCount: fakeEventGoingCount,
+    usersLikeEvent: Array.from(new Set(fakeUsersWhoLikesEvent)),
+    usersGoingEvent: Array.from(new Set(fakeUsersWhoGoesEvent)),
     eventStartDateTime: fakeEventStartDateTime,
     eventEndDateTime: fakeEventEndDateTime,
     eventChannel: fakeChannelName,
+    eventGalleryUrls: fakeGalleryUrls,
     eventPostedBy: fakePosterName,
     eventPostedOn: fakePublishDate,
+    eventComments: fakeEventComments,
   });
 }
 
@@ -200,26 +232,26 @@ export const deleteEvent = (toDeleteEventId: number) => {
   return events;
 };
 
-export const updateEvent = (
-  toUpdateEventId: number,
-  newEventName: string,
-  newEventDescription: string,
-  newEventLocation: string,
-  newEventChannel: string,
-  newPosterName: string,
-  newEventStartDateTime: Date,
-  newEventEndDateTime: Date
-) => {
-  const eventToUpdate: Event = events[toUpdateEventId - 1];
-  eventToUpdate.eventName = newEventName;
-  eventToUpdate.eventDescription = newEventDescription;
-  eventToUpdate.eventLocation = newEventLocation;
-  eventToUpdate.eventStartDateTime = newEventStartDateTime;
-  eventToUpdate.eventEndDateTime = newEventEndDateTime;
-  eventToUpdate.eventChannel = newEventChannel;
-  eventToUpdate.eventPostedBy = newPosterName;
-  return eventToUpdate;
-};
+// export const updateEvent = (
+//   toUpdateEventId: number,
+//   newEventName: string,
+//   newEventDescription: string,
+//   newEventLocation: string,
+//   newEventChannel: string,
+//   newPosterName: string,
+//   newEventStartDateTime: Date,
+//   newEventEndDateTime: Date
+// ) => {
+//   const eventToUpdate: Event = events[toUpdateEventId - 1];
+//   eventToUpdate.eventName = newEventName;
+//   eventToUpdate.eventDescription = newEventDescription;
+//   eventToUpdate.eventLocation = newEventLocation;
+//   eventToUpdate.eventStartDateTime = newEventStartDateTime;
+//   eventToUpdate.eventEndDateTime = newEventEndDateTime;
+//   eventToUpdate.eventChannel = newEventChannel;
+//   eventToUpdate.eventPostedBy = newPosterName;
+//   return eventToUpdate;
+// };
 
 export const getTodayEvents = () => {
   return events.filter((event) => dateIsToday(event.eventStartDateTime));

@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../styles/EventDetailsBody.scss";
+import { Event } from "../server/model/event";
+import { User } from "../server/model/user";
 import CommentIcon from "./CommentIcon";
 import CommentIconOutline from "./CommentIconOutline";
 import PeopleIconOutline from "./PeopleIconOutline";
@@ -19,20 +21,23 @@ import CheckIconOutline from "./CheckIconOutline";
 const profilePic = require("../images/Street-Dance-01.jpg");
 const googleMaps = require("../images/gmap.png");
 
-const EventDetailsBody = () => {
+interface EventDetailsBodyProps {
+  eventToRender: Event;
+}
+
+const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [detailTabSelected, setDetailTabSelected] = useState(true);
   const [participantTabSelected, setParticipantTabSelected] = useState(false);
   const [commentsTabSelected, setCommentsTabSelected] = useState(false);
   const [showHidden, setShowHidden] = useState(false);
   const [showMoreLikes, setShowMoreLikes] = useState(false);
+  const [showMoreGoing, setShowMoreGoing] = useState(false);
+  const [likesUsersUrl, setLikesUsersUrl] = useState<string[]>([]);
+  const [goingUsersUrl, setGoingUsersUrl] = useState<string[]>([]);
+  const [eventPoster, setEventPoster] = useState<User>();
 
-  const peopleWhoLikes = [
-    profilePic,
-    profilePic,
-    profilePic,
-    profilePic,
-    profilePic,
-  ];
+  const peopleWhoLikes = props.eventToRender.usersLikeEvent;
+  const peopleWhoGoes = props.eventToRender.usersGoingEvent;
 
   let expanded = true;
 
@@ -61,8 +66,6 @@ const EventDetailsBody = () => {
   const handleClickSeeMoreLikes = () => {
     setShowMoreLikes(!showMoreLikes);
   };
-
-  console.log(showMoreLikes);
 
   const renderList = (lst: any) => {
     if (lst.length <= 7) {
@@ -97,7 +100,6 @@ const EventDetailsBody = () => {
         );
       } else {
         let slicedList = generateEqualLengthList(lst);
-        console.log(slicedList);
         return slicedList.map((subList: any, index: any) => {
           if (index == slicedList.length - 1) {
             return generateLastList(subList);
@@ -151,19 +153,69 @@ const EventDetailsBody = () => {
     );
   };
 
+  const fetchUserGoingUrl = async (user: User) => {
+    await fetch(`http://localhost:5000/api/users/${user.userId}`)
+      .then((result) => result.json())
+      .then((data) => {
+        setGoingUsersUrl([...goingUsersUrl, data]);
+      });
+  };
+
+  const fetchUserLikesUrl = async (user: User) => {
+    await fetch(`http://localhost:5000/api/users/${user.userId}`)
+      .then((result) => result.json())
+      .then((data) => {
+        setLikesUsersUrl([...likesUsersUrl, data]);
+      });
+  };
+
+  const fetchEventPosterUrl = async () => {
+    await fetch(
+      `http://localhost:5000/api/users/${props.eventToRender.eventPostedBy}`
+    )
+      .then((result) => result.json())
+      .then((data) => {
+        console.log(data);
+        setEventPoster(data);
+      });
+  };
+
+  const fetchUrl = async (userLst: User[]) => {
+    let urlList: string[] = [];
+    for (let i = 0; i < userLst.length; i++) {
+      const response = await fetch(
+        `http://localhost:5000/api/users/${userLst[i].userId}`
+      );
+      const data = await response.json();
+      urlList.push(data.userImgUrl);
+    }
+    console.log(urlList);
+    setLikesUsersUrl(urlList);
+  };
+
+  useEffect(() => {
+    fetchEventPosterUrl();
+    fetchUrl(peopleWhoLikes);
+  }, []);
+
   return (
     <>
       <div className="event-details-body">
         <div className="event-header">
-          <div className="event-channel-name">Channel Name</div>
+          <div className="event-channel-name">
+            {props.eventToRender.eventChannel}
+          </div>
           <div className="filler"></div>
         </div>
-        <div className="event-title">
-          Activity title may be more than one line may be longer
-        </div>
+        <div className="event-title">{props.eventToRender.eventName}</div>
         <div className="event-info-row">
           <div className="event-info-col-img">
-            <img src={String(profilePic)} className="event-profile-pic" />
+            {eventPoster === undefined ? null : (
+              <img
+                src={String(eventPoster.userImgUrl)}
+                className="event-profile-pic"
+              />
+            )}
           </div>
           <div className="event-info-row-publish-details-area">
             <div className="event-info-col-publish-details">

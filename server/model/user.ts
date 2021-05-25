@@ -3,6 +3,7 @@ export interface User {
   userName: string;
   userPassword: string;
   userEmail: string;
+  userImgUrl: string;
   userLikedEvents: number[];
   userGoingEvents: number[];
 }
