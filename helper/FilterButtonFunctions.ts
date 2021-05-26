@@ -10,8 +10,11 @@ export const getAll = async (filterChannelName?: string) => {
 };
 
 const getToday = async (filterChannelName?: string) => {
-  const filteredData = await fetch("http://localhost:5000/api/events/today")
-    .then((response) => response.json())
+  const filteredData = await fetch("http://localhost:5000/api/eventstoday")
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
     .then((data) => {
       console.log(data);
       return data;
@@ -21,8 +24,11 @@ const getToday = async (filterChannelName?: string) => {
 };
 
 const getTomorrow = async (filterChannelName?: string) => {
-  const filteredData = await fetch("http://localhost:5000/api/events/tomorrow")
-    .then((response) => response.json())
+  const filteredData = await fetch("http://localhost:5000/api/eventstomorrow")
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
     .then((data) => {
       console.log(data);
       return data;
@@ -32,8 +38,11 @@ const getTomorrow = async (filterChannelName?: string) => {
 };
 
 const getThisWeek = async (filterChannelName?: string) => {
-  const filteredData = await fetch("http://localhost:5000/api/events/thisweek")
-    .then((response) => response.json())
+  const filteredData = await fetch("http://localhost:5000/api/eventsthisweek")
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
     .then((data) => {
       console.log(data);
       return data;
@@ -44,8 +53,11 @@ const getThisWeek = async (filterChannelName?: string) => {
 
 const getThisMonth = async (filterChannelName?: string) => {
   // filter with same month;
-  const filteredData = await fetch("http://localhost:5000/api/events/thismonth")
-    .then((response) => response.json())
+  const filteredData = await fetch("http://localhost:5000/api/eventsthismonth")
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
     .then((data) => {
       console.log(data);
       return data;
@@ -55,8 +67,11 @@ const getThisMonth = async (filterChannelName?: string) => {
 };
 
 const getLater = async (filterChannelName?: string) => {
-  const filteredData = await fetch("http://localhost:5000/api/events/later")
-    .then((response) => response.json())
+  const filteredData = await fetch("http://localhost:5000/api/eventslater")
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
     .then((data) => {
       console.log(data);
       return data;
@@ -67,9 +82,12 @@ const getLater = async (filterChannelName?: string) => {
 
 export const getByChannel = async (filterChannelName?: string) => {
   const filteredData = await fetch(
-    `http://localhost:5000/api/events/${filterChannelName}`
+    `http://localhost:5000/api/filterchannel/${filterChannelName}`
   )
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
     .then((data) => {
       console.log(data);
       return data;

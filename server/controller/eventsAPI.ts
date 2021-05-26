@@ -275,6 +275,7 @@ export const getLaterEvents = () => {
 
 export const getEventsByChannel = (filterChannelName: string) => {
   console.log(filterChannelName);
+  console.log(filterChannelName);
   return events.filter((event) => {
     return event.eventChannel === filterChannelName;
   });

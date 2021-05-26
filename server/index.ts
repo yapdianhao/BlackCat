@@ -47,6 +47,7 @@ app.get("/api/events", (req: any, res: any) => {
 });
 
 app.get("/api/events/:id", (req: any, res: any) => {
+  console.log("requested specific event with id");
   res.send(getEventById(req.params.id));
 });
 
@@ -54,27 +55,27 @@ app.get("/api/events/:limit/:offset", (req: any, res: any) => {
   res.send(getEventWithLimit(req.params.limit, req.params.offset));
 });
 
-app.get("/api/events/today", (req: any, res: any) => {
+app.get("/api/eventstoday", (req: any, res: any) => {
   console.log("requested today events");
   res.send(getTodayEvents());
 });
 
-app.get("/api/events/tomorrow", (req: any, res: any) => {
+app.get("/api/eventstomorrow", (req: any, res: any) => {
   console.log("requested tomorrow events");
   res.send(getTomorrowEvents());
 });
 
-app.get("/api/events/thisweek", (req: any, res: any) => {
+app.get("/api/eventsthisweek", (req: any, res: any) => {
   console.log("requested this week events");
   res.send(getThisWeekEvents());
 });
 
-app.get("/api/events/thismonth", (req: any, res: any) => {
+app.get("/api/eventsthismonth", (req: any, res: any) => {
   console.log("requested this month events");
   res.send(getThisMonthEvents());
 });
 
-app.get("/api/events/later", (req: any, res: any) => {
+app.get("/api/eventslater", (req: any, res: any) => {
   console.log("requested later events");
   res.send(getLaterEvents());
 });
@@ -84,8 +85,9 @@ app.get("/api/channels", (req: any, res: any) => {
   res.send(getChannels());
 });
 
-app.get("/api/events/:channelName", (req: any, res: any) => {
+app.get("/api/filterchannel/:channelName", (req: any, res: any) => {
   console.log("get filter with channel");
+  console.log(req.params.channelName);
   res.send(getEventsByChannel(req.params.channelName));
 });
 
