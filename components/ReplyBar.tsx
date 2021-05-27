@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 
 import "../styles/ReplyBar.scss";
-import { store } from "../store/store";
 import SendIcon from "./SendIcon";
 import CrossIcon from "./CrossIcon";
+import e from "cors";
 
 interface ReplyBarProps {
   handleClickCancelIcon: any;
+  handleSendIcon: any;
 }
 
 const ReplyBar: React.FC<ReplyBarProps> = (props) => {
   const [commentInput, setCommentInput] = useState("");
+
+  const sendComment = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    props.handleSendIcon(commentInput);
+    setCommentInput("");
+    console.log(commentInput);
+  };
 
   return (
     <div className="reply-bar">
@@ -24,11 +32,7 @@ const ReplyBar: React.FC<ReplyBarProps> = (props) => {
         />
       </div>
       <div className="reply-send-button-area">
-        <SendIcon
-          handleSendComment={() => {
-            console.log(commentInput);
-          }}
-        />
+        <SendIcon handleSendComment={sendComment} />
       </div>
     </div>
   );

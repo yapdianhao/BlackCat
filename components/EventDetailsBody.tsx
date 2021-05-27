@@ -49,6 +49,9 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [eventPoster, setEventPoster] = useState<User>();
   const [didDivOverflow, setDidDivOverflow] = useState(false);
   const [userIsCommenting, setUserIsCommenting] = useState(false);
+  const [commentedUsers, setCommentedUsers] = useState(
+    props.eventToRender.eventComments
+  );
   const [commentingUserList, setCommentingUsersList] = useState<User[]>([]);
 
   const longDescRef = useRef(null);
@@ -90,6 +93,22 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const handleClickCommentButton = () => {
     setUserIsCommenting(!userIsCommenting);
     console.log(userIsCommenting);
+  };
+
+  const handleClickSend = async (message: string) => {
+    setCommentedUsers([
+      ...commentedUsers,
+      {
+        commentedBy: 1,
+        commentTimeBefore: 0,
+        commentContent: message,
+      },
+    ]);
+    const newCommentUser = await fetch(`http://localhost:5000/api/users/1`)
+      .then((response) => response.json())
+      .then((data) => data);
+
+    setCommentingUsersList([...commentingUserList, newCommentUser]);
   };
 
   const renderList = (lst: any) => {
@@ -233,6 +252,9 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setDidDivOverflow(didTextOverflow());
     fetchCommentingUsers();
   }, []);
+
+  console.log(commentedUsers);
+  console.log(commentingUserList);
 
   return (
     <>
@@ -396,39 +418,40 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
         </div>
         <hr className="divider" />
-        {props.eventToRender.eventComments.map(
-          (comment: Comment, idx: number) => {
-            return (
-              <div className="comment-list-area">
-                <div className="comment-user-profile-pic">
-                  <img
-                    src={
-                      commentingUserList[idx] &&
-                      String(commentingUserList[idx].userImgUrl)
-                    }
-                  />
-                </div>
-                <div className="comment-details-layout">
-                  <div className="comment-details">
-                    <div className="comment-username">
-                      {commentingUserList[idx] &&
-                        commentingUserList[idx].userName}
-                    </div>
-                    <div className="comment-time">{`${comment.commentTimeBefore} hours ago`}</div>
-                    <div className="filler"></div>
-                  </div>
-                  <div className="comment-words">{comment.commentContent}</div>
-                </div>
-                <div className="reply-button">
-                  <ReplyIcon />
-                </div>
+        {commentedUsers.map((comment: Comment, idx: number) => {
+          return (
+            <div className="comment-list-area">
+              <div className="comment-user-profile-pic">
+                <img
+                  src={
+                    commentingUserList[idx] &&
+                    String(commentingUserList[idx].userImgUrl)
+                  }
+                />
               </div>
-            );
-          }
-        )}
+              <div className="comment-details-layout">
+                <div className="comment-details">
+                  <div className="comment-username">
+                    {commentingUserList[idx] &&
+                      commentingUserList[idx].userName}
+                  </div>
+                  <div className="comment-time">{`${comment.commentTimeBefore} hours ago`}</div>
+                  <div className="filler"></div>
+                </div>
+                <div className="comment-words">{comment.commentContent}</div>
+              </div>
+              <div className="reply-button">
+                <ReplyIcon />
+              </div>
+            </div>
+          );
+        })}
       </div>
       {userIsCommenting ? (
-        <ReplyBar handleClickCancelIcon={handleClickCommentButton} />
+        <ReplyBar
+          handleClickCancelIcon={handleClickCommentButton}
+          handleSendIcon={handleClickSend}
+        />
       ) : (
         <ReactionBar handleClickCommentButton={handleClickCommentButton} />
       )}
