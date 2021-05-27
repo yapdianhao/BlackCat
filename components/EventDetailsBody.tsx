@@ -55,6 +55,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [commentingUserList, setCommentingUsersList] = useState<User[]>([]);
 
   const longDescRef = useRef(null);
+  const bottomSection = useRef(null);
 
   const peopleWhoLikes = props.eventToRender.usersLikeEvent;
   const peopleWhoGoes = props.eventToRender.usersGoingEvent;
@@ -90,9 +91,10 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setShowMoreLikes(!showMoreLikes);
   };
 
-  const handleClickCommentButton = () => {
-    setUserIsCommenting(!userIsCommenting);
-    console.log(userIsCommenting);
+  const handleClickCommentButton = (toggle?: boolean) => {
+    if (toggle == true) {
+      setUserIsCommenting(toggle);
+    } else setUserIsCommenting(!userIsCommenting);
   };
 
   const handleClickSend = async (message: string) => {
@@ -246,15 +248,16 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     return false;
   };
 
+  const scrollToBottom = () => {
+    bottomSection.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     fetchEventPosterUrl();
     fetchUrl(peopleWhoLikes);
     setDidDivOverflow(didTextOverflow());
     fetchCommentingUsers();
   }, []);
-
-  console.log(commentedUsers);
-  console.log(commentingUserList);
 
   return (
     <>
@@ -441,20 +444,25 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
                 <div className="comment-words">{comment.commentContent}</div>
               </div>
               <div className="reply-button">
-                <ReplyIcon />
+                <ReplyIcon
+                  handleReplyIconClick={handleClickCommentButton}
+                  scrollToBottom={scrollToBottom}
+                />
               </div>
             </div>
           );
         })}
       </div>
-      {userIsCommenting ? (
-        <ReplyBar
-          handleClickCancelIcon={handleClickCommentButton}
-          handleSendIcon={handleClickSend}
-        />
-      ) : (
-        <ReactionBar handleClickCommentButton={handleClickCommentButton} />
-      )}
+      <div ref={bottomSection}>
+        {userIsCommenting ? (
+          <ReplyBar
+            handleClickCancelIcon={handleClickCommentButton}
+            handleSendIcon={handleClickSend}
+          />
+        ) : (
+          <ReactionBar handleClickCommentButton={handleClickCommentButton} />
+        )}
+      </div>
     </>
   );
 };
