@@ -8,6 +8,7 @@ import e from "cors";
 interface ReplyBarProps {
   handleClickCancelIcon: any;
   handleSendIcon: any;
+  placeHolder: string;
 }
 
 const ReplyBar: React.FC<ReplyBarProps> = (props) => {
@@ -27,7 +28,7 @@ const ReplyBar: React.FC<ReplyBarProps> = (props) => {
           <CrossIcon handleClickCancel={props.handleClickCancelIcon} />
         </div>
         <input
-          placeholder="Leave your comment here"
+          placeholder={props.placeHolder}
           onChange={(e) => setCommentInput(e.target.value)}
         />
       </div>

@@ -3,11 +3,12 @@ import React from "react";
 interface ReplyIconProps {
   handleReplyIconClick: any;
   scrollToBottom: any;
+  replyTo: string;
 }
 
 const ReplyIcon: React.FC<ReplyIconProps> = (props) => {
   const handleClick = () => {
-    props.handleReplyIconClick(true);
+    props.handleReplyIconClick(props.replyTo);
     props.scrollToBottom();
   };
 

@@ -53,6 +53,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     props.eventToRender.eventComments
   );
   const [commentingUserList, setCommentingUsersList] = useState<User[]>([]);
+  const [placeHolder, setPlaceholder] = useState("Leave your comment here");
 
   const longDescRef = useRef(null);
   const bottomSection = useRef(null);
@@ -91,10 +92,14 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setShowMoreLikes(!showMoreLikes);
   };
 
-  const handleClickCommentButton = (toggle?: boolean) => {
-    if (toggle == true) {
-      setUserIsCommenting(toggle);
-    } else setUserIsCommenting(!userIsCommenting);
+  const handleClickCommentButton = () => {
+    setUserIsCommenting(!userIsCommenting);
+    setPlaceholder("Leave your comment here");
+  };
+
+  const handleClickReplyButton = (replyTo: string) => {
+    setUserIsCommenting(true);
+    setPlaceholder(replyTo);
   };
 
   const handleClickSend = async (message: string) => {
@@ -445,8 +450,11 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
               </div>
               <div className="reply-button">
                 <ReplyIcon
-                  handleReplyIconClick={handleClickCommentButton}
+                  handleReplyIconClick={handleClickReplyButton}
                   scrollToBottom={scrollToBottom}
+                  replyTo={`@ ${
+                    commentingUserList[idx] && commentingUserList[idx].userName
+                  }`}
                 />
               </div>
             </div>
@@ -458,6 +466,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           <ReplyBar
             handleClickCancelIcon={handleClickCommentButton}
             handleSendIcon={handleClickSend}
+            placeHolder={placeHolder}
           />
         ) : (
           <ReactionBar handleClickCommentButton={handleClickCommentButton} />
