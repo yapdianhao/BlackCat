@@ -41,7 +41,8 @@ for (let i: number = 1; i <= 30; i++) {
     faker.lorem.sentence() +
     " " +
     faker.lorem.sentence();
-  let fakeEventLocation: string = faker.address.streetAddress();
+  let fakeEventLocation: string =
+    faker.address.streetAddress() + " " + faker.address.secondaryAddress();
   let fakePosterName: number =
     usersForEvents[Math.floor(Math.random() * usersForEvents.length)].userId;
   // random number of users who like this event.

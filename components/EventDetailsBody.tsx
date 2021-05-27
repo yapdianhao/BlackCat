@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/EventDetailsBody.scss";
 import { Event } from "../server/model/event";
 import { User } from "../server/model/user";
+import { monthNames } from "../helper/MonthNames";
 import CommentIcon from "./CommentIcon";
 import CommentIconOutline from "./CommentIconOutline";
 import PeopleIconOutline from "./PeopleIconOutline";
@@ -209,7 +210,31 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setDidDivOverflow(didTextOverflow());
   }, []);
 
-  console.log(didTextOverflow());
+  const renderDate = (date: Date) => {
+    return date.getDate();
+  };
+
+  const renderMonth = (date: Date) => {
+    return monthNames[date.getMonth()];
+  };
+
+  const renderYear = (date: Date) => {
+    return date.getFullYear();
+  };
+
+  const renderMinutes = (date: Date) => {
+    return date.getMinutes();
+  };
+
+  const renderHour = (date: Date) => {
+    const hours = date.getHours();
+    return hours > 12 ? hours - 12 : hours;
+  };
+
+  const renderAmPm = (date: Date) => {
+    const hours = date.getHours();
+    return hours >= 12 ? "pm" : "am";
+  };
 
   return (
     <>
@@ -273,10 +298,10 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         </div>
         <hr className="divider" />
         <div className="gallery">
-          {props.eventToRender.eventGalleryUrls &&
-            props.eventToRender.eventGalleryUrls.map((url: string) => (
-              <img src={url} />
-            ))}
+          {/* {props.eventToRender.eventGalleryUrls &&
+            props.eventToRender.eventGalleryUrls.map(
+              (url: string, idx: number) => <img src={url} key={idx} />
+            )} */}
         </div>
         <div className="desc">
           <div
@@ -285,7 +310,9 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           >
             {props.eventToRender.eventDescription}
           </div>
-          {showHidden ? null : <div className="blur-effect" />}
+          {showHidden || !didDivOverflow ? null : (
+            <div className="blur-effect" />
+          )}
           {didDivOverflow ? (
             <div className="expand-btn">
               <button onClick={handleShowHiddenButtonClick}>
@@ -303,27 +330,48 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           <div className="time-col">
             <div className="time-col-row">
               <DateFromIcon />
-              <div>5 April 2015</div>
+              <div>{`${renderDate(
+                new Date(props.eventToRender.eventStartDateTime)
+              )} ${renderMonth(
+                new Date(props.eventToRender.eventStartDateTime)
+              )} ${renderYear(
+                new Date(props.eventToRender.eventStartDateTime)
+              )}`}</div>
             </div>
           </div>
-          <div className="time-col-big-row">8:30 pm</div>
+          <div className="time-col-big-row">{`${renderHour(
+            new Date(props.eventToRender.eventStartDateTime)
+          )}: ${renderMinutes(
+            new Date(props.eventToRender.eventStartDateTime)
+          )} ${renderAmPm(
+            new Date(props.eventToRender.eventStartDateTime)
+          )}`}</div>
           <div className="time-col">
             <div className="time-col-row">
               <DateToIcon />
-              <div>5 April 2015</div>
+              <div>{`${renderDate(
+                new Date(props.eventToRender.eventEndDateTime)
+              )} ${renderMonth(
+                new Date(props.eventToRender.eventEndDateTime)
+              )} ${renderYear(
+                new Date(props.eventToRender.eventEndDateTime)
+              )}`}</div>
             </div>
           </div>
-          <div className="time-col-big-row">8:30 pm</div>
+          <div className="time-col-big-row">{`${renderHour(
+            new Date(props.eventToRender.eventEndDateTime)
+          )}: ${renderMinutes(
+            new Date(props.eventToRender.eventEndDateTime)
+          )} ${renderAmPm(
+            new Date(props.eventToRender.eventEndDateTime)
+          )}`}</div>
         </div>
         <hr className="divider" />
         <div className="section-starter">
           <div className="section-shape" />
           <div className="section-text">Where</div>
         </div>
-        <div className="location">
-          Marina Bay Sands, 10 Bayfront Avenue, s297483902745, XXX Road
-          Singapore
-        </div>
+        <div className="location">{props.eventToRender.eventLocation}</div>
         <div className="loc-map">
           <img src={String(googleMaps)} />
         </div>
@@ -331,19 +379,20 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         <div className="going-list-outline">
           <div className="going-list-title">
             <CheckIcon />
-            34 going
+            {`${props.eventToRender.usersGoingEvent.length} going`}
           </div>
           <div className="going-list-people-col">
-            {renderList(peopleWhoLikes)}
+            {/* {renderList(peopleWhoLikes)} */}
           </div>
         </div>
         <hr className="divider" />
         <div className="going-list-outline">
           <div className="going-list-title">
-            <CheckIcon />7 likes
+            <CheckIcon />
+            {`${props.eventToRender.usersLikeEvent.length} likes`}
           </div>
           <div className="going-list-people-col">
-            {renderList(peopleWhoLikes)}
+            {/* {renderList(peopleWhoLikes)} */}
           </div>
         </div>
         <hr className="divider" />
