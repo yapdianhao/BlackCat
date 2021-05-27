@@ -45,6 +45,8 @@
 .event-info-col-img {
   display: flex;
   flex-direction: column;
+  width: 36px;
+  height: 36px;
 }
 
 .event-profile-pic {
@@ -129,7 +131,7 @@
 }
 
 .desc {
-  padding: 20px;
+  padding: 20px 10px;
   margin-bottom: 20px;
   position: relative;
   display: flex;

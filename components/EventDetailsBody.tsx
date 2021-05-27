@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import "../styles/EventDetailsBody.scss";
 import { Event } from "../server/model/event";
@@ -17,6 +17,7 @@ import CheckIcon from "./CheckIcon";
 import ExpandArrowIcon from "./ExpandArrowIcon";
 import ReplyIcon from "./ReplyIcon";
 import CheckIconOutline from "./CheckIconOutline";
+import { stringify } from "querystring";
 
 const profilePic = require("../images/Street-Dance-01.jpg");
 const googleMaps = require("../images/gmap.png");
@@ -35,6 +36,9 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [likesUsersUrl, setLikesUsersUrl] = useState<string[]>([]);
   const [goingUsersUrl, setGoingUsersUrl] = useState<string[]>([]);
   const [eventPoster, setEventPoster] = useState<User>();
+  const [didDivOverflow, setDidDivOverflow] = useState(false);
+
+  const longDescRef = useRef(null);
 
   const peopleWhoLikes = props.eventToRender.usersLikeEvent;
   const peopleWhoGoes = props.eventToRender.usersGoingEvent;
@@ -153,21 +157,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     );
   };
 
-  const fetchUserGoingUrl = async (user: User) => {
-    await fetch(`http://localhost:5000/api/users/${user.userId}`)
-      .then((result) => result.json())
-      .then((data) => {
-        setGoingUsersUrl([...goingUsersUrl, data]);
-      });
-  };
-
-  const fetchUserLikesUrl = async (user: User) => {
-    await fetch(`http://localhost:5000/api/users/${user.userId}`)
-      .then((result) => result.json())
-      .then((data) => {
-        setLikesUsersUrl([...likesUsersUrl, data]);
-      });
-  };
+  console.log(props.eventToRender.eventGalleryUrls);
 
   const fetchEventPosterUrl = async () => {
     await fetch(
@@ -178,6 +168,14 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         console.log(data);
         setEventPoster(data);
       });
+  };
+
+  const getDayDiff = () => {
+    const today = new Date();
+    const postedDate: Date = new Date(props.eventToRender.eventPostedOn);
+    const timeDiff = today.getDate() - postedDate.getDate();
+    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    return dayDiff;
   };
 
   const fetchUrl = async (userLst: User[]) => {
@@ -193,10 +191,25 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setLikesUsersUrl(urlList);
   };
 
+  const didTextOverflow = () => {
+    const node = longDescRef.current;
+    if (node) {
+      const isOverflowing =
+        node.clientWidth < node.scrollWidth ||
+        node.clientHeight < node.scrollHeight;
+      console.log("reached");
+      return isOverflowing;
+    }
+    return false;
+  };
+
   useEffect(() => {
     fetchEventPosterUrl();
     fetchUrl(peopleWhoLikes);
+    setDidDivOverflow(didTextOverflow());
   }, []);
+
+  console.log(didTextOverflow());
 
   return (
     <>
@@ -219,8 +232,12 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
           <div className="event-info-row-publish-details-area">
             <div className="event-info-col-publish-details">
-              <div className="username">Username</div>
-              <div className="last-publish">Published 2 days ago</div>
+              <div className="username">
+                {eventPoster && eventPoster.userName}
+              </div>
+              <div className="last-publish">{`Published ${getDayDiff()} day${
+                getDayDiff() > 1 ? "s" : ""
+              } ago`}</div>
             </div>
           </div>
         </div>
@@ -256,41 +273,26 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         </div>
         <hr className="divider" />
         <div className="gallery">
-          <img src={String(profilePic)} />
-          <img src={String(profilePic)} />
-          <img src={String(profilePic)} />
-          <img src={String(profilePic)} />
-          <img src={String(profilePic)} />
+          {props.eventToRender.eventGalleryUrls &&
+            props.eventToRender.eventGalleryUrls.map((url: string) => (
+              <img src={url} />
+            ))}
         </div>
         <div className="desc">
           <div
             className={showHidden ? "text-area-unhidden" : "text-area-hidden"}
+            ref={longDescRef}
           >
-            this is a very long text this is really a very long text how long
-            can it be it can be very long more than two lines more than three
-            lines this is going to be very very long wow long long text!! but
-            its not long enough so here are more words long long words this is a
-            veryverylongword word word word this is a very long text this is
-            really a very long text how long can it be it can be very long more
-            than two lines more than three lines this is going to be very very
-            long wow long long text!! but its not long enough so here are more
-            words long long words this is a veryverylongword word word word his
-            is a very long text this is really a very long text how long can it
-            be it can be very long more than two lines more than three lines
-            this is going to be very very long wow long long text!! but its not
-            long enough so here are more words long long words this is a
-            veryverylongword word word word his is a very long text this is
-            really a very long text how long can it be it can be very long more
-            than two lines more than three lines this is going to be very very
-            long wow long long text!! but its not long enough so here are more
-            words long long words this is a veryver
+            {props.eventToRender.eventDescription}
           </div>
           {showHidden ? null : <div className="blur-effect" />}
-          <div className="expand-btn">
-            <button onClick={handleShowHiddenButtonClick}>
-              {showHidden ? "VIEW LESS" : "VIEW ALL"}
-            </button>
-          </div>
+          {didDivOverflow ? (
+            <div className="expand-btn">
+              <button onClick={handleShowHiddenButtonClick}>
+                {showHidden ? "VIEW LESS" : "VIEW ALL"}
+              </button>
+            </div>
+          ) : null}
         </div>
         <hr className="divider" />
         <div className="section-starter">

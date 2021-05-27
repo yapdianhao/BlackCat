@@ -76,6 +76,7 @@ for (let i: number = 1; i <= 30; i++) {
     fakeGalleryUrls.push(faker.image.imageUrl());
   }
 
+  console.log(fakeGalleryUrls);
   let fakeEventStartDateTime: Date;
   let fakeEventEndDateTime: Date;
   let fakeEventComments: Comment[] = [];

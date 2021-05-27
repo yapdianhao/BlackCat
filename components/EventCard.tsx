@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 
 import "../styles/EventCard.scss";
 const profilePic = require("../images/Street-Dance-01.jpg");
 import { Event } from "../server/model/event";
+import { User } from "../server/model/user";
 import ClockIcon from "../components/ClockIcon";
 import HeartIcon from "./HeartIcon";
 import CheckIcon from "./CheckIcon";
@@ -16,6 +17,8 @@ interface EventCardProps {
 
 const EventCard: React.FC<EventCardProps> = (props) => {
   const history = useHistory();
+
+  const [eventPoster, setEventPoster] = useState<User>();
 
   const monthNames = [
     "Jan",
@@ -38,11 +41,26 @@ const EventCard: React.FC<EventCardProps> = (props) => {
     history.push(`/events/${props.eventToRender.eventId}`);
   };
 
+  const fetchEventPoster = async () => {
+    await fetch(
+      `http://localhost:5000/api/users/${props.eventToRender.eventPostedBy}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setEventPoster(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchEventPoster();
+  }, []);
+
   return (
     <div className="card-outline" onClick={handleClickEventCard}>
       <div className="card-header">
         <img src={String(profilePic)} className="profile-pic" />
-        <div className="user-name">{props.eventToRender.eventPostedBy}</div>
+        <div className="user-name">{eventPoster && eventPoster.userName}</div>
         <div className="channel-name">{props.eventToRender.eventChannel}</div>
       </div>
       <div className="activity-title">{props.eventToRender.eventName}</div>
