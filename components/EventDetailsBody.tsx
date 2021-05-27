@@ -4,6 +4,8 @@ import "../styles/EventDetailsBody.scss";
 import { Event } from "../server/model/event";
 import { User } from "../server/model/user";
 import { monthNames } from "../helper/MonthNames";
+import ReactionBar from "./ReactionBar";
+import ReplyBar from "./ReplyBar";
 import CommentIcon from "./CommentIcon";
 import CommentIconOutline from "./CommentIconOutline";
 import PeopleIconOutline from "./PeopleIconOutline";
@@ -18,7 +20,6 @@ import CheckIcon from "./CheckIcon";
 import ExpandArrowIcon from "./ExpandArrowIcon";
 import ReplyIcon from "./ReplyIcon";
 import CheckIconOutline from "./CheckIconOutline";
-import { stringify } from "querystring";
 
 const profilePic = require("../images/Street-Dance-01.jpg");
 const googleMaps = require("../images/gmap.png");
@@ -38,6 +39,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [goingUsersUrl, setGoingUsersUrl] = useState<string[]>([]);
   const [eventPoster, setEventPoster] = useState<User>();
   const [didDivOverflow, setDidDivOverflow] = useState(false);
+  const [userIsCommenting, setUserIsCommenting] = useState(false);
 
   const longDescRef = useRef(null);
 
@@ -70,6 +72,11 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
 
   const handleClickSeeMoreLikes = () => {
     setShowMoreLikes(!showMoreLikes);
+  };
+
+  const handleClickCommentButton = () => {
+    setUserIsCommenting(!userIsCommenting);
+    console.log(userIsCommenting);
   };
 
   const renderList = (lst: any) => {
@@ -487,18 +494,11 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
         </div>
       </div>
-      <div className="utilities-bar">
-        <div className="blue-button">
-          <SingleCommentIcon />
-        </div>
-        <div className="blue-button">
-          <HeartIcon />
-        </div>
-        <div className="yellow-button">
-          <CheckIconOutline />
-          <div>Going</div>
-        </div>
-      </div>
+      {userIsCommenting ? (
+        <ReplyBar handleClickCancelIcon={handleClickCommentButton} />
+      ) : (
+        <ReactionBar handleClickCommentButton={handleClickCommentButton} />
+      )}
     </>
   );
 };
