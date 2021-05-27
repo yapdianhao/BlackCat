@@ -3,7 +3,16 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/EventDetailsBody.scss";
 import { Event } from "../server/model/event";
 import { User } from "../server/model/user";
-import { monthNames } from "../helper/MonthNames";
+import { Comment } from "../server/model/comment";
+import {
+  renderDate,
+  renderMonth,
+  renderYear,
+  renderMinutes,
+  renderHour,
+  renderAmPm,
+  getDayDiff,
+} from "../helper/DateHelper";
 import ReactionBar from "./ReactionBar";
 import ReplyBar from "./ReplyBar";
 import CommentIcon from "./CommentIcon";
@@ -40,6 +49,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [eventPoster, setEventPoster] = useState<User>();
   const [didDivOverflow, setDidDivOverflow] = useState(false);
   const [userIsCommenting, setUserIsCommenting] = useState(false);
+  const [commentingUserList, setCommentingUsersList] = useState<User[]>([]);
 
   const longDescRef = useRef(null);
 
@@ -47,6 +57,9 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const peopleWhoGoes = props.eventToRender.usersGoingEvent;
 
   let expanded = true;
+  const commentUserIds = props.eventToRender.eventComments.map(
+    (cmt: Comment) => cmt.commentedBy
+  );
 
   const handleDetailTabClicked = () => {
     setDetailTabSelected(true);
@@ -165,8 +178,6 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     );
   };
 
-  console.log(props.eventToRender.eventGalleryUrls);
-
   const fetchEventPosterUrl = async () => {
     await fetch(
       `http://localhost:5000/api/users/${props.eventToRender.eventPostedBy}`
@@ -176,14 +187,6 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         console.log(data);
         setEventPoster(data);
       });
-  };
-
-  const getDayDiff = () => {
-    const today = new Date();
-    const postedDate: Date = new Date(props.eventToRender.eventPostedOn);
-    const timeDiff = today.getDate() - postedDate.getDate();
-    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    return dayDiff;
   };
 
   const fetchUrl = async (userLst: User[]) => {
@@ -197,6 +200,19 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     }
     console.log(urlList);
     setLikesUsersUrl(urlList);
+  };
+
+  const fetchCommentingUsers = async () => {
+    let commentUserList: User[] = [];
+    for (let i = 0; i < commentUserIds.length; i++) {
+      const response = await fetch(
+        `http://localhost:5000/api/users/${commentUserIds[i]}`
+      );
+      const data = await response.json();
+      commentUserList.push(data);
+    }
+    console.log(commentUserList);
+    setCommentingUsersList(commentUserList);
   };
 
   const didTextOverflow = () => {
@@ -215,33 +231,8 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     fetchEventPosterUrl();
     fetchUrl(peopleWhoLikes);
     setDidDivOverflow(didTextOverflow());
+    fetchCommentingUsers();
   }, []);
-
-  const renderDate = (date: Date) => {
-    return date.getDate();
-  };
-
-  const renderMonth = (date: Date) => {
-    return monthNames[date.getMonth()];
-  };
-
-  const renderYear = (date: Date) => {
-    return date.getFullYear();
-  };
-
-  const renderMinutes = (date: Date) => {
-    return date.getMinutes();
-  };
-
-  const renderHour = (date: Date) => {
-    const hours = date.getHours();
-    return hours > 12 ? hours - 12 : hours;
-  };
-
-  const renderAmPm = (date: Date) => {
-    const hours = date.getHours();
-    return hours >= 12 ? "pm" : "am";
-  };
 
   return (
     <>
@@ -267,8 +258,10 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
               <div className="username">
                 {eventPoster && eventPoster.userName}
               </div>
-              <div className="last-publish">{`Published ${getDayDiff()} day${
-                getDayDiff() > 1 ? "s" : ""
+              <div className="last-publish">{`Published ${getDayDiff(
+                props.eventToRender.eventPostedOn
+              )} day${
+                getDayDiff(props.eventToRender.eventPostedOn) > 1 ? "s" : ""
               } ago`}</div>
             </div>
           </div>
@@ -305,10 +298,10 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         </div>
         <hr className="divider" />
         <div className="gallery">
-          {/* {props.eventToRender.eventGalleryUrls &&
+          {props.eventToRender.eventGalleryUrls &&
             props.eventToRender.eventGalleryUrls.map(
               (url: string, idx: number) => <img src={url} key={idx} />
-            )} */}
+            )}
         </div>
         <div className="desc">
           <div
@@ -395,7 +388,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         <hr className="divider" />
         <div className="going-list-outline">
           <div className="going-list-title">
-            <CheckIcon />
+            <HeartIcon />
             {`${props.eventToRender.usersLikeEvent.length} likes`}
           </div>
           <div className="going-list-people-col">
@@ -403,96 +396,36 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
         </div>
         <hr className="divider" />
-        <div className="comment-list-area">
-          <div className="comment-user-profile-pic">
-            <img src={String(profilePic)} />
-          </div>
-          <div className="comment-details-layout">
-            <div className="comment-details">
-              <div className="comment-username">Ed Sheeran</div>
-              <div className="comment-time">9 hours ago</div>
-              <div className="filler"></div>
-            </div>
-            <div className="comment-words">
-              This is a comment a comment ment of the event.
-            </div>
-          </div>
-          <div className="reply-button">
-            <ReplyIcon />
-          </div>
-        </div>
-        <div className="comment-list-area">
-          <div className="comment-user-profile-pic">
-            <img src={String(profilePic)} />
-          </div>
-          <div className="comment-details-layout">
-            <div className="comment-details">
-              <div className="comment-username">Ed Sheeran</div>
-              <div className="comment-time">9 hours ago</div>
-              <div className="filler"></div>
-            </div>
-            <div className="comment-words">
-              This is a comment a comment ment of the event.
-            </div>
-          </div>
-          <div className="reply-button">
-            <ReplyIcon />
-          </div>
-        </div>
-        <div className="comment-list-area">
-          <div className="comment-user-profile-pic">
-            <img src={String(profilePic)} />
-          </div>
-          <div className="comment-details-layout">
-            <div className="comment-details">
-              <div className="comment-username">Ed Sheeran</div>
-              <div className="comment-time">9 hours ago</div>
-              <div className="filler"></div>
-            </div>
-            <div className="comment-words">
-              This is a comment a comment ment of the event.
-            </div>
-          </div>
-          <div className="reply-button">
-            <ReplyIcon />
-          </div>
-        </div>
-        <div className="comment-list-area">
-          <div className="comment-user-profile-pic">
-            <img src={String(profilePic)} />
-          </div>
-          <div className="comment-details-layout">
-            <div className="comment-details">
-              <div className="comment-username">Ed Sheeran</div>
-              <div className="comment-time">9 hours ago</div>
-              <div className="filler"></div>
-            </div>
-            <div className="comment-words">
-              This is a comment a comment ment of the event.
-            </div>
-          </div>
-          <div className="reply-button">
-            <ReplyIcon />
-          </div>
-        </div>
-        <div className="comment-list-area">
-          <div className="comment-user-profile-pic">
-            <img src={String(profilePic)} />
-          </div>
-          <div className="comment-details-layout">
-            <div className="comment-details">
-              <div className="comment-username">Ed Sheeran</div>
-              <div className="comment-time">9 hours ago</div>
-              <div className="filler"></div>
-            </div>
-            <div className="comment-words">
-              This is a comment a comment ment of the event.
-            </div>
-          </div>
-          <div className="reply-button">
-            <ReplyIcon />
-          </div>
-        </div>
+        {props.eventToRender.eventComments.map(
+          (comment: Comment, idx: number) => {
+            return (
+              <div className="comment-list-area">
+                <div className="comment-user-profile-pic">
+                  <img
+                    src={
+                      commentingUserList[idx] &&
+                      String(commentingUserList[idx].userImgUrl)
+                    }
+                  />
+                </div>
+                <div className="comment-details-layout">
+                  <div className="comment-details">
+                    <div className="comment-username">
+                      {commentingUserList[idx] &&
+                        commentingUserList[idx].userName}
+                    </div>
+                    <div className="comment-time">{`${comment.commentTimeBefore} hours ago`}</div>
+                    <div className="filler"></div>
+                  </div>
+                  <div className="comment-words">{comment.commentContent}</div>
+                </div>
+                <div className="reply-button">
+                  <ReplyIcon />
+                </div>
+              </div>
+            );
+          }
+        )}
       </div>
       {userIsCommenting ? (
         <ReplyBar handleClickCancelIcon={handleClickCommentButton} />
