@@ -1,19 +1,7 @@
 import { userAction } from "../actions/userAction";
-// interface UserState {
-//   userName: string;
-//   renderingEvents: Events[]
-// }
+import { User } from "../server/model/user";
 
-// const initialState = {
-//   userName: "",
-// };
-
-// type Action = {
-//   type: string;
-//   payload: string;
-// };
-
-export const userReducer = (state: string = "", action: userAction) => {
+export const userReducer = (state: User = null, action: userAction) => {
   switch (action.type) {
     case "SET_USERNAME": {
       console.log("called!");

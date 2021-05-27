@@ -25,16 +25,15 @@ const LoginScreen = () => {
         return data;
       });
 
+    const authenticatedUser: User[] = users.filter(
+      (user) => user.userName === userName && user.userPassword === userPassword
+    );
+
     // user is found in database
-    if (
-      users.filter(
-        (user) =>
-          user.userName === userName && user.userPassword === userPassword
-      ).length > 0
-    ) {
+    if (authenticatedUser.length > 0) {
       dispatch({
         type: "SET_USERNAME",
-        payload: userName,
+        payload: authenticatedUser[0],
       });
       history.push("/Home");
     } else {
