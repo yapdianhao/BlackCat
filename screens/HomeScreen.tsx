@@ -21,7 +21,7 @@ const Home = () => {
     };
 
   const handleClickSearch: React.MouseEventHandler<HTMLDivElement> = () => {
-    setUserSearchedResults((userSearchedResults) => !userSearchedResults);
+    setUserSearchedResults(true);
     setSideDrawerOpen(false);
   };
 
