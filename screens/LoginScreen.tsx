@@ -35,7 +35,7 @@ const LoginScreen = () => {
         type: "SET_USERNAME",
         payload: authenticatedUser[0],
       });
-      history.push("/Home");
+      history.push("/home");
     } else {
       console.log("login failed!");
     }

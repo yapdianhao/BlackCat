@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import "../styles/HomeScreen.scss";
+import { store } from "../store/store";
 import Toolbar from "../components/Toolbar";
 import Dashboard from "../components/DashBoard";
 import SideDrawer from "../components/SideDrawer";
@@ -25,6 +27,10 @@ const Home = () => {
     setSideDrawerOpen(false);
   };
 
+  const clearSearchResults: React.MouseEventHandler<HTMLDivElement> = () => {
+    setUserSearchedResults(false);
+  };
+
   console.log(userSearchedResults);
   console.log(sideDrawerOpen);
   return (
@@ -39,7 +45,10 @@ const Home = () => {
         <BackDrop backDropClickHandler={handleBackDropToggleClick} />
       ) : null}
       <main>
-        <Dashboard shouldShowSearchResults={userSearchedResults} />
+        <Dashboard
+          shouldShowSearchResults={userSearchedResults}
+          clearUserSearchedResults={clearSearchResults}
+        />
       </main>
     </>
   );

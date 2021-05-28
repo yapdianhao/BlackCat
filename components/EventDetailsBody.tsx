@@ -25,6 +25,7 @@ import DateFromIcon from "./DateFromIcon";
 import DateToIcon from "./DateToIcon";
 import SingleCommentIcon from "./SingleCommentIcon";
 import HeartIcon from "./HeartIcon";
+import HeartIconOutline from "./HeartIconOutline";
 import CheckIcon from "./CheckIcon";
 import ExpandArrowIcon from "./ExpandArrowIcon";
 import ReplyIcon from "./ReplyIcon";
@@ -56,7 +57,10 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [placeHolder, setPlaceholder] = useState("Leave your comment here");
 
   const longDescRef = useRef(null);
-  const bottomSection = useRef(null);
+  const descRef = useRef(null);
+  const bottomRef = useRef(null);
+  const participantsRef = useRef(null);
+  const commentsRef = useRef(null);
 
   const peopleWhoLikes = props.eventToRender.usersLikeEvent;
   const peopleWhoGoes = props.eventToRender.usersGoingEvent;
@@ -69,18 +73,21 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setDetailTabSelected(true);
     setParticipantTabSelected(false);
     setCommentsTabSelected(false);
+    descRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleParticipantTabSelected = () => {
     setDetailTabSelected(false);
     setParticipantTabSelected(true);
     setCommentsTabSelected(false);
+    participantsRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleCommentsTabSelected = () => {
     setDetailTabSelected(false);
     setParticipantTabSelected(false);
     setCommentsTabSelected(true);
+    commentsRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleShowHiddenButtonClick = () => {
@@ -318,7 +325,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   };
 
   const scrollToBottom = () => {
-    bottomSection.current?.scrollIntoView({ behavior: "smooth" });
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -392,7 +399,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
         </div>
         <hr className="divider" />
-        <div className="gallery">
+        <div className="gallery" ref={descRef}>
           {props.eventToRender.eventGalleryUrls &&
             props.eventToRender.eventGalleryUrls.map(
               (url: string, idx: number) => <img src={url} key={idx} />
@@ -471,7 +478,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           <img src={String(googleMaps)} />
         </div>
         <hr className="divider" />
-        <div className="going-list-outline">
+        <div className="going-list-outline" ref={participantsRef}>
           <div className="going-list-title">
             <CheckIcon />
             {`${props.eventToRender.usersGoingEvent.length} going`}
@@ -491,42 +498,45 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
         </div>
         <hr className="divider" />
-        {commentedUsers.map((comment: Comment, idx: number) => {
-          return (
-            <div className="comment-list-area">
-              <div className="comment-user-profile-pic">
-                <img
-                  src={
-                    commentingUserList[idx] &&
-                    String(commentingUserList[idx].userImgUrl)
-                  }
-                />
-              </div>
-              <div className="comment-details-layout">
-                <div className="comment-details">
-                  <div className="comment-username">
-                    {commentingUserList[idx] &&
-                      commentingUserList[idx].userName}
-                  </div>
-                  <div className="comment-time">{`${comment.commentTimeBefore} hours ago`}</div>
-                  <div className="filler"></div>
+        <div ref={commentsRef}>
+          {commentedUsers.map((comment: Comment, idx: number) => {
+            return (
+              <div className="comment-list-area">
+                <div className="comment-user-profile-pic">
+                  <img
+                    src={
+                      commentingUserList[idx] &&
+                      String(commentingUserList[idx].userImgUrl)
+                    }
+                  />
                 </div>
-                <div className="comment-words">{comment.commentContent}</div>
+                <div className="comment-details-layout">
+                  <div className="comment-details">
+                    <div className="comment-username">
+                      {commentingUserList[idx] &&
+                        commentingUserList[idx].userName}
+                    </div>
+                    <div className="comment-time">{`${comment.commentTimeBefore} hours ago`}</div>
+                    <div className="filler"></div>
+                  </div>
+                  <div className="comment-words">{comment.commentContent}</div>
+                </div>
+                <div className="reply-button">
+                  <ReplyIcon
+                    handleReplyIconClick={handleClickReplyButton}
+                    scrollToBottom={scrollToBottom}
+                    replyTo={`@ ${
+                      commentingUserList[idx] &&
+                      commentingUserList[idx].userName
+                    }`}
+                  />
+                </div>
               </div>
-              <div className="reply-button">
-                <ReplyIcon
-                  handleReplyIconClick={handleClickReplyButton}
-                  scrollToBottom={scrollToBottom}
-                  replyTo={`@ ${
-                    commentingUserList[idx] && commentingUserList[idx].userName
-                  }`}
-                />
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-      <div ref={bottomSection}>
+      <div ref={bottomRef}>
         {userIsCommenting ? (
           <ReplyBar
             handleClickCancelIcon={handleClickCommentButton}
