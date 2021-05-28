@@ -92,6 +92,11 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     console.log(showMoreLikes);
   };
 
+  const handleClickSeeMoreGoing = () => {
+    setShowMoreGoing(!showMoreGoing);
+    console.log(showMoreGoing);
+  };
+
   const handleClickCommentButton = () => {
     setUserIsCommenting(!userIsCommenting);
     setPlaceholder("Leave your comment here");
@@ -118,11 +123,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setCommentingUsersList([...commentingUserList, newCommentUser]);
   };
 
-  const renderList = (
-    lst: string[],
-    expandButtonFn: React.MouseEventHandler<SVGSVGElement>
-  ) => {
-    console.log(lst);
+  const renderLikesList = (lst: string[]) => {
     // small amount of people
     if (lst.length <= 7) {
       return (
@@ -146,7 +147,11 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
               if (idx != 6) {
                 return <img src={String(source)} />;
               } else {
-                return <ExpandArrowIcon handleClickShowMore={expandButtonFn} />;
+                return (
+                  <ExpandArrowIcon
+                    handleClickShowMore={handleClickSeeMoreLikes}
+                  />
+                );
               }
             })}
           </div>
@@ -156,7 +161,59 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         let slicedList = generateEqualLengthList(lst);
         return slicedList.map((subList: any, index: any) => {
           if (index == slicedList.length - 1) {
-            return generateLastList(subList);
+            return generateLastList(subList, handleClickSeeMoreLikes);
+          } else {
+            return generateNormalList(subList);
+          }
+        });
+      }
+    }
+  };
+
+  const renderGoingList = (lst: string[]) => {
+    // small amount of people
+    if (lst.length <= 7) {
+      return (
+        <div className="going-list-people-row">
+          {lst.map((source: any, idx: number) => (
+            <img src={String(source)} />
+          ))}
+        </div>
+      );
+    } else {
+      // large amount of people. not showing
+      if (!showMoreGoing) {
+        const headList = lst.slice(0, 7);
+        return (
+          <div
+            className={`going-list-people-row ${
+              showMoreGoing ? "upside-down-svg" : "upright-svg"
+            }`}
+          >
+            {headList.map((source: any, idx: number) => {
+              if (idx != 6) {
+                return <img src={String(source)} />;
+              } else {
+                return (
+                  <ExpandArrowIcon
+                    handleClickShowMore={handleClickSeeMoreGoing}
+                  />
+                );
+              }
+            })}
+          </div>
+        );
+      } else {
+        // large amount of people , showing
+        let slicedList = generateEqualLengthList(lst);
+        if (slicedList[slicedList.length - 1].length % 7 == 0) {
+          slicedList.push([]); // if last row full, svg icon start new row.
+        }
+        return slicedList.map((subList: any, index: any) => {
+          if (index == slicedList.length - 1) {
+            // not full can add icon at back
+            // full, check in generatelastlist function, cannot check here.
+            return generateLastList(subList, handleClickSeeMoreGoing);
           } else {
             return generateNormalList(subList);
           }
@@ -186,7 +243,10 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     );
   };
 
-  const generateLastList = (lst: any) => {
+  const generateLastList = (
+    lst: any,
+    expandButtonFn: React.MouseEventHandler<SVGSVGElement>
+  ) => {
     lst.push(null);
     return (
       <div
@@ -198,9 +258,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           if (idx != lst.length - 1) {
             return <img src={String(source)} />;
           } else {
-            return (
-              <ExpandArrowIcon handleClickShowMore={handleClickSeeMoreLikes} />
-            );
+            return <ExpandArrowIcon handleClickShowMore={expandButtonFn} />;
           }
         })}
       </div>
@@ -218,7 +276,10 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
       });
   };
 
-  const fetchUrl = async (userLst: User[]) => {
+  const fetchUrl = async (
+    userLst: User[],
+    fetchParticipantsFunction: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
     let urlList: string[] = [];
     for (let i = 0; i < userLst.length; i++) {
       const response = await fetch(
@@ -228,7 +289,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
       urlList.push(data.userImgUrl);
     }
     console.log(urlList);
-    setLikesUsersUrl(urlList);
+    fetchParticipantsFunction(urlList);
   };
 
   const fetchCommentingUsers = async () => {
@@ -262,7 +323,8 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
 
   useEffect(() => {
     fetchEventPosterUrl();
-    fetchUrl(peopleWhoLikes);
+    fetchUrl(peopleWhoLikes, setLikesUsersUrl);
+    fetchUrl(peopleWhoGoes, setGoingUsersUrl);
     setDidDivOverflow(didTextOverflow());
     fetchCommentingUsers();
   }, []);
@@ -415,17 +477,17 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
             {`${props.eventToRender.usersGoingEvent.length} going`}
           </div>
           <div className="going-list-people-col">
-            {renderList(likesUsersUrl, handleClickSeeMoreLikes)}
+            {renderGoingList(goingUsersUrl)}
           </div>
         </div>
         <hr className="divider" />
         <div className="going-list-outline">
           <div className="going-list-title">
-            <HeartIcon />
-            {`${props.eventToRender.usersLikeEvent.length} likes`}
+            <CheckIcon />
+            {`${props.eventToRender.usersLikeEvent.length} going`}
           </div>
           <div className="going-list-people-col">
-            {/* {renderList(peopleWhoLikes)} */}
+            {renderLikesList(likesUsersUrl)}
           </div>
         </div>
         <hr className="divider" />
