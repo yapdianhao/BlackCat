@@ -14,9 +14,7 @@ const EventDetailsToolBar = () => {
           <ToolBarHomeButton />
         </div>
         <div className="toolbar-logo">
-          <a href="/">
-            <BlackCatIcon />
-          </a>
+          <BlackCatIcon />
         </div>
         <div>
           <img src={String(profilePic)} className="profile-pic" />

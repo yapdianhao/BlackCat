@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 
 import "../styles/Dashboard.scss";
 import { Event } from "../server/model/event";

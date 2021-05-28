@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import "../styles/HomeScreen.scss";
-import { store } from "../store/store";
 import Toolbar from "../components/Toolbar";
 import Dashboard from "../components/DashBoard";
 import SideDrawer from "../components/SideDrawer";

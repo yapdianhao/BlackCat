@@ -31,7 +31,7 @@ let eventType = [
   "This month",
 ];
 
-for (let i: number = 1; i <= 30; i++) {
+for (let i: number = 1; i <= 100; i++) {
   let randomEventTypeIdx = Math.floor(Math.random() * eventType.length);
   console.log(randomEventTypeIdx);
   let fakeEventName: string = faker.lorem.words();

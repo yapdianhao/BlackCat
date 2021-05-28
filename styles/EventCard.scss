@@ -61,7 +61,7 @@
 }
 
 .activity-desc {
-  padding-top: 12px;
+  padding: 10px 0px 10px 0px;
   font-family: "Source Sans Pro";
   font-weight: 400;
   color: #67616d;
@@ -70,7 +70,37 @@
 .activity-stats-area {
   display: flex;
   height: 12px;
-  padding: 5px;
+  padding: 0px 20px 0px 5px;
+
+  .user-likes {
+    color: #453257;
+
+    svg {
+      height: 12px;
+      width: 12px;
+      fill: #ff5c5c;
+    }
+  }
+
+  .user-going {
+    color: #453257;
+
+    svg {
+      height: 12px;
+      width: 12px;
+      fill: #aecb4f;
+    }
+  }
+
+  .user-dont-like {
+    color: #ac8ec9;
+
+    svg {
+      height: 12px;
+      width: 12px;
+      fill: #ac8ec9;
+    }
+  }
 }
 
 .stats-desc {
@@ -79,5 +109,4 @@
   font-weight: 400;
   padding-left: 5px;
   padding-right: 20px;
-  color: #453257;
 }

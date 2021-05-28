@@ -7,7 +7,7 @@ import HomeIcon from "../components/HomeIcon";
 const ToolBarHomeButton = () => {
   const history = useHistory();
   return (
-    <button onClick={() => history.push("/")}>
+    <button onClick={() => history.push("/home")}>
       <div className="home-button">
         <HomeIcon />
       </div>

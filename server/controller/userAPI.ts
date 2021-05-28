@@ -2,15 +2,25 @@ import { User } from "../model/user";
 
 const faker = require("faker");
 
+let fakeMeImageUrl: string = `${faker.image.imageUrl()}?random=${faker.random.number()}`;
+let fakeMeGoingEventsCount = Math.floor(Math.random() * 100);
+let fakeMeLikeEventsCount = Math.floor(Math.random() * 100);
+
 let users: User[] = [
   {
     userId: 1,
     userName: "yapdianhao",
     userEmail: "dianhao.yap@shopee.com",
-    userImgUrl: "",
+    userImgUrl: fakeMeImageUrl,
     userPassword: "???",
-    userLikedEvents: [],
-    userGoingEvents: [],
+    userLikedEvents: Array.from(
+      { length: fakeMeGoingEventsCount },
+      () => Math.floor(Math.random() * 100) + 1
+    ),
+    userGoingEvents: Array.from(
+      { length: fakeMeLikeEventsCount },
+      () => Math.floor(Math.random() * 100) + 1
+    ),
   },
 ];
 

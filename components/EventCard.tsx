@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 
 import "../styles/EventCard.scss";
+import { monthNames } from "../helper/MonthNames";
 const profilePic = require("../images/Street-Dance-01.jpg");
 import { Event } from "../server/model/event";
+import { store } from "../store/store";
 import { User } from "../server/model/user";
 import ClockIcon from "../components/ClockIcon";
 import HeartIcon from "./HeartIcon";
@@ -20,20 +22,33 @@ const EventCard: React.FC<EventCardProps> = (props) => {
 
   const [eventPoster, setEventPoster] = useState<User>();
 
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "June",
-    "July",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dev",
-  ];
+  const authenticatedUser: User = store.getState().userReducer;
+
+  console.log(authenticatedUser);
+
+  if (authenticatedUser !== null) {
+    const eventsUserLikes: Set<number> = new Set(
+      authenticatedUser.userLikedEvents
+    );
+
+    const eventsUserGoing: Set<number> = new Set(
+      authenticatedUser.userGoingEvents
+    );
+  }
+
+  const userGoing =
+    authenticatedUser === null
+      ? false
+      : new Set(authenticatedUser.userLikedEvents).has(
+          props.eventToRender.eventId
+        );
+  const userLikes =
+    authenticatedUser === null
+      ? false
+      : new Set(authenticatedUser.userLikedEvents).has(
+          props.eventToRender.eventId
+        );
+
   const passedStartDate = new Date(props.eventToRender.eventStartDateTime);
   const passedEndDate = new Date(props.eventToRender.eventEndDateTime);
 
@@ -78,10 +93,18 @@ const EventCard: React.FC<EventCardProps> = (props) => {
       <div className="activity-desc">
         {props.eventToRender.eventDescription}
       </div>
-      <div className="activity-stats-area">
-        <CheckIcon />
+      <div
+        className={`activity-stats-area ${
+          userGoing ? "user-going" : "user-dont-like"
+        }`}
+      >
+        <div className={`${userGoing ? "user-going" : "user-dont-like"}`}>
+          {userGoing ? <CheckIcon /> : <CheckIconOutline />}
+        </div>
         <div className="stats-desc">I am going</div>
-        <HeartIcon />
+        <div className={`${userLikes ? "user-likes" : "user-dont-like"}`}>
+          {userLikes ? <HeartIcon /> : <HeartIconOutline />}
+        </div>
         <div className="stats-desc">I like it</div>
       </div>
     </div>

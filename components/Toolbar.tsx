@@ -18,9 +18,7 @@ const Toolbar: React.FC<ToolBarProps> = (props) => {
           <SideDrawerToggleButton clickHandler={props.drawerClickHandler} />
         </div>
         <div className="toolbar-logo">
-          <a href="/">
-            <BlackCatIcon />
-          </a>
+          <BlackCatIcon />
         </div>
         <div>
           <img src={String(profilePic)} className="profile-pic" />
