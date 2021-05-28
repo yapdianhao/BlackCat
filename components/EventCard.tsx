@@ -59,7 +59,10 @@ const EventCard: React.FC<EventCardProps> = (props) => {
   return (
     <div className="card-outline" onClick={handleClickEventCard}>
       <div className="card-header">
-        <img src={String(profilePic)} className="profile-pic" />
+        <img
+          src={String(eventPoster && eventPoster.userImgUrl)}
+          className="profile-pic"
+        />
         <div className="user-name">{eventPoster && eventPoster.userName}</div>
         <div className="channel-name">{props.eventToRender.eventChannel}</div>
       </div>

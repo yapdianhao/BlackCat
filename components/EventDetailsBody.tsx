@@ -118,8 +118,11 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setCommentingUsersList([...commentingUserList, newCommentUser]);
   };
 
-  const renderList = (usrLst: any) => {
-    const lst: string[] = usrLst.map((usr: User) => usr.userImgUrl);
+  const renderList = (
+    lst: string[],
+    expandButtonFn: React.MouseEventHandler<SVGSVGElement>
+  ) => {
+    console.log(lst);
     // small amount of people
     if (lst.length <= 7) {
       return (
@@ -143,11 +146,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
               if (idx != 6) {
                 return <img src={String(source)} />;
               } else {
-                return (
-                  <ExpandArrowIcon
-                    handleClickShowMore={handleClickSeeMoreLikes}
-                  />
-                );
+                return <ExpandArrowIcon handleClickShowMore={expandButtonFn} />;
               }
             })}
           </div>
@@ -416,7 +415,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
             {`${props.eventToRender.usersGoingEvent.length} going`}
           </div>
           <div className="going-list-people-col">
-            {renderList(peopleWhoLikes)}
+            {renderList(likesUsersUrl, handleClickSeeMoreLikes)}
           </div>
         </div>
         <hr className="divider" />

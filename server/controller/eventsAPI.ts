@@ -74,7 +74,9 @@ for (let i: number = 1; i <= 30; i++) {
   let fakeGallerySize = Math.floor(Math.random() * 10) + 1;
   let fakeGalleryUrls: string[] = [];
   for (let i = 0; i < fakeGallerySize; i++) {
-    fakeGalleryUrls.push(faker.image.imageUrl());
+    fakeGalleryUrls.push(
+      `${faker.image.imageUrl()}?random=${faker.random.number()}`
+    );
   }
 
   let fakeEventStartDateTime: Date;

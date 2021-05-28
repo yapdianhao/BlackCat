@@ -18,7 +18,7 @@ for (let i = 2; i <= 100; i++) {
   let fakerUserId: number = i;
   let fakerUserName: string = faker.name.firstName();
   let fakerUserEmail: string = faker.internet.email();
-  let fakeImgUrl: string = faker.image.imageUrl();
+  let fakeImgUrl: string = `${faker.image.imageUrl()}?random=${faker.random.number()}`;
   let fakerUserPassword: string = faker.internet.password();
   let randomGoingEventNum = Math.floor(Math.random() * 100);
   let randomLikeEventNum = Math.floor(Math.random() * 100);
