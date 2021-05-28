@@ -50,6 +50,8 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [eventPoster, setEventPoster] = useState<User>();
   const [didDivOverflow, setDidDivOverflow] = useState(false);
   const [userIsCommenting, setUserIsCommenting] = useState(false);
+  const [userLikesThisEvent, setUserLikesThisEvent] = useState(false);
+  const [userGoingThisEvent, setUserGoingThisEvent] = useState(false);
   const [commentedUsers, setCommentedUsers] = useState(
     props.eventToRender.eventComments
   );
@@ -128,6 +130,14 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
       .then((data) => data);
 
     setCommentingUsersList([...commentingUserList, newCommentUser]);
+  };
+
+  const handleUserClicksLike = () => {
+    setUserLikesThisEvent(!userLikesThisEvent);
+  };
+
+  const handleUserClicksGoing = () => {
+    setUserGoingThisEvent(!userGoingThisEvent);
   };
 
   const renderLikesList = (lst: string[]) => {
@@ -480,7 +490,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         <hr className="divider" />
         <div className="going-list-outline" ref={participantsRef}>
           <div className="going-list-title">
-            <CheckIcon />
+            <CheckIconOutline />
             {`${props.eventToRender.usersGoingEvent.length} going`}
           </div>
           <div className="going-list-people-col">
@@ -490,7 +500,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         <hr className="divider" />
         <div className="going-list-outline">
           <div className="going-list-title">
-            <CheckIcon />
+            <HeartIconOutline />
             {`${props.eventToRender.usersLikeEvent.length} going`}
           </div>
           <div className="going-list-people-col">
@@ -544,7 +554,13 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
             placeHolder={placeHolder}
           />
         ) : (
-          <ReactionBar handleClickCommentButton={handleClickCommentButton} />
+          <ReactionBar
+            handleClickCommentButton={handleClickCommentButton}
+            handleClickLike={handleUserClicksLike}
+            handleClickGoing={handleUserClicksGoing}
+            doesUserLike={userLikesThisEvent}
+            isUserGoing={userGoingThisEvent}
+          />
         )}
       </div>
     </>

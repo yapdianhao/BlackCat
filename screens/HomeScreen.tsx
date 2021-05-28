@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 
 import "../styles/HomeScreen.scss";
@@ -8,6 +9,8 @@ import SideDrawer from "../components/SideDrawer";
 import BackDrop from "../components/BackDrop";
 
 const Home = () => {
+  const location = useLocation();
+  console.log(location.state);
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
   const [userSearchedResults, setUserSearchedResults] = useState(false);
 
