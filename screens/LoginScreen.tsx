@@ -72,7 +72,7 @@ const LoginScreen = () => {
       </div>
       <div>
         <button className="user-login-form-submit-btn" onClick={handleSubmit}>
-          SIGN IN
+          <div>SIGN IN</div>
         </button>
       </div>
     </div>
