@@ -131,7 +131,7 @@
 }
 
 .desc {
-  padding: 20px 10px;
+  padding: 10px 10px 0px 10px;
   margin-bottom: 20px;
   position: relative;
   display: flex;
@@ -295,6 +295,7 @@
     svg {
       height: 24px;
       width: 24px;
+      padding: 0px 3px;
     }
 
     img {
@@ -321,7 +322,7 @@
 
   .comment-details-layout {
     display: flex;
-    max-width: 60vw;
+    width: 60vw;
     flex-direction: column;
     padding: 5px 10px;
 

@@ -71,13 +71,12 @@ for (let i: number = 1; i <= 30; i++) {
     fakePublishDate.getDate() - Math.floor(Math.random() * 7) + 1
   );
 
-  let fakeGallerySize = Math.floor(Math.random() * 10);
+  let fakeGallerySize = Math.floor(Math.random() * 10) + 1;
   let fakeGalleryUrls: string[] = [];
   for (let i = 0; i < fakeGallerySize; i++) {
     fakeGalleryUrls.push(faker.image.imageUrl());
   }
 
-  console.log(fakeGalleryUrls);
   let fakeEventStartDateTime: Date;
   let fakeEventEndDateTime: Date;
   let fakeEventComments: Comment[] = [];

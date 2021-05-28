@@ -118,7 +118,8 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setCommentingUsersList([...commentingUserList, newCommentUser]);
   };
 
-  const renderList = (lst: any) => {
+  const renderList = (usrLst: any) => {
+    const lst: string[] = usrLst.map((usr: User) => usr.userImgUrl);
     if (lst.length <= 7) {
       return (
         <div className="going-list-people-row">
@@ -412,7 +413,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
             {`${props.eventToRender.usersGoingEvent.length} going`}
           </div>
           <div className="going-list-people-col">
-            {/* {renderList(peopleWhoLikes)} */}
+            {renderList(peopleWhoLikes)}
           </div>
         </div>
         <hr className="divider" />
