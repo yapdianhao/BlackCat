@@ -61,7 +61,6 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const peopleWhoLikes = props.eventToRender.usersLikeEvent;
   const peopleWhoGoes = props.eventToRender.usersGoingEvent;
 
-  let expanded = true;
   const commentUserIds = props.eventToRender.eventComments.map(
     (cmt: Comment) => cmt.commentedBy
   );
@@ -90,6 +89,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
 
   const handleClickSeeMoreLikes = () => {
     setShowMoreLikes(!showMoreLikes);
+    console.log(showMoreLikes);
   };
 
   const handleClickCommentButton = () => {
@@ -120,6 +120,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
 
   const renderList = (usrLst: any) => {
     const lst: string[] = usrLst.map((usr: User) => usr.userImgUrl);
+    // small amount of people
     if (lst.length <= 7) {
       return (
         <div className="going-list-people-row">
@@ -129,7 +130,8 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         </div>
       );
     } else {
-      if (!expanded) {
+      // large amount of people. not showing
+      if (!showMoreLikes) {
         const headList = lst.slice(0, 7);
         return (
           <div
@@ -151,6 +153,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
         );
       } else {
+        // large amount of people , showing
         let slicedList = generateEqualLengthList(lst);
         return slicedList.map((subList: any, index: any) => {
           if (index == slicedList.length - 1) {
