@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 
 import "../styles/HomeScreen.scss";
+import { User } from "../server/model/user";
 import Toolbar from "../components/Toolbar";
 import Dashboard from "../components/DashBoard";
 import SideDrawer from "../components/SideDrawer";
 import BackDrop from "../components/BackDrop";
 
 const Home = () => {
-  const location = useLocation();
-  console.log(location.state);
+  console.log(localStorage.getItem("authenticatedUser"));
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
   const [userSearchedResults, setUserSearchedResults] = useState(false);
+  const [authenticatedUserId, setAuthenticatedUserId] = useState("");
 
   const handleDrawerToggleClick: React.MouseEventHandler<HTMLButtonElement> =
     () => {
@@ -35,6 +36,11 @@ const Home = () => {
 
   console.log(userSearchedResults);
   console.log(sideDrawerOpen);
+
+  // useEffect(() => {
+  //   setAuthenticatedUserId(localStorage.getItem("authenticatedUser"));
+  // });
+
   return (
     <>
       <Toolbar drawerClickHandler={handleDrawerToggleClick} />

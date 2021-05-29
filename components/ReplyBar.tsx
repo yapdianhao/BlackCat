@@ -16,7 +16,11 @@ const ReplyBar: React.FC<ReplyBarProps> = (props) => {
 
   const sendComment = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
-    props.handleSendIcon(commentInput);
+    props.handleSendIcon(
+      `${
+        props.placeHolder.slice(0, 1) === "@" ? props.placeHolder : ""
+      } ${commentInput}`
+    );
     setCommentInput("");
     console.log(commentInput);
   };

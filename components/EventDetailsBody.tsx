@@ -48,6 +48,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [likesUsersUrl, setLikesUsersUrl] = useState<string[]>([]);
   const [goingUsersUrl, setGoingUsersUrl] = useState<string[]>([]);
   const [eventPoster, setEventPoster] = useState<User>();
+  const [mainUser, setMainUser] = useState<User>();
   const [didDivOverflow, setDidDivOverflow] = useState(false);
   const [userIsCommenting, setUserIsCommenting] = useState(false);
   const [userLikesThisEvent, setUserLikesThisEvent] = useState(false);
@@ -139,6 +140,12 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const handleUserClicksGoing = () => {
     setUserGoingThisEvent(!userGoingThisEvent);
   };
+
+  // const processListAfterClickLike = () => {
+  //   if (userLikesThisEvent) {
+  //     peopleWhoLikes.push()
+  //   }
+  // }
 
   const renderLikesList = (lst: string[]) => {
     // small amount of people
@@ -282,6 +289,11 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     );
   };
 
+  const checkIfListContainseventId = (eventsIdList: number[]) => {
+    const setFromList = new Set(eventsIdList);
+    return setFromList.has(props.eventToRender.eventId);
+  };
+
   const fetchEventPosterUrl = async () => {
     await fetch(
       `http://localhost:5000/api/users/${props.eventToRender.eventPostedBy}`
@@ -338,12 +350,34 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const fetchAuthenticatedUser = async () => {
+    await fetch(
+      `http://localhost:5000/api/users/${localStorage.getItem(
+        "authenticatedUser"
+      )}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setMainUser(data);
+        const likedLst: number[] = data.userLikedEvents;
+        setUserLikesThisEvent(
+          new Set(likedLst).has(props.eventToRender.eventId)
+        );
+        const goingLst: number[] = data.userGoingEvents;
+        setUserGoingThisEvent(
+          new Set(goingLst).has(props.eventToRender.eventId)
+        );
+      });
+  };
+
   useEffect(() => {
     fetchEventPosterUrl();
     fetchUrl(peopleWhoLikes, setLikesUsersUrl);
     fetchUrl(peopleWhoGoes, setGoingUsersUrl);
     setDidDivOverflow(didTextOverflow());
     fetchCommentingUsers();
+    fetchAuthenticatedUser();
   }, []);
 
   return (
@@ -490,7 +524,12 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         <hr className="divider" />
         <div className="going-list-outline" ref={participantsRef}>
           <div className="going-list-title">
-            <CheckIconOutline />
+            {mainUser &&
+            checkIfListContainseventId(mainUser.userGoingEvents) ? (
+              <CheckIcon />
+            ) : (
+              <CheckIconOutline />
+            )}
             {`${props.eventToRender.usersGoingEvent.length} going`}
           </div>
           <div className="going-list-people-col">
@@ -500,7 +539,12 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         <hr className="divider" />
         <div className="going-list-outline">
           <div className="going-list-title">
-            <HeartIconOutline />
+            {mainUser &&
+            checkIfListContainseventId(mainUser.userLikedEvents) ? (
+              <HeartIcon />
+            ) : (
+              <HeartIconOutline />
+            )}
             {`${props.eventToRender.usersLikeEvent.length} going`}
           </div>
           <div className="going-list-people-col">

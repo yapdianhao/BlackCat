@@ -2,7 +2,7 @@ import { User } from "../model/user";
 
 const faker = require("faker");
 
-let fakeMeImageUrl: string = `${faker.image.imageUrl()}?random=${faker.random.number()}`;
+let fakeMeImageUrl: string = `${faker.image.imageUrl()}?random=${faker.datatype.number()}`;
 let fakeMeGoingEventsCount = Math.floor(Math.random() * 100);
 let fakeMeLikeEventsCount = Math.floor(Math.random() * 100);
 
@@ -14,12 +14,20 @@ let users: User[] = [
     userImgUrl: fakeMeImageUrl,
     userPassword: "???",
     userLikedEvents: Array.from(
-      { length: fakeMeGoingEventsCount },
-      () => Math.floor(Math.random() * 100) + 1
+      new Set(
+        Array.from(
+          { length: fakeMeGoingEventsCount },
+          () => Math.floor(Math.random() * 100) + 1
+        )
+      )
     ),
     userGoingEvents: Array.from(
-      { length: fakeMeLikeEventsCount },
-      () => Math.floor(Math.random() * 100) + 1
+      new Set(
+        Array.from(
+          { length: fakeMeLikeEventsCount },
+          () => Math.floor(Math.random() * 100) + 1
+        )
+      )
     ),
   },
 ];
@@ -28,7 +36,7 @@ for (let i = 2; i <= 100; i++) {
   let fakerUserId: number = i;
   let fakerUserName: string = faker.name.firstName();
   let fakerUserEmail: string = faker.internet.email();
-  let fakeImgUrl: string = `${faker.image.imageUrl()}?random=${faker.random.number()}`;
+  let fakeImgUrl: string = `${faker.image.imageUrl()}?random=${faker.datatype.number()}`;
   let fakerUserPassword: string = faker.internet.password();
   let randomGoingEventNum = Math.floor(Math.random() * 100);
   let randomLikeEventNum = Math.floor(Math.random() * 100);
@@ -38,11 +46,19 @@ for (let i = 2; i <= 100; i++) {
     userEmail: fakerUserEmail,
     userPassword: fakerUserPassword,
     userImgUrl: fakeImgUrl,
-    userLikedEvents: Array.from({ length: randomLikeEventNum }, () =>
-      Math.floor(Math.random() * 100)
+    userLikedEvents: Array.from(
+      new Set(
+        Array.from({ length: randomLikeEventNum }, () =>
+          Math.floor(Math.random() * 100)
+        )
+      )
     ),
-    userGoingEvents: Array.from({ length: randomGoingEventNum }, () =>
-      Math.floor(Math.random() * 100)
+    userGoingEvents: Array.from(
+      new Set(
+        Array.from({ length: randomGoingEventNum }, () =>
+          Math.floor(Math.random() * 100)
+        )
+      )
     ),
   });
 }

@@ -75,7 +75,7 @@ for (let i: number = 1; i <= 100; i++) {
   let fakeGalleryUrls: string[] = [];
   for (let i = 0; i < fakeGallerySize; i++) {
     fakeGalleryUrls.push(
-      `${faker.image.imageUrl()}?random=${faker.random.number()}`
+      `${faker.image.imageUrl()}?random=${faker.datatype.number()}`
     );
   }
 

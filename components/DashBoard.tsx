@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import "../styles/Dashboard.scss";
 import { Event } from "../server/model/event";
 import { store } from "../store/store";
+import { User } from "../server/model/user";
 import useFetch from "../helper/useFetch";
 import EventCard from "./EventCard";
 import Divider from "./Divider";

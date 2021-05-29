@@ -3,10 +3,15 @@ import { useLocation } from "react-router";
 
 import "../styles/EventDetailsScreen.scss";
 import { Event } from "../server/model/event";
+import { User } from "../server/model/user";
 import EventDetailsToolBar from "../components/EventDetailsToolBar";
 import EventDetailsBody from "../components/EventDetailsBody";
 
 const EventDetailsScreen = () => {
+  const location = useLocation<User>();
+
+  const authenticatedUser: User = location.state;
+
   const [eventToRender, setEventToRender] = useState<Event>();
 
   const eventDetailsPath = useLocation().pathname;

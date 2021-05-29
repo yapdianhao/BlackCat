@@ -5,7 +5,6 @@ import "../styles/EventCard.scss";
 import { monthNames } from "../helper/MonthNames";
 const profilePic = require("../images/Street-Dance-01.jpg");
 import { Event } from "../server/model/event";
-import { store } from "../store/store";
 import { User } from "../server/model/user";
 import ClockIcon from "../components/ClockIcon";
 import HeartIcon from "./HeartIcon";
@@ -21,39 +20,31 @@ const EventCard: React.FC<EventCardProps> = (props) => {
   const history = useHistory();
 
   const [eventPoster, setEventPoster] = useState<User>();
-
-  const authenticatedUser: User = store.getState().userReducer;
-
-  console.log(authenticatedUser);
-
-  if (authenticatedUser !== null) {
-    const eventsUserLikes: Set<number> = new Set(
-      authenticatedUser.userLikedEvents
-    );
-
-    const eventsUserGoing: Set<number> = new Set(
-      authenticatedUser.userGoingEvents
-    );
-  }
-
-  const userGoing =
-    authenticatedUser === null
-      ? false
-      : new Set(authenticatedUser.userLikedEvents).has(
-          props.eventToRender.eventId
-        );
-  const userLikes =
-    authenticatedUser === null
-      ? false
-      : new Set(authenticatedUser.userLikedEvents).has(
-          props.eventToRender.eventId
-        );
+  const [mainUser, setMainUser] = useState<User>();
 
   const passedStartDate = new Date(props.eventToRender.eventStartDateTime);
   const passedEndDate = new Date(props.eventToRender.eventEndDateTime);
 
+  const checkIfListContainseventId = (eventsIdList: number[]) => {
+    const setFromList = new Set(eventsIdList);
+    return setFromList.has(props.eventToRender.eventId);
+  };
+
   const handleClickEventCard = () => {
     history.push(`/events/${props.eventToRender.eventId}`);
+  };
+
+  const fetchAuthenticatedUser = async () => {
+    await fetch(
+      `http://localhost:5000/api/users/${localStorage.getItem(
+        "authenticatedUser"
+      )}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setMainUser(data);
+      });
   };
 
   const fetchEventPoster = async () => {
@@ -68,6 +59,7 @@ const EventCard: React.FC<EventCardProps> = (props) => {
   };
 
   useEffect(() => {
+    fetchAuthenticatedUser();
     fetchEventPoster();
   }, []);
 
@@ -95,15 +87,37 @@ const EventCard: React.FC<EventCardProps> = (props) => {
       </div>
       <div
         className={`activity-stats-area ${
-          userGoing ? "user-going" : "user-dont-like"
+          checkIfListContainseventId(mainUser && mainUser.userGoingEvents)
+            ? "user-going"
+            : "user-dont-like"
         }`}
       >
-        <div className={`${userGoing ? "user-going" : "user-dont-like"}`}>
-          {userGoing ? <CheckIcon /> : <CheckIconOutline />}
+        <div
+          className={`${
+            checkIfListContainseventId(mainUser && mainUser.userGoingEvents)
+              ? "user-going"
+              : "user-dont-like"
+          }`}
+        >
+          {checkIfListContainseventId(mainUser && mainUser.userGoingEvents) ? (
+            <CheckIcon />
+          ) : (
+            <CheckIconOutline />
+          )}
         </div>
         <div className="stats-desc">I am going</div>
-        <div className={`${userLikes ? "user-likes" : "user-dont-like"}`}>
-          {userLikes ? <HeartIcon /> : <HeartIconOutline />}
+        <div
+          className={`${
+            checkIfListContainseventId(mainUser && mainUser.userLikedEvents)
+              ? "user-likes"
+              : "user-dont-like"
+          }`}
+        >
+          {checkIfListContainseventId(mainUser && mainUser.userLikedEvents) ? (
+            <HeartIcon />
+          ) : (
+            <HeartIconOutline />
+          )}
         </div>
         <div className="stats-desc">I like it</div>
       </div>

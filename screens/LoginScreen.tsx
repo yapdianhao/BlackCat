@@ -31,11 +31,15 @@ const LoginScreen = () => {
 
     // user is found in database
     if (authenticatedUser.length > 0) {
-      dispatch({
-        type: "SET_USERNAME",
-        payload: authenticatedUser[0],
-      });
-      history.push("/home", authenticatedUser);
+      // dispatch({
+      //   type: "SET_USERNAME",
+      //   payload: authenticatedUser[0],
+      // });
+      localStorage.setItem(
+        "authenticatedUser",
+        `${authenticatedUser[0].userId}`
+      );
+      history.push("/home");
     } else {
       console.log("login failed!");
     }
