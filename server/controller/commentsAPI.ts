@@ -19,3 +19,9 @@ for (let i = 0; i < 200; i++) {
 export const getComments = () => {
   return comments;
 };
+
+export const insertComment = (newComment: Comment) => {
+  comments.push(newComment);
+  console.log("inserted new comment");
+  //console.log(comments);
+};

@@ -72,6 +72,43 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     (cmt: Comment) => cmt.commentedBy
   );
 
+  const sendCommentToBackend = async (message: string) => {
+    const newComment: Comment = {
+      commentedBy: 1,
+      commentTimeBefore: 0,
+      commentContent: message,
+    };
+    console.log(JSON.stringify(newComment));
+    await fetch("http://localhost:5000/api/comments", {
+      method: "POST",
+      // mode: "no-cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newComment),
+    });
+  };
+
+  const sendCommentUnderEvent = async (message: string) => {
+    const newComment: Comment = {
+      commentedBy: 1,
+      commentTimeBefore: 0,
+      commentContent: message,
+    };
+    await fetch(
+      `http://localhost:5000/api/events/${props.eventToRender.eventId}`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newComment),
+      }
+    );
+  };
+
   const handleDetailTabClicked = () => {
     setDetailTabSelected(true);
     setParticipantTabSelected(false);
@@ -117,6 +154,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setPlaceholder(replyTo);
   };
 
+  // send commend to backend
   const handleClickSend = async (message: string) => {
     setCommentedUsers([
       ...commentedUsers,
@@ -131,21 +169,21 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
       .then((data) => data);
 
     setCommentingUsersList([...commentingUserList, newCommentUser]);
+    sendCommentToBackend(message);
+    sendCommentUnderEvent(message);
   };
 
+  // update likes list, push to first
   const handleUserClicksLike = () => {
+    setLikesUsersUrl([mainUser.userImgUrl, ...likesUsersUrl]);
     setUserLikesThisEvent(!userLikesThisEvent);
   };
 
+  // update going list, push to first
   const handleUserClicksGoing = () => {
+    setGoingUsersUrl([mainUser.userImgUrl, ...goingUsersUrl]);
     setUserGoingThisEvent(!userGoingThisEvent);
   };
-
-  // const processListAfterClickLike = () => {
-  //   if (userLikesThisEvent) {
-  //     peopleWhoLikes.push()
-  //   }
-  // }
 
   const renderLikesList = (lst: string[]) => {
     // small amount of people

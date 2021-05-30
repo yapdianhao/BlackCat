@@ -235,26 +235,13 @@ export const deleteEvent = (toDeleteEventId: number) => {
   return events;
 };
 
-// export const updateEvent = (
-//   toUpdateEventId: number,
-//   newEventName: string,
-//   newEventDescription: string,
-//   newEventLocation: string,
-//   newEventChannel: string,
-//   newPosterName: string,
-//   newEventStartDateTime: Date,
-//   newEventEndDateTime: Date
-// ) => {
-//   const eventToUpdate: Event = events[toUpdateEventId - 1];
-//   eventToUpdate.eventName = newEventName;
-//   eventToUpdate.eventDescription = newEventDescription;
-//   eventToUpdate.eventLocation = newEventLocation;
-//   eventToUpdate.eventStartDateTime = newEventStartDateTime;
-//   eventToUpdate.eventEndDateTime = newEventEndDateTime;
-//   eventToUpdate.eventChannel = newEventChannel;
-//   eventToUpdate.eventPostedBy = newPosterName;
-//   return eventToUpdate;
-// };
+export const insertCommentIntoEvent = (id: number, comment: Comment) => {
+  const oldEvent: Event = events[id - 1];
+  console.log(comment);
+  oldEvent.eventComments.push(comment);
+  events[id - 1] = oldEvent;
+  console.log(oldEvent.eventComments);
+};
 
 export const getTodayEvents = () => {
   return events.filter((event) => dateIsToday(event.eventStartDateTime));

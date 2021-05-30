@@ -14,8 +14,6 @@ const LoginScreen = () => {
 
   const history = useHistory();
 
-  const dispatch = useDispatch();
-
   const handleSubmit = async (event: any) => {
     console.log("hello");
     const users: User[] = await fetch("http://localhost:5000/api/users")
@@ -31,10 +29,6 @@ const LoginScreen = () => {
 
     // user is found in database
     if (authenticatedUser.length > 0) {
-      // dispatch({
-      //   type: "SET_USERNAME",
-      //   payload: authenticatedUser[0],
-      // });
       localStorage.setItem(
         "authenticatedUser",
         `${authenticatedUser[0].userId}`
@@ -44,6 +38,18 @@ const LoginScreen = () => {
       console.log("login failed!");
     }
   };
+
+  // const testSend = async () => {
+  //   const response = await fetch("http://localhost:5000/api/users", {
+  //     method: "POST",
+  //     mode: "no-cors",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify("hmmmm"),
+  //   });
+  // };
 
   return (
     <div className="login-bg">
