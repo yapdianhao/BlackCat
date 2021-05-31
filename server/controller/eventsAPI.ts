@@ -198,29 +198,6 @@ export const getEvents = () => {
   return events;
 };
 
-// export const createEvents = (
-//   newEventName: string,
-//   newEventDescription: string,
-//   newEventLocation: string,
-//   newEventChannel: string,
-//   newPosterName: string,
-//   newEventStartDateTime: Date,
-//   newEventEndDateTime: Date
-// ) => {
-//   events.push({
-//     eventId: events.length + 1,
-//     eventName: newEventName,
-//     eventDescription: newEventDescription,
-//     eventLocation: newEventLocation,
-//     eventStartDateTime: newEventStartDateTime,
-//     eventEndDateTime: newEventEndDateTime,
-//     eventChannel: newEventChannel,
-//     eventLikesCount: 0,
-//     eventGoingCount: 0,
-//     eventPostedBy: newPosterName,
-//   });
-// };
-
 export const getEventById = (id: number) => {
   return events[id - 1];
 };
@@ -233,6 +210,36 @@ export const getEventWithLimit = (limit: number, offset: number) => {
 export const deleteEvent = (toDeleteEventId: number) => {
   events = events.filter((event) => event.eventId !== toDeleteEventId);
   return events;
+};
+
+export const processUserLikesEvent = (eventId: number, userId: number) => {
+  let targetEvent: Event = events[eventId - 1];
+  let userLikesEvent = targetEvent.usersLikeEvent.filter(
+    (user) => user.userId === userId
+  );
+  if (userLikesEvent.length > 0) {
+    targetEvent.usersLikeEvent = targetEvent.usersLikeEvent.filter(
+      (user) => user.userId !== userId
+    );
+  } else {
+    targetEvent.usersLikeEvent.push(usersForEvents[userId - 1]);
+  }
+  events[eventId - 1] = targetEvent;
+};
+
+export const processUserGoingEvent = (eventId: number, userId: number) => {
+  let targetEvent: Event = events[eventId - 1];
+  let userGoingEvent = targetEvent.usersGoingEvent.filter(
+    (user) => user.userId === userId
+  );
+  if (userGoingEvent.length > 0) {
+    targetEvent.usersGoingEvent = targetEvent.usersGoingEvent.filter(
+      (user) => user.userId !== userId
+    );
+  } else {
+    targetEvent.usersGoingEvent.push(usersForEvents[userId - 1]);
+  }
+  events[eventId - 1] = targetEvent;
 };
 
 export const insertCommentIntoEvent = (id: number, comment: Comment) => {
@@ -261,6 +268,13 @@ export const getThisMonthEvents = () => {
 
 export const getLaterEvents = () => {
   return events.filter((event) => dateIsLater(event.eventStartDateTime));
+};
+
+export const getEventWithinRange = (start: Date, end: Date) => {
+  return events.filter(
+    (event) =>
+      event.eventStartDateTime >= start && event.eventEndDateTime <= end
+  );
 };
 
 export const getEventsByChannel = (filterChannelName: string) => {

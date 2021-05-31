@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 
+import { User } from "../server/model/user";
 import "../styles/Toolbar.scss";
 import BlackCatIcon from "../components/BlackCatIcon";
 import SideDrawerToggleButton from "./SideDrawerToggleButton";
@@ -11,6 +13,26 @@ interface ToolBarProps {
 }
 
 const Toolbar: React.FC<ToolBarProps> = (props) => {
+  const history = useHistory();
+
+  const [mainUser, setMainUser] = useState<User>();
+
+  const fetchAuthenticatedUser = async () => {
+    await fetch(
+      `http://localhost:5000/api/users/${localStorage.getItem(
+        "authenticatedUser"
+      )}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setMainUser(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchAuthenticatedUser();
+  });
+
   return (
     <header className="toolbar">
       <nav className="toolbar-navigation">
@@ -18,10 +40,12 @@ const Toolbar: React.FC<ToolBarProps> = (props) => {
           <SideDrawerToggleButton clickHandler={props.drawerClickHandler} />
         </div>
         <div className="toolbar-logo">
-          <BlackCatIcon />
+          <button onClick={() => history.push("/home")}>
+            <BlackCatIcon />
+          </button>
         </div>
         <div>
-          <img src={String(profilePic)} className="profile-pic" />
+          <img src={mainUser && mainUser.userImgUrl} className="profile-pic" />
         </div>
       </nav>
     </header>

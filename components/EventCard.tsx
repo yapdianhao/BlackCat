@@ -42,7 +42,6 @@ const EventCard: React.FC<EventCardProps> = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setMainUser(data);
       });
   };
@@ -78,7 +77,15 @@ const EventCard: React.FC<EventCardProps> = (props) => {
         <ClockIcon />
         <div className="activity-time">{`${passedStartDate.getDate()} ${
           monthNames[passedStartDate.getMonth()]
-        } ${passedStartDate.getFullYear()} ${passedStartDate.getHours()}:${passedStartDate.getMinutes()} - ${passedEndDate.getDate()} ${
+        } ${passedStartDate.getFullYear()} ${
+          passedStartDate.getHours() < 10
+            ? "0" + passedStartDate.getHours()
+            : passedStartDate.getHours()
+        }:${
+          passedStartDate.getMinutes() < 10
+            ? "0" + passedStartDate.getMinutes()
+            : passedStartDate.getMinutes()
+        } - ${passedEndDate.getDate()} ${
           monthNames[passedEndDate.getMonth()]
         } ${passedEndDate.getFullYear()} ${passedEndDate.getHours()}:${passedEndDate.getMinutes()}`}</div>
       </div>
@@ -87,19 +94,25 @@ const EventCard: React.FC<EventCardProps> = (props) => {
       </div>
       <div
         className={`activity-stats-area ${
-          checkIfListContainseventId(mainUser && mainUser.userGoingEvents)
+          props.eventToRender.usersGoingEvent
+            .map((user: User) => user.userId)
+            .includes(+localStorage.getItem("authenticatedUser"))
             ? "user-going"
             : "user-dont-like"
         }`}
       >
         <div
           className={`${
-            checkIfListContainseventId(mainUser && mainUser.userGoingEvents)
+            props.eventToRender.usersGoingEvent
+              .map((user: User) => user.userId)
+              .includes(+localStorage.getItem("authenticatedUser"))
               ? "user-going"
               : "user-dont-like"
           }`}
         >
-          {checkIfListContainseventId(mainUser && mainUser.userGoingEvents) ? (
+          {props.eventToRender.usersGoingEvent
+            .map((user: User) => user.userId)
+            .includes(+localStorage.getItem("authenticatedUser")) ? (
             <CheckIcon />
           ) : (
             <CheckIconOutline />
@@ -108,12 +121,16 @@ const EventCard: React.FC<EventCardProps> = (props) => {
         <div className="stats-desc">I am going</div>
         <div
           className={`${
-            checkIfListContainseventId(mainUser && mainUser.userLikedEvents)
+            props.eventToRender.usersLikeEvent
+              .map((user: User) => user.userId)
+              .includes(+localStorage.getItem("authenticatedUser"))
               ? "user-likes"
               : "user-dont-like"
           }`}
         >
-          {checkIfListContainseventId(mainUser && mainUser.userLikedEvents) ? (
+          {props.eventToRender.usersLikeEvent
+            .map((user: User) => user.userId)
+            .includes(+localStorage.getItem("authenticatedUser")) ? (
             <HeartIcon />
           ) : (
             <HeartIconOutline />

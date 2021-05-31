@@ -3,6 +3,7 @@
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
+        "skipLibCheck": true,
         "downlevelIteration": true,
         "module": "es6",
         "target": "es5",
@@ -11,11 +12,13 @@
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "types": [
-            "node"
+            "node",
+            "jest",
+            "@types/jest"
         ],
         "typeRoots": [
             "/node_modules/@types",
             "custom.d.ts"
         ]
-    },
+    }
 }

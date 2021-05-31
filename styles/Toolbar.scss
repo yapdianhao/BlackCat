@@ -16,9 +16,11 @@
 }
 
 .toolbar-logo {
-  height: 24px;
-  width: 24px;
-  fill: #d5ef7f;
+  button {
+    height: 24px;
+    width: 24px;
+    fill: #d5ef7f;
+  }
 }
 
 .profile-pic {

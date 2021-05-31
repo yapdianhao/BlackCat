@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 
 const app = express();
 
@@ -38,6 +37,9 @@ import {
   getEventsByChannel,
   getLaterEvents,
   insertCommentIntoEvent,
+  getEventWithinRange,
+  processUserGoingEvent,
+  processUserLikesEvent,
 } from "./controller/eventsAPI";
 import { insertComment } from "./controller/commentsAPI";
 import { getChannels } from "./controller/channelAPI";
@@ -100,6 +102,25 @@ app.get("/api/eventsthismonth", (req: any, res: any) => {
 app.get("/api/eventslater", (req: any, res: any) => {
   console.log("requested later events");
   res.send(getLaterEvents());
+});
+
+app.get("/api/goingevent/:eventId/:userId", (req: any, res: any) => {
+  console.log("adding / removing user from eventGoing");
+  res.send(processUserGoingEvent(req.params.eventId, req.params.userId));
+});
+
+app.get("/api/likesevent/:eventId/:userId", (req: any, res: any) => {
+  console.log("adding / removing user from eventLikes");
+  res.send(processUserLikesEvent(req.params.eventId, req.params.userId));
+});
+
+app.get("/api/eventsrange/:start/:end", (req: any, res: any) => {
+  const start = req.params.start;
+  const end = req.params.end;
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  console.log(`requested events from ${start} to ${end}`);
+  res.send(getEventWithinRange(startDate, endDate));
 });
 
 app.get("/api/channels", (req: any, res: any) => {

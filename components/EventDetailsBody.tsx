@@ -51,8 +51,16 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   const [mainUser, setMainUser] = useState<User>();
   const [didDivOverflow, setDidDivOverflow] = useState(false);
   const [userIsCommenting, setUserIsCommenting] = useState(false);
-  const [userLikesThisEvent, setUserLikesThisEvent] = useState(false);
-  const [userGoingThisEvent, setUserGoingThisEvent] = useState(false);
+  const [userLikesThisEvent, setUserLikesThisEvent] = useState(
+    props.eventToRender.usersLikeEvent
+      .map((user: User) => user.userId)
+      .includes(+localStorage.getItem("authenticatedUser"))
+  );
+  const [userGoingThisEvent, setUserGoingThisEvent] = useState(
+    props.eventToRender.usersGoingEvent
+      .map((user: User) => user.userId)
+      .includes(+localStorage.getItem("authenticatedUser"))
+  );
   const [commentedUsers, setCommentedUsers] = useState(
     props.eventToRender.eventComments
   );
@@ -174,14 +182,30 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   };
 
   // update likes list, push to first
-  const handleUserClicksLike = () => {
-    setLikesUsersUrl([mainUser.userImgUrl, ...likesUsersUrl]);
+  const handleUserClicksLike = async () => {
+    if (!userLikesThisEvent)
+      setLikesUsersUrl([mainUser.userImgUrl, ...likesUsersUrl]);
+    else {
+      setLikesUsersUrl(
+        likesUsersUrl.filter((url) => url != mainUser.userImgUrl)
+      );
+    }
+    await fetch(
+      `http://localhost:5000/api/likesevent/${props.eventToRender.eventId}/${mainUser.userId}`
+    );
     setUserLikesThisEvent(!userLikesThisEvent);
   };
 
   // update going list, push to first
-  const handleUserClicksGoing = () => {
-    setGoingUsersUrl([mainUser.userImgUrl, ...goingUsersUrl]);
+  const handleUserClicksGoing = async () => {
+    if (!userGoingThisEvent)
+      setGoingUsersUrl([mainUser.userImgUrl, ...goingUsersUrl]);
+    else {
+      setGoingUsersUrl(goingUsersUrl.slice(1));
+    }
+    await fetch(
+      `http://localhost:5000/api/goingevent/${props.eventToRender.eventId}/${mainUser.userId}`
+    );
     setUserGoingThisEvent(!userGoingThisEvent);
   };
 
@@ -398,14 +422,18 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
       .then((data) => {
         console.log(data);
         setMainUser(data);
-        const likedLst: number[] = data.userLikedEvents;
-        setUserLikesThisEvent(
-          new Set(likedLst).has(props.eventToRender.eventId)
-        );
-        const goingLst: number[] = data.userGoingEvents;
-        setUserGoingThisEvent(
-          new Set(goingLst).has(props.eventToRender.eventId)
-        );
+        // const likedLst: number[] = data.userLikedEvents.map(
+        //   (user: User) => user.userId
+        // );
+        // setUserLikesThisEvent(
+        //   new Set(likedLst).has(props.eventToRender.eventId)
+        // );
+        // const goingLst: number[] = data.userGoingEvents.map(
+        //   (user: User) => user.userId
+        // );
+        // setUserGoingThisEvent(
+        //   new Set(goingLst).has(props.eventToRender.eventId)
+        // );
       });
   };
 
@@ -413,10 +441,29 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     fetchEventPosterUrl();
     fetchUrl(peopleWhoLikes, setLikesUsersUrl);
     fetchUrl(peopleWhoGoes, setGoingUsersUrl);
+    setUserGoingThisEvent(
+      peopleWhoGoes
+        .map((user) => user.userId)
+        .includes(+localStorage.getItem("authenticatedUser"))
+    );
+    setUserLikesThisEvent(
+      peopleWhoLikes
+        .map((user) => user.userId)
+        .includes(+localStorage.getItem("authenticatedUser"))
+    );
     setDidDivOverflow(didTextOverflow());
     fetchCommentingUsers();
     fetchAuthenticatedUser();
   }, []);
+
+  console.log(userLikesThisEvent);
+  console.log(
+    props.eventToRender.usersGoingEvent
+      .map((user: User) => user.userId)
+      .includes(+localStorage.getItem("authenticatedUser"))
+  );
+  console.log(localStorage.getItem("authenticatedUser"));
+  console.log(userGoingThisEvent);
 
   return (
     <>
@@ -523,11 +570,17 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
               )}`}</div>
             </div>
           </div>
-          <div className="time-col-big-row">{`${renderHour(
-            new Date(props.eventToRender.eventStartDateTime)
-          )}: ${renderMinutes(
-            new Date(props.eventToRender.eventStartDateTime)
-          )} ${renderAmPm(
+          <div className="time-col-big-row">{`${
+            renderHour(new Date(props.eventToRender.eventStartDateTime)) < 10
+              ? "0" +
+                renderHour(new Date(props.eventToRender.eventStartDateTime))
+              : renderHour(new Date(props.eventToRender.eventStartDateTime))
+          }: ${
+            renderMinutes(new Date(props.eventToRender.eventStartDateTime)) < 10
+              ? "0" +
+                renderMinutes(new Date(props.eventToRender.eventStartDateTime))
+              : renderMinutes(new Date(props.eventToRender.eventStartDateTime))
+          } ${renderAmPm(
             new Date(props.eventToRender.eventStartDateTime)
           )}`}</div>
           <div className="time-col">
@@ -542,11 +595,16 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
               )}`}</div>
             </div>
           </div>
-          <div className="time-col-big-row">{`${renderHour(
-            new Date(props.eventToRender.eventEndDateTime)
-          )}: ${renderMinutes(
-            new Date(props.eventToRender.eventEndDateTime)
-          )} ${renderAmPm(
+          <div className="time-col-big-row">{`${
+            renderHour(new Date(props.eventToRender.eventEndDateTime)) < 10
+              ? "0" + renderHour(new Date(props.eventToRender.eventEndDateTime))
+              : renderHour(new Date(props.eventToRender.eventEndDateTime))
+          }: ${
+            renderMinutes(new Date(props.eventToRender.eventEndDateTime)) < 10
+              ? "0" +
+                renderMinutes(new Date(props.eventToRender.eventEndDateTime))
+              : renderMinutes(new Date(props.eventToRender.eventEndDateTime))
+          } ${renderAmPm(
             new Date(props.eventToRender.eventEndDateTime)
           )}`}</div>
         </div>
@@ -562,13 +620,9 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         <hr className="divider" />
         <div className="going-list-outline" ref={participantsRef}>
           <div className="going-list-title">
-            {mainUser &&
-            checkIfListContainseventId(mainUser.userGoingEvents) ? (
-              <CheckIcon />
-            ) : (
-              <CheckIconOutline />
-            )}
-            {`${props.eventToRender.usersGoingEvent.length} going`}
+            <CheckIconOutline />
+
+            {`${goingUsersUrl.length} going`}
           </div>
           <div className="going-list-people-col">
             {renderGoingList(goingUsersUrl)}
@@ -577,13 +631,9 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         <hr className="divider" />
         <div className="going-list-outline">
           <div className="going-list-title">
-            {mainUser &&
-            checkIfListContainseventId(mainUser.userLikedEvents) ? (
-              <HeartIcon />
-            ) : (
-              <HeartIconOutline />
-            )}
-            {`${props.eventToRender.usersLikeEvent.length} going`}
+            <HeartIconOutline />
+
+            {`${likesUsersUrl.length} likes`}
           </div>
           <div className="going-list-people-col">
             {renderLikesList(likesUsersUrl)}

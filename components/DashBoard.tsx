@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { connect } from "react-redux";
 
 import "../styles/Dashboard.scss";
 import { Event } from "../server/model/event";
@@ -20,7 +21,7 @@ const Dashboard: React.FC<DashBoardProps> = (props) => {
   const [offset, setOffset] = useState(0);
   const { loading, error, list, hasMore } = useFetch(offset);
   const observer = useRef<IntersectionObserver>();
-  const searchedResults: Event[] = store.getState().eventsReducer;
+  const searchedResults = store.getState().eventsReducer;
 
   const lastItemRef = useCallback(
     (node) => {
@@ -85,4 +86,10 @@ const Dashboard: React.FC<DashBoardProps> = (props) => {
   );
 };
 
-export default Dashboard;
+const mapStateToProps = (state: any) => {
+  return {
+    searchedResults: state.eventsReducer,
+  };
+};
+
+export default connect(mapStateToProps)(Dashboard);
