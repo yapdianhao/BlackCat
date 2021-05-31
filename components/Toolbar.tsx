@@ -45,7 +45,12 @@ const Toolbar: React.FC<ToolBarProps> = (props) => {
           </button>
         </div>
         <div>
-          <img src={mainUser && mainUser.userImgUrl} className="profile-pic" />
+          <div onClick={() => history.push("/about")}>
+            <img
+              src={mainUser && mainUser.userImgUrl}
+              className="profile-pic"
+            />
+          </div>
         </div>
       </nav>
     </header>

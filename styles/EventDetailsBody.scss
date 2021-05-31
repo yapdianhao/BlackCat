@@ -263,6 +263,12 @@
   flex-direction: row;
   fill: #ac8ec9;
 
+  .upside-down-svg {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
   .going-list-title {
     display: flex;
     flex-direction: row;

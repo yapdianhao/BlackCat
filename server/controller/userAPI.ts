@@ -32,7 +32,7 @@ let users: User[] = [
   },
 ];
 
-for (let i = 2; i <= 100; i++) {
+for (let i = 2; i <= 50; i++) {
   let fakerUserId: number = i;
   let fakerUserName: string = faker.name.firstName();
   let fakerUserEmail: string = faker.internet.email();

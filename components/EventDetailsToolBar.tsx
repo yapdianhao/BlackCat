@@ -39,7 +39,12 @@ const EventDetailsToolBar = () => {
           </button>
         </div>
         <div>
-          <img src={mainUser && mainUser.userImgUrl} className="profile-pic" />
+          <button onClick={() => history.push("/about")}>
+            <img
+              src={mainUser && mainUser.userImgUrl}
+              className="profile-pic"
+            />
+          </button>
         </div>
       </nav>
     </header>

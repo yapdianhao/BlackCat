@@ -167,7 +167,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     setCommentedUsers([
       ...commentedUsers,
       {
-        commentedBy: 1,
+        commentedBy: +localStorage.getItem("authenticatedUser"),
         commentTimeBefore: 0,
         commentContent: message,
       },
@@ -184,7 +184,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   // update likes list, push to first
   const handleUserClicksLike = async () => {
     if (!userLikesThisEvent)
-      setLikesUsersUrl([mainUser.userImgUrl, ...likesUsersUrl]);
+      setLikesUsersUrl([...likesUsersUrl, mainUser.userImgUrl]);
     else {
       setLikesUsersUrl(
         likesUsersUrl.filter((url) => url != mainUser.userImgUrl)
@@ -199,7 +199,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   // update going list, push to first
   const handleUserClicksGoing = async () => {
     if (!userGoingThisEvent)
-      setGoingUsersUrl([mainUser.userImgUrl, ...goingUsersUrl]);
+      setGoingUsersUrl([...goingUsersUrl, mainUser.userImgUrl]);
     else {
       setGoingUsersUrl(goingUsersUrl.slice(1));
     }
@@ -220,15 +220,11 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         </div>
       );
     } else {
-      // large amount of people. not showing
+      // large amount of people. not showing. svg must point down.
       if (!showMoreLikes) {
         const headList = lst.slice(0, 7);
         return (
-          <div
-            className={`going-list-people-row ${
-              showMoreLikes ? "upside-down-svg" : "upright-svg"
-            }`}
-          >
+          <div className="going-list-people-row upside-down-svg">
             {headList.map((source: any, idx: number) => {
               if (idx != 6) {
                 return <img src={String(source)} />;
@@ -243,7 +239,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
         );
       } else {
-        // large amount of people , showing
+        // large amount of people , showing. svg must point
         let slicedList = generateEqualLengthList(lst);
         return slicedList.map((subList: any, index: any) => {
           if (index == slicedList.length - 1) {
@@ -271,11 +267,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
       if (!showMoreGoing) {
         const headList = lst.slice(0, 7);
         return (
-          <div
-            className={`going-list-people-row ${
-              showMoreGoing ? "upside-down-svg" : "upright-svg"
-            }`}
-          >
+          <div className="going-list-people-row upside-down-svg">
             {headList.map((source: any, idx: number) => {
               if (idx != 6) {
                 return <img src={String(source)} />;
@@ -335,11 +327,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   ) => {
     lst.push(null);
     return (
-      <div
-        className={`going-list-people-row ${
-          showMoreLikes ? "upside-down-svg" : "upright-svg"
-        }`}
-      >
+      <div className="going-list-people-row">
         {lst.map((source: any, idx: number) => {
           if (idx != lst.length - 1) {
             return <img src={String(source)} />;
@@ -349,11 +337,6 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         })}
       </div>
     );
-  };
-
-  const checkIfListContainseventId = (eventsIdList: number[]) => {
-    const setFromList = new Set(eventsIdList);
-    return setFromList.has(props.eventToRender.eventId);
   };
 
   const fetchEventPosterUrl = async () => {

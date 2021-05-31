@@ -93,11 +93,14 @@ for (let i: number = 1; i <= 100; i++) {
       let startDate = new Date();
       let endDate = new Date();
       startDate.setDate(
-        startDate.getDate() - Math.floor(Math.random() * 5) + 1
+        startDate.getDate() - (Math.floor(Math.random() * 20) + 10)
       );
-      endDate.setDate(startDate.getDate() - Math.floor(Math.random() * 10) + 5);
+      endDate.setDate(
+        startDate.getDate() - (Math.floor(Math.random() * 10) + 10)
+      );
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
+      break;
     }
     case 1: {
       let startDate = new Date();
@@ -108,6 +111,9 @@ for (let i: number = 1; i <= 100; i++) {
       endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 5) + 1);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
+      console.log(fakeEventStartDateTime);
+      console.log(fakeEventEndDateTime);
+      break;
     }
     case 2: {
       let startDate = new Date();
@@ -123,6 +129,7 @@ for (let i: number = 1; i <= 100; i++) {
 
       console.log(fakeEventStartDateTime);
       console.log(fakeEventEndDateTime);
+      break;
     }
     case 3: {
       let startDate = new Date();
@@ -132,6 +139,9 @@ for (let i: number = 1; i <= 100; i++) {
       endDate.setHours(endDate.getHours() + 1);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
+      console.log(fakeEventStartDateTime);
+      console.log(fakeEventEndDateTime);
+      break;
     }
     case 4: {
       let startDate = new Date();
@@ -140,6 +150,9 @@ for (let i: number = 1; i <= 100; i++) {
       endDate.setDate(startDate.getHours() + 3);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
+      console.log(fakeEventStartDateTime);
+      console.log(fakeEventEndDateTime);
+      break;
     }
     case 5: {
       let startDate = new Date();
@@ -150,6 +163,9 @@ for (let i: number = 1; i <= 100; i++) {
       endDate.setHours(endDate.getHours() + 5);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
+      console.log(fakeEventStartDateTime);
+      console.log(fakeEventEndDateTime);
+      break;
     }
     case 6: {
       let startDate = new Date();
@@ -160,6 +176,9 @@ for (let i: number = 1; i <= 100; i++) {
       endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 7) + 4);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
+      console.log(fakeEventStartDateTime);
+      console.log(fakeEventEndDateTime);
+      break;
     }
     case 7: {
       let startDate = new Date();
@@ -170,6 +189,9 @@ for (let i: number = 1; i <= 100; i++) {
       endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 10) + 7);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
+      console.log(fakeEventStartDateTime);
+      console.log(fakeEventEndDateTime);
+      break;
     }
     default: {
       break;
