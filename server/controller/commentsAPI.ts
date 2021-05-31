@@ -23,5 +23,4 @@ export const getComments = () => {
 export const insertComment = (newComment: Comment) => {
   comments.push(newComment);
   console.log("inserted new comment");
-  //console.log(comments);
 };

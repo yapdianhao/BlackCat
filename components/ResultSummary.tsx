@@ -16,7 +16,7 @@ const ResultSummary: React.FC<ResultSummaryProps> = (props) => {
           CLEAR SEARCH
         </div>
       </div>
-      <div className="result-sec-row">Searched for activities on 09/05</div>
+      <div className="result-sec-row">Searched for activities</div>
     </div>
   );
 };

@@ -21,7 +21,7 @@ const LaterSearchTool: React.FC<LaterSearchToolProps> = (props) => {
           <div className="input-search-box">
             <DateFromIcon />
             <input
-              placeholder="MM/DD/YYYY"
+              placeholder="MM-DD-YYYY"
               onChange={(e) => props.firstListener(e.target.value)}
             ></input>
           </div>
@@ -29,7 +29,7 @@ const LaterSearchTool: React.FC<LaterSearchToolProps> = (props) => {
           <div className="input-search-box">
             <DateToIcon />
             <input
-              placeholder="MM/DD/YYYY"
+              placeholder="MM-DD-YYYY"
               onChange={(e) => props.secondListener(e.target.value)}
             ></input>
           </div>

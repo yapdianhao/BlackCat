@@ -52,7 +52,7 @@ const EventCard: React.FC<EventCardProps> = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setEventPoster(data);
       });
   };

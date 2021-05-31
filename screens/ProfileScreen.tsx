@@ -148,8 +148,8 @@ const ProfileScreen = () => {
           <hr className="divider" />
           {likesTapped ? (
             eventsUserLikes.length > 0 ? (
-              eventsUserLikes.map((event: Event) => (
-                <div>
+              eventsUserLikes.map((event: Event, index: number) => (
+                <div key={index}>
                   <EventCard eventToRender={event} />
                   <hr />
                 </div>
@@ -161,8 +161,8 @@ const ProfileScreen = () => {
             )
           ) : goingTapped ? (
             eventsUserGoing.length > 0 ? (
-              eventsUserGoing.map((event: Event) => (
-                <div>
+              eventsUserGoing.map((event: Event, index: number) => (
+                <div key={index}>
                   <EventCard eventToRender={event} />
                   <hr />
                 </div>
@@ -173,8 +173,8 @@ const ProfileScreen = () => {
               </div>
             )
           ) : eventsPast.length > 0 ? (
-            eventsPast.map((event: Event) => (
-              <div>
+            eventsPast.map((event: Event, index: number) => (
+              <div key={index}>
                 <EventCard eventToRender={event} />
                 <hr />
               </div>
