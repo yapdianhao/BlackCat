@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import "../styles/ReplyBar.scss";
 import SendIcon from "./SendIcon";
@@ -14,15 +14,18 @@ interface ReplyBarProps {
 const ReplyBar: React.FC<ReplyBarProps> = (props) => {
   const [commentInput, setCommentInput] = useState("");
 
+  const textInput = useRef(null);
+
   const sendComment = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
     props.handleSendIcon(
       `${
         props.placeHolder.slice(0, 1) === "@" ? props.placeHolder : ""
       } ${commentInput}`
     );
-    setCommentInput("");
-    console.log(commentInput);
+  };
+
+  const clearInput = () => {
+    textInput.current.value = "";
   };
 
   return (
@@ -34,9 +37,10 @@ const ReplyBar: React.FC<ReplyBarProps> = (props) => {
         <input
           placeholder={props.placeHolder}
           onChange={(e) => setCommentInput(e.target.value)}
+          ref={textInput}
         />
       </div>
-      <div className="reply-send-button-area">
+      <div className="reply-send-button-area" onClick={clearInput}>
         <SendIcon handleSendComment={sendComment} />
       </div>
     </div>
