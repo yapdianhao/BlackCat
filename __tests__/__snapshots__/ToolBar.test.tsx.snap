@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Toolbar correctly 1`] = `
+<header
+  className="toolbar"
+>
+  <nav
+    className="toolbar-navigation"
+  >
+    <div>
+      <button
+        onClick={[Function]}
+      >
+        <div
+          className="search-button"
+        >
+          <svg
+            data-name="Layer 1"
+            id="Layer_1"
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>
+              search
+            </title>
+            <path
+              d="M20.67,18.67H19.61l-0.37-.36a8.68,8.68,0,1,0-.93.93l0.36,0.37v1.05l6.67,6.65,2-2Zm-8,0a6,6,0,1,1,6-6A6,6,0,0,1,12.67,18.67Z"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+    <div
+      className="toolbar-logo"
+    >
+      <button
+        onClick={[Function]}
+      >
+        <svg
+          data-name="Layer 1"
+          id="Layer_1"
+          viewBox="0 0 32 32"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title>
+            logo-cat
+          </title>
+          <polygon
+            points="26.47 14.44 23.07 19.93 23.07 27.38 25.83 29.84 19.2 29.84 21.89 27.36 21.89 19.72 15.69 10.95 19.62 10.95 21.48 9.19 18.18 4.17 14.73 3.14 15.15 -0.03 9.92 4.17 2.83 17.38 7.78 28.12 5.51 30.53 5.51 31.97 9.26 31.97 10.18 31.48 10.93 31.97 29.94 31.97 29.94 30.25 25.68 25.99 25.68 20.55 27.96 16.84 28.78 16.84 29.2 20.08 30.4 20.08 30.71 14.44 26.47 14.44"
+          />
+        </svg>
+      </button>
+    </div>
+    <div>
+      <div
+        onClick={[Function]}
+      >
+        <img
+          className="profile-pic"
+        />
+      </div>
+    </div>
+  </nav>
+</header>
+`;
