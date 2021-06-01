@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -50,7 +51,6 @@ module.exports = {
   ],
   output: {
     filename: "[name].bundle.js",
-    path: "./dist",
     chunkFilename: "[name].bundle.js",
     publicPath: "/",
     path: path.resolve(__dirname, "dist"),

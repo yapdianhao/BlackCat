@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
-const About = () => {
-    return (
-        <div>
-            About
-        </div>
-    );
-}
+const About = (): JSX.Element => {
+  return <div>About</div>;
+};
 
 export default About;

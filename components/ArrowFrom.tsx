@@ -1,6 +1,6 @@
 import React from "react";
 
-const ArrowFrom = () => {
+const ArrowFrom = (): JSX.Element => {
   return (
     <svg
       id="Layer_1"

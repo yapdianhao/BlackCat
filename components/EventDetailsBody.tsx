@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from "react";
 
 import "../styles/EventDetailsBody.scss";
@@ -240,8 +241,8 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         );
       } else {
         // large amount of people , showing. svg must point
-        let slicedList = generateEqualLengthList(lst);
-        return slicedList.map((subList: any, index: any) => {
+        const slicedList = generateEqualLengthList(lst);
+        return slicedList.map((subList: any, index: number) => {
           if (index == slicedList.length - 1) {
             return generateLastList(subList, handleClickSeeMoreLikes);
           } else {
@@ -258,7 +259,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
       return (
         <div className="going-list-people-row">
           {lst.map((source: any, idx: number) => (
-            <img src={String(source)} />
+            <img src={String(source)} key={idx} />
           ))}
         </div>
       );
@@ -626,7 +627,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
         <div ref={commentsRef}>
           {commentedUsers.map((comment: Comment, idx: number) => {
             return (
-              <div className="comment-list-area">
+              <div className="comment-list-area" key={idx}>
                 <div className="comment-user-profile-pic">
                   <img
                     src={

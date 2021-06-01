@@ -1,6 +1,8 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
+import LoadingScreen from "../screens/LoadingScreen";
+
 const HomeScreen = lazy(() => import("../screens/HomeScreen"));
 const ProfileScreen = lazy(() => import("../screens/ProfileScreen"));
 const SearchScreen = lazy(() => import("../screens/SearchScreen"));
@@ -10,7 +12,7 @@ const LoginScreen = lazy(() => import("../screens/LoginScreen"));
 const App = () => {
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={LoadingScreen}>
         <Switch>
           <Route path="/about" component={ProfileScreen} />
           <Route path="/home" component={HomeScreen} />

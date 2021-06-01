@@ -236,14 +236,14 @@ export const deleteEvent = (toDeleteEventId: number) => {
 
 export const processUserLikesEvent = (eventId: number, userId: number) => {
   let targetEvent: Event = events[eventId - 1];
-  let userLikesEvent = targetEvent.usersLikeEvent.filter(
-    (user) => user.userId === userId
-  );
-  if (userLikesEvent.length > 0) {
+  userId = +userId;
+  let userIdArr = targetEvent.usersLikeEvent.map((user: User) => user.userId);
+  if (userIdArr.includes(userId)) {
     targetEvent.usersLikeEvent = targetEvent.usersLikeEvent.filter(
       (user) => user.userId !== userId
     );
   } else {
+    console.log("execute this");
     targetEvent.usersLikeEvent.push(usersForEvents[userId - 1]);
   }
   events[eventId - 1] = targetEvent;
@@ -251,10 +251,9 @@ export const processUserLikesEvent = (eventId: number, userId: number) => {
 
 export const processUserGoingEvent = (eventId: number, userId: number) => {
   let targetEvent: Event = events[eventId - 1];
-  let userGoingEvent = targetEvent.usersGoingEvent.filter(
-    (user) => user.userId === userId
-  );
-  if (userGoingEvent.length > 0) {
+  eventId = +eventId;
+  let userIdArr = targetEvent.usersGoingEvent.map((user: User) => user.userId);
+  if (userIdArr.includes(eventId)) {
     targetEvent.usersGoingEvent = targetEvent.usersGoingEvent.filter(
       (user) => user.userId !== userId
     );

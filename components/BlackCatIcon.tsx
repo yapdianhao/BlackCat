@@ -1,6 +1,6 @@
 import React from "react";
 
-const BlackCatIcon = () => {
+const BlackCatIcon = (): JSX.Element => {
   return (
     <svg
       id="Layer_1"

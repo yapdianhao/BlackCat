@@ -3,7 +3,6 @@ import { useHistory } from "react-router";
 
 import "../styles/EventCard.scss";
 import { monthNames } from "../helper/MonthNames";
-const profilePic = require("../images/Street-Dance-01.jpg");
 import { Event } from "../server/model/event";
 import { User } from "../server/model/user";
 import ClockIcon from "../components/ClockIcon";
@@ -24,11 +23,6 @@ const EventCard: React.FC<EventCardProps> = (props) => {
 
   const passedStartDate = new Date(props.eventToRender.eventStartDateTime);
   const passedEndDate = new Date(props.eventToRender.eventEndDateTime);
-
-  const checkIfListContainseventId = (eventsIdList: number[]) => {
-    const setFromList = new Set(eventsIdList);
-    return setFromList.has(props.eventToRender.eventId);
-  };
 
   const handleClickEventCard = () => {
     history.push(`/events/${props.eventToRender.eventId}`);
@@ -87,7 +81,11 @@ const EventCard: React.FC<EventCardProps> = (props) => {
             : passedStartDate.getMinutes()
         } - ${passedEndDate.getDate()} ${
           monthNames[passedEndDate.getMonth()]
-        } ${passedEndDate.getFullYear()} ${passedEndDate.getHours()}:${passedEndDate.getMinutes()}`}</div>
+        } ${passedEndDate.getFullYear()} ${passedEndDate.getHours()}:${
+          passedEndDate.getMinutes() < 10
+            ? "0" + passedEndDate.getMinutes()
+            : passedEndDate.getMinutes()
+        }`}</div>
       </div>
       <div className="activity-desc">
         {props.eventToRender.eventDescription}

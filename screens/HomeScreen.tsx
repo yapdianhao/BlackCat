@@ -6,10 +6,7 @@ const Toolbar = lazy(() => import("../components/Toolbar"));
 const Dashboard = lazy(() => import("../components/DashBoard"));
 const SideDrawer = lazy(() => import("../components/SideDrawer"));
 const BackDrop = lazy(() => import("../components/BackDrop"));
-// import Toolbar from "../components/Toolbar";
-// import Dashboard from "../components/DashBoard";
-// import SideDrawer from "../components/SideDrawer";
-// import BackDrop from "../components/BackDrop";
+import LoadingScreen from "./LoadingScreen";
 
 const Home = () => {
   console.log(localStorage.getItem("authenticatedUser"));
@@ -39,13 +36,9 @@ const Home = () => {
   console.log(userSearchedResults);
   console.log(sideDrawerOpen);
 
-  // useEffect(() => {
-  //   setAuthenticatedUserId(localStorage.getItem("authenticatedUser"));
-  // });
-
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={LoadingScreen}>
         <Toolbar drawerClickHandler={handleDrawerToggleClick} />
         <SideDrawer
           shouldShow={sideDrawerOpen}

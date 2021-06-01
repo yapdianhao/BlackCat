@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckIconOutline = () => {
+const CheckIconOutline = (): JSX.Element => {
   return (
     <svg
       id="Layer_1"
