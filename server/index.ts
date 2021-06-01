@@ -4,15 +4,8 @@ const bodyParser = require("body-parser");
 const app = express();
 
 app.use(bodyParser.json());
-//app.use(cors);
-// app.use(
-//   bodyParser.urlencoded({
-//     extended: true,
-//   })
-// );
 
 app.use(express.json());
-// app.use(express.urlencoded());
 
 app.use((req: any, res: any, next: any) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -23,9 +16,7 @@ app.use((req: any, res: any, next: any) => {
   next();
 });
 
-// import the rest of the operations
-import { getUsers, getUser } from "./controller/userAPI";
-// import the rest of the operations
+import { getUsers, getUser, checkLoginUser } from "./controller/userAPI";
 import {
   getEvents,
   getEventById,
@@ -49,6 +40,11 @@ const port: string | number = process.env.PORT || 5000;
 app.get("/", (req: any, res: any) => {
   console.log("you have reached the home directory!");
   res.send("this is from express.js");
+});
+
+app.get("/login/:username/:password", (req: any, res: any) => {
+  console.log("logging in");
+  res.send(checkLoginUser(req.params.username, req.params.password));
 });
 
 app.get("/api/users", (req: any, res: any) => {

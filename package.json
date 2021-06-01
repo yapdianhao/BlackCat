@@ -10,20 +10,14 @@
     "dev": "tsc server/*.ts && node-dev server/index.js"
   },
   "jest": {
-    "setupFiles": [
-      "<rootDir>/test-shim.js",
-      "<rootDir>/test-setup.js"
-    ],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
       "js"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js"
-    },
-    "testMatch": [
-      "**/__tests__/*.(ts|tsx|js)"
     ]
   },
   "repository": {
@@ -35,6 +29,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-typescript": "^7.13.0",
     "@svgr/webpack": "^5.5.0",
     "@types/cors": "^2.8.10",
     "@types/enzyme": "^3.10.8",
@@ -43,6 +38,7 @@
     "@types/node": "^15.0.3",
     "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.4",
+    "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",

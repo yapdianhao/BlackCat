@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router";
-import { useDispatch } from "react-redux";
+import React, { useState, Suspense, lazy } from "react";
 
 import "../styles/HomeScreen.scss";
-import { User } from "../server/model/user";
-import Toolbar from "../components/Toolbar";
-import Dashboard from "../components/DashBoard";
-import SideDrawer from "../components/SideDrawer";
-import BackDrop from "../components/BackDrop";
+
+const Toolbar = lazy(() => import("../components/Toolbar"));
+const Dashboard = lazy(() => import("../components/DashBoard"));
+const SideDrawer = lazy(() => import("../components/SideDrawer"));
+const BackDrop = lazy(() => import("../components/BackDrop"));
+// import Toolbar from "../components/Toolbar";
+// import Dashboard from "../components/DashBoard";
+// import SideDrawer from "../components/SideDrawer";
+// import BackDrop from "../components/BackDrop";
 
 const Home = () => {
   console.log(localStorage.getItem("authenticatedUser"));
@@ -42,23 +44,25 @@ const Home = () => {
   // });
 
   return (
-    <>
-      <Toolbar drawerClickHandler={handleDrawerToggleClick} />
-      <SideDrawer
-        shouldShow={sideDrawerOpen}
-        shouldShowSearchResults={userSearchedResults}
-        handleShouldShowSearchResults={handleClickSearch}
-      />
-      {sideDrawerOpen ? (
-        <BackDrop backDropClickHandler={handleBackDropToggleClick} />
-      ) : null}
-      <main>
-        <Dashboard
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Toolbar drawerClickHandler={handleDrawerToggleClick} />
+        <SideDrawer
+          shouldShow={sideDrawerOpen}
           shouldShowSearchResults={userSearchedResults}
-          clearUserSearchedResults={clearSearchResults}
+          handleShouldShowSearchResults={handleClickSearch}
         />
-      </main>
-    </>
+        {sideDrawerOpen ? (
+          <BackDrop backDropClickHandler={handleBackDropToggleClick} />
+        ) : null}
+        <main>
+          <Dashboard
+            shouldShowSearchResults={userSearchedResults}
+            clearUserSearchedResults={clearSearchResults}
+          />
+        </main>
+      </Suspense>
+    </div>
   );
 };
 
