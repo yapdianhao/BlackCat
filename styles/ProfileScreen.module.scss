@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+
+.profilePictureArea {
+  display: flex;
+  margin-top: 40px;
+  padding: 40px 0px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+  }
+}
+
+.profileName {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: "Source Sans Pro";
+  color: #67616d;
+  font-size: 24px;
+}
+
+.emailArea {
+  display: flex;
+  padding: 20px 0px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  fill: #8560a9;
+  font-family: "Source Sans Pro";
+  color: #8560a9;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    padding: 0px 10px 0px 0px;
+  }
+}
+
+.profileContent {
+  padding: 0px 10px 0px 25px;
+  display: inline-block;
+  justify-content: center;
+}
+
+.divider {
+  border: 1px solid #e8e8e8;
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.profileStats {
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  font-size: 12px;
+  width: 85vw;
+  column-count: 3;
+  padding: 5px;
+  column-rule-style: solid;
+  column-rule-width: 1px;
+  column-rule-color: #e8e8e8;
+
+  .individualStats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 16.7px;
+      height: 16.7px;
+      padding: 5px;
+    }
+  }
+
+  .chosen {
+    color: #aecb4f;
+    fill: #aecb4f;
+  }
+
+  .notChosen {
+    color: #8c8c8c;
+    fill: #8c8c8c;
+  }
+}
+
+.renderingArea {
+  padding: 20px;
+}
+
+.noActivity {
+  padding-top: 40px;
+}

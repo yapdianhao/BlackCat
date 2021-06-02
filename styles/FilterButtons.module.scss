@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+
+.filterButtonTimeFocus {
+  background-color: #e5f7a9;
+  padding: 5px;
+  border-radius: 25px;
+  margin: 10px;
+  font-family: "Source Sans Pro";
+  font-weight: 600;
+  font-size: 14px;
+  color: #453257;
+}
+
+.filterButtonTime {
+  background-color: transparent;
+  padding: 5px;
+  border-radius: 25px;
+  margin: 10px;
+  font-family: "Source Sans Pro";
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.filterButtonChannelFocus {
+  background-color: #e5f7a9;
+  padding: 5px;
+  border-radius: 25px;
+  margin: 10px;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  font-size: 14px;
+  color: #453257;
+}
+
+.filterButtonChannel {
+  background-color: transparent;
+  padding: 5px;
+  border: 1px solid #ffffff;
+  border-color: #ffffff;
+  border-radius: 25px;
+  margin: 10px;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  font-size: 14px;
+  color: #ffffff;
+}

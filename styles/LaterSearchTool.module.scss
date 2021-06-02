@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+
+.laterSearch {
+  margin: 0px 20px 0px 20px;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  margin-left: 10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #ffffff;
+}
+
+.inputArea {
+  background-color: #ffffff;
+  display: block;
+  justify-content: space-between;
+
+  .inputSearchRow {
+    display: flex;
+    flex-direction: row;
+
+    .inputSearchBox {
+      display: flex;
+      fill: #d5ef7f;
+      padding: 5px 5px;
+      align-items: center;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      input,
+      input:focus {
+        font-family: "Source Sans Pro";
+        font-size: 14px;
+        font-weight: 400;
+        color: #8560a9;
+        width: 80px;
+        height: 18px;
+        outline: none;
+        border-radius: 0px;
+        border-color: transparent;
+      }
+
+      ::placeholder {
+        font-family: "Source Sans Pro";
+        font-size: 14px;
+        opacity: 0.5;
+        color: #8560a9;
+      }
+    }
+  }
+}

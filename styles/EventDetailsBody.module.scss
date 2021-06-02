@@ -1,0 +1,378 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+
+.eventDetailsBody {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow: scroll;
+}
+
+.eventHeader {
+  display: flex;
+}
+
+.filler {
+  flex-grow: 1;
+}
+
+.eventChannelName {
+  padding: 5px;
+  font-size: 12px;
+  margin-left: auto;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  border-radius: 25px;
+  color: #8560a9;
+  border: 1px solid #8560a9;
+}
+
+.eventTitle {
+  padding-top: 5px;
+  font-size: 18px;
+  font-family: "Source Sans Pro";
+  font-weight: 600;
+  color: #453257;
+}
+
+.eventInfoRow {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.eventInfoColImg {
+  display: flex;
+  flex-direction: column;
+  width: 36px;
+  height: 36px;
+}
+
+.eventProfilePic {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+}
+
+.eventInfoRowPublishDetailsArea {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.eventInfoColPublishDetails {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+
+  .username {
+    font-size: 14px;
+    color: #67616d;
+  }
+
+  .lastPublish {
+    color: #bababa;
+    font-size: 12px;
+  }
+}
+
+.eventStats {
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  font-size: 12px;
+  width: 85vw;
+  column-count: 3;
+  column-rule-style: solid;
+  column-rule-width: 1px;
+  column-rule-color: #e8e8e8;
+
+  .individualStats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 16.7px;
+      height: 16.7px;
+      padding: 5px;
+    }
+  }
+
+  .chosen {
+    color: #aecb4f;
+    fill: #aecb4f;
+  }
+
+  .notChosen {
+    color: #8c8c8c;
+    fill: #8c8c8c;
+  }
+}
+
+.divider {
+  border: 1px solid #e8e8e8;
+}
+
+.gallery {
+  width: 85vw;
+  padding: 5px;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  img {
+    padding: 5px;
+    width: 180px;
+    height: 100px;
+    border-radius: 10px;
+  }
+}
+
+.desc {
+  padding: 10px 10px 0px 10px;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  font-family: "Source Sans Pro";
+  color: #67616d;
+  font-size: 14px;
+  font-weight: 400;
+  background: linear-gradient(transparent 150px, white);
+
+  .textAreaHidden {
+    max-height: 180px;
+    overflow: hidden;
+  }
+
+  .textAreaUnhidden {
+    max-height: 100%;
+  }
+
+  .blurEffect {
+    position: absolute;
+    width: 100%;
+    top: 150px;
+    height: 50px;
+    background: linear-gradient(transparent, #ffffff);
+  }
+
+  .expandBtn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    button {
+      background-color: #d5ef7f;
+      font-family: "Source Sans Pro";
+      font-size: 10px;
+      font-weight: 400;
+      padding: 5px;
+      border-radius: 20px;
+    }
+  }
+}
+
+.sectionStarter {
+  display: flex;
+  padding: 10px;
+
+  .sectionShape {
+    width: 4px;
+    height: 18px;
+    background-color: #8560a9;
+    border-radius: 20px;
+  }
+
+  .sectionText {
+    color: #8560a9;
+    font-family: "Source Sans Pro";
+    size: 16px;
+    font-weight: 600;
+    padding-left: 5px;
+  }
+}
+
+.timeRow {
+  align-items: center;
+  column-count: 2;
+  column-rule-style: solid;
+  column-rule-width: 1px;
+  column-rule-color: #e8e8e8;
+
+  .timeCol {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+
+    .timeColRow {
+      display: flex;
+      flex-direction: row;
+      fill: #d5ef7f;
+      align-items: center;
+      justify-content: center;
+      color: #67616d;
+      font-family: "Source Sans Pro";
+      font-weight: 400;
+      font-size: 16px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      div {
+        padding: 0px 10px;
+      }
+    }
+  }
+
+  .timeColBigRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: "Source Sans Pro";
+    font-weight: 400;
+    font-size: 32px;
+    color: #aecb4f;
+  }
+}
+
+.location {
+  font-family: "Source Sans Pro";
+  display: flex;
+  color: #67616d;
+  display: flex;
+  font-size: 14;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+
+.locMap {
+  padding: 10px;
+  overflow: auto;
+  height: 88px;
+  width: 80vw;
+}
+
+.goingListOutline {
+  display: flex;
+  flex-direction: row;
+  fill: #ac8ec9;
+
+  .upside-down-svg {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .goingListTitle {
+    display: flex;
+    flex-direction: row;
+    flex: 0.3;
+    align-items: center;
+    font-family: "Source Sans Pro";
+    color: #ac8ec9;
+    font-size: 12px;
+    padding: 5px;
+
+    svg {
+      height: 12px;
+      width: 12px;
+      padding: 10px;
+    }
+  }
+
+  .goingListPeopleCol {
+    display: grid;
+    flex: 0.7;
+    padding: 10px;
+  }
+
+  .goingListPeopleRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    grid-column-start: 1;
+
+    svg {
+      height: 24px;
+      width: 24px;
+      padding: 0px 3px;
+    }
+
+    img {
+      padding: 3px;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.commentListArea {
+  display: flex;
+
+  .commentUserProfilePic {
+    padding: 5px;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+  }
+
+  .commentDetailsLayout {
+    display: flex;
+    width: 60vw;
+    flex-direction: column;
+    padding: 5px 10px;
+
+    .commentDetails {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-family: "Source Sans Pro";
+      font-weight: 400;
+      fill: #d5ef7f;
+
+      .commentUsername {
+        font-size: 12px;
+        color: #8560a9;
+      }
+
+      .commentTime {
+        font-size: 10px;
+        padding-left: 20px;
+        color: #bababa;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .commentWords {
+    padding: 5px;
+    font-family: "Source Sans Pro";
+    font-size: 14px;
+    font-weight: 400;
+    color: #67616d;
+  }
+
+  .replyButton {
+    fill: #d5ef7f;
+    padding: 5px;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

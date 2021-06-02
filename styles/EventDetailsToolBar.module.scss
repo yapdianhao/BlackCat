@@ -1,0 +1,31 @@
+.toolbar {
+  width: 100%;
+  position: fixed;
+  background: #8560a9;
+  top: 0;
+  left: 0;
+  height: 40px;
+  z-index: 200;
+}
+
+.toolbarNavigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 1rem;
+}
+
+.toolbarLogo {
+  button {
+    height: 24px;
+    width: 24px;
+    fill: #d5ef7f;
+  }
+}
+
+.profilePic {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+}
