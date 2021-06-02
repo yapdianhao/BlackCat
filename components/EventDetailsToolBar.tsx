@@ -25,7 +25,7 @@ const EventDetailsToolBar = () => {
 
   useEffect(() => {
     fetchAuthenticatedUser();
-  });
+  }, []);
 
   return (
     <header className="toolbar">

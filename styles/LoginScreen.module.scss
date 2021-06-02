@@ -6,7 +6,7 @@ body {
   margin: 0;
 }
 
-.login-bg {
+.loginBg {
   height: 100%;
   margin: 0;
   background: linear-gradient(0deg, #8560a9a9, #8560a9a9),
@@ -20,7 +20,7 @@ body {
   position: fixed;
 }
 
-.sub-title {
+.subTitle {
   display: flex;
   justify-content: center;
   font-family: "Source Sans Pro", sans-serif;
@@ -29,7 +29,7 @@ body {
   color: #d5ef7f;
 }
 
-.main-title {
+.mainTitle {
   display: flex;
   justify-content: center;
   font-family: "Source Sans Pro", sans-serif;
@@ -39,7 +39,7 @@ body {
   color: #d5ef7f;
 }
 
-.black-cat-logo {
+.blackCatLogo {
   margin: 0 auto;
   padding: 20px;
   height: 10%;
@@ -47,18 +47,18 @@ body {
   fill: #d5ef7f;
 }
 
-.user-login-form-area {
+.userLoginFormArea {
   margin: 80px;
   display: flex;
   justify-content: center;
 }
 
-.user-login-form {
+.userLoginForm {
   display: inline-block;
   justify-content: center;
 }
 
-.user-login-form-input-container {
+.userLoginFormInputContainer {
   width: 100%;
   margin-bottom: 15px;
 
@@ -69,7 +69,7 @@ body {
   }
 }
 
-.user-login-form-input-field {
+.userLoginFormInputField {
   font-family: "Source Sans Pro";
   width: 100%;
   padding: 10px;
@@ -80,14 +80,14 @@ body {
   background: #ffffff59;
 }
 
-.user-login-form-input {
+.userLoginFormInput {
   width: 100%;
   border-radius: 25px;
   padding: 10px;
   outline: none;
 }
 
-.user-login-form-submit-btn {
+.userLoginFormSubmitBtn {
   font-family: "Source Sans Pro";
   font-size: 16px;
   font-weight: 600;

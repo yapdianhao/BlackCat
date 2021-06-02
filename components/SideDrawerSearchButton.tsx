@@ -12,6 +12,7 @@ interface SideDrawerSearchButtonProps {
   handleSearchClick: React.MouseEventHandler<HTMLDivElement>;
   shouldShowSearchResults: boolean;
   shouldHandleSearchRange: boolean;
+  searchResultsSummaryString: string;
   handleSearchRange: any;
 }
 
@@ -47,7 +48,9 @@ const SideDrawerSearchButton: React.FC<SideDrawerSearchButtonProps> = (
         <SearchIcon />
         <div>SEARCH</div>
       </div>
-      <div className="search-button-sidedrawer-title">All activities</div>
+      <div className="search-button-sidedrawer-title">
+        {props.searchResultsSummaryString}
+      </div>
     </div>
   );
 };

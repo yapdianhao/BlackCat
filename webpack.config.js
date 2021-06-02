@@ -27,13 +27,49 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      // SCSS ALL EXCEPT MODULES
       {
-        test: /\.s[ac]ss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.scss$/,
+        exclude: /\.module\.scss$/,
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              modules: {
+                compileType: "icss",
+              },
+            },
+          },
+          {
+            loader: "sass-loader",
+          },
+        ],
       },
+      // --------
+      // SCSS MODULES
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        test: /\.module\.scss$/,
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              modules: {
+                compileType: "module",
+              },
+            },
+          },
+          {
+            loader: "sass-loader",
+          },
+        ],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,

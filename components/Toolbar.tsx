@@ -31,7 +31,7 @@ const Toolbar: React.FC<ToolBarProps> = (props) => {
 
   useEffect(() => {
     fetchAuthenticatedUser();
-  });
+  }, []);
 
   return (
     <header className="toolbar">

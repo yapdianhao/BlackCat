@@ -8,6 +8,10 @@ export const renderMonth = (date: Date) => {
   return monthNames[date.getMonth()];
 };
 
+export const renderMonthNumeric = (date: Date) => {
+  return date.getMonth();
+};
+
 export const renderYear = (date: Date) => {
   return date.getFullYear();
 };

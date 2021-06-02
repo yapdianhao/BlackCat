@@ -54,10 +54,12 @@ app.get("/api/users", (req: any, res: any) => {
 });
 
 app.get("/api/users/:id", (req: any, res: any) => {
+  console.log("get specific user");
   res.send(getUser(req.params.id));
 });
 
 app.get("/api/events", (req: any, res: any) => {
+  console.log("get all events");
   res.send(getEvents());
 });
 
@@ -73,6 +75,7 @@ app.post("/api/events/:id", (req: any, res: any) => {
 });
 
 app.get("/api/events/:limit/:offset", (req: any, res: any) => {
+  console.log("get event from limit to offset");
   res.send(getEventWithLimit(req.params.limit, req.params.offset));
 });
 

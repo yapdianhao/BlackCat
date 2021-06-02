@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 
 import "../styles/FilterButtons.scss";
 import { store } from "../store/store";
@@ -14,7 +14,15 @@ interface FilterButtonProp {
   idx?: number;
   type: string;
   handleClick: Function;
+  setSearchString: any;
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    eventCount: state.eventCountReducer,
+    eventMap: state.eventMapReducer,
+  };
+};
 
 const FilterButton: React.FC<FilterButtonProp> = (props) => {
   const [isActive, toggleActive] =
@@ -25,28 +33,39 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
   const dispatch = useDispatch();
   const eventsCount: Map<number, number> = store.getState().eventCountReducer;
   const eventMap: Map<number, Event> = store.getState().eventMapReducer;
+  const copyOfEventMap = cloneMap(eventMap);
+  const copyOfCountMap = cloneMap(eventsCount);
+
+  console.log(props.handleClick);
+  console.log("rerender " + props.buttonText);
+  console.log(eventsCount);
+  console.log(eventMap);
 
   const handleClick = async () => {
     toggleActive(!isActive);
   };
 
   const processAfterClick = async () => {
+    console.log("process after click at " + props.buttonText);
     if (isActive && (props.type === "time" || props.type === "search")) {
       for (let i = 0; i < props.buttonStates.length; i++) {
         if (i === props.idx) continue;
+        console.log(
+          `triggered from ${props.buttonText}, triggered ${i}, ${props.buttonStates[i]}`
+        );
         const [otherButtonActive, setOtherButtonActive] = props.buttonStates[i];
         setOtherButtonActive(false);
       }
     }
+    console.log("stop here");
+    props.setSearchString();
     if (props.type === "search") return;
-    console.log(props.type);
-    console.log(props.handleClick);
     const filteredData = await props.handleClick(props.buttonText);
     console.log(`FILTERED DATA ${props.buttonText}`);
     console.log(filteredData);
     const eventArr: Event[] = [];
-    const copyOfEventMap = cloneMap(eventMap);
-    const copyOfCountMap = cloneMap(eventsCount);
+    console.log(copyOfEventMap);
+    console.log(copyOfCountMap);
 
     // append new event to id-event-map.
     for (const eventObj of filteredData) {
@@ -70,15 +89,6 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
       }
     }
 
-    // for (const eventObj of excludedEvents) {
-    //   copyOfCountMap.set(
-    //     eventObj.eventId,
-    //     Math.max(0, copyOfCountMap.get(eventObj.eventId) - 1)
-    //   );
-    // }
-
-    // console.log(excludedEvents);
-
     for (const eventId of copyOfCountMap.keys()) {
       if (copyOfCountMap.get(eventId) > 0) {
         eventArr.push(copyOfEventMap.get(eventId));
@@ -99,6 +109,7 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
       type: "SET_EVENT_COUNT",
       payload: copyOfCountMap,
     });
+    props.setSearchString();
   };
 
   useEffect(() => {
@@ -128,4 +139,4 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
   }
 };
 
-export default FilterButton;
+export default connect(mapStateToProps)(FilterButton);

@@ -15,6 +15,7 @@ import ResultSummary from "./ResultSummary";
 interface DashBoardProps {
   shouldShowSearchResults: boolean;
   clearUserSearchedResults: React.MouseEventHandler<HTMLDivElement>;
+  searchResultsSummaryString: string;
 }
 
 const Dashboard: React.FC<DashBoardProps> = (props) => {

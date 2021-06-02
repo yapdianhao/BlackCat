@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import "../styles/LoginScreen.scss";
+//import "../styles/LoginScreen.scss";
+
+import loginScreenClass from "../styles/LoginScreen.module.scss";
 
 import { User } from "../server/model/user";
 import BlackCatIcon from "../components/BlackCatIcon";
@@ -52,33 +54,29 @@ const LoginScreen = () => {
       });
   };
 
-  // useEffect(() => {
-  //   if (userLoggedIn) {
-  //     history.push("/home");
-  //   }
-  // }, [userLoggedIn]);
-
   return (
-    <div className="login-bg">
-      <div className="sub-title">FIND THE MOST LOVED ACTIVITIES</div>
-      <div className="main-title">BLACK CAT</div>
-      <div className="black-cat-logo">
+    <div className={loginScreenClass.loginBg}>
+      <div className={loginScreenClass.subTitle}>
+        FIND THE MOST LOVED ACTIVITIES
+      </div>
+      <div className={loginScreenClass.mainTitle}>BLACK CAT</div>
+      <div className={loginScreenClass.blackCatLogo}>
         <BlackCatIcon />
       </div>
-      <div className="user-login-form-area">
+      <div className={loginScreenClass.userLoginFormArea}>
         <form>
-          <div className="user-login-form-input-container ">
+          <div className={loginScreenClass.userLoginFormInputContainer}>
             <input
-              className="user-login-form-input-field"
+              className={loginScreenClass.userLoginFormInputField}
               type="text"
               placeholder="Username"
               name="name"
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
-          <div className="user-login-form-input-container">
+          <div className={loginScreenClass.userLoginFormInputContainer}>
             <input
-              className="user-login-form-input-field"
+              className={loginScreenClass.userLoginFormInputField}
               placeholder="Password"
               name="password"
               type="password"
@@ -89,7 +87,7 @@ const LoginScreen = () => {
       </div>
       <div>
         <button
-          className="user-login-form-submit-btn"
+          className={loginScreenClass.userLoginFormSubmitBtn}
           onClick={handleSubmitLogin}
         >
           <div>SIGN IN</div>

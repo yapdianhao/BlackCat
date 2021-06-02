@@ -12,7 +12,8 @@ const Home = () => {
   console.log(localStorage.getItem("authenticatedUser"));
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
   const [userSearchedResults, setUserSearchedResults] = useState(false);
-  const [authenticatedUserId, setAuthenticatedUserId] = useState("");
+  const [searchResultsSummaryString, setSearchResultsSummaryString] =
+    useState("");
 
   const handleDrawerToggleClick: React.MouseEventHandler<HTMLButtonElement> =
     () => {
@@ -44,12 +45,15 @@ const Home = () => {
           shouldShow={sideDrawerOpen}
           shouldShowSearchResults={userSearchedResults}
           handleShouldShowSearchResults={handleClickSearch}
+          searchResultsSummaryString={searchResultsSummaryString}
+          setSearchResultsSummaryString={setSearchResultsSummaryString}
         />
         {sideDrawerOpen ? (
           <BackDrop backDropClickHandler={handleBackDropToggleClick} />
         ) : null}
         <main>
           <Dashboard
+            searchResultsSummaryString={searchResultsSummaryString}
             shouldShowSearchResults={userSearchedResults}
             clearUserSearchedResults={clearSearchResults}
           />
