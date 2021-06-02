@@ -37,6 +37,10 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     React.Dispatch<React.SetStateAction<boolean>>
   ][] = [];
 
+  const [buttonChannelStates, setButtonChannelStates] = useState<
+    [boolean, React.Dispatch<React.SetStateAction<boolean>>][]
+  >([]);
+
   for (let i = 0; i < dateFilterKeyWords.length; i++) {
     buttonTimeStates.push(useState(false));
   }
@@ -68,6 +72,10 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     { channelName: "All Channels" },
   ]);
 
+  const [allChannelButtonFunctions, setAlChannelButtonFunctions] = useState<
+    Function[]
+  >([getAll]);
+
   const fetchAllChannels = async () => {
     await fetch("http://localhost:5000/api/channels")
       .then((response) => response.json())
@@ -75,13 +83,31 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
         console.log(data);
         setChannels((allChannels) => {
           if (allChannels === undefined) return data;
-          else return [...allChannels, ...data];
+          else {
+            return [...allChannels, ...data];
+          }
         });
+        setButtonChannelStates(
+          Array.from({ length: data.length }, (i) => (i = useState(false)))
+        );
       });
+  };
+
+  const setChannelButtonFunctions = () => {
+    const remainingChannelButtonFunctions: Function[] = [];
+    for (let i = 0; i < allChannels.length; i++) {
+      remainingChannelButtonFunctions.push(getByChannel);
+    }
+    console.log(remainingChannelButtonFunctions);
+    setAlChannelButtonFunctions([
+      ...allChannelButtonFunctions,
+      ...remainingChannelButtonFunctions,
+    ]);
   };
 
   useEffect(() => {
     fetchAllChannels();
+    setChannelButtonFunctions();
   }, []);
 
   return (
@@ -119,13 +145,17 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
         {allChannels &&
           allChannels.map((channel, index) => (
             <FilterButton
-              buttonStates={[]}
+              buttonStates={buttonChannelStates}
               allButtonFunctions={allButtonHelperFunctions}
               buttonText={channel.channelName}
               key={index}
               idx={index}
               type="channel"
-              handleClick={index === 0 ? getAll : getByChannel}
+              handleClick={
+                allChannelButtonFunctions &&
+                allChannelButtonFunctions[index] &&
+                allChannelButtonFunctions[index]
+              }
             />
           ))}
       </div>

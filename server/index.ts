@@ -44,6 +44,7 @@ app.get("/", (req: any, res: any) => {
 
 app.get("/login/:username/:password", (req: any, res: any) => {
   console.log("logging in");
+  console.log(checkLoginUser(req.params.username, req.params.password));
   res.send(checkLoginUser(req.params.username, req.params.password));
 });
 

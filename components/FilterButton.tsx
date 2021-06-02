@@ -40,6 +40,7 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
     }
     if (props.type === "search") return;
     console.log(props.type);
+    console.log(props.handleClick);
     const filteredData = await props.handleClick(props.buttonText);
     console.log(`FILTERED DATA ${props.buttonText}`);
     console.log(filteredData);

@@ -12,7 +12,7 @@ let users: User[] = [
     userName: "yapdianhao",
     userEmail: "dianhao.yap@shopee.com",
     userImgUrl: fakeMeImageUrl,
-    userPassword: "???",
+    userPassword: "myself",
     userLikedEvents: Array.from(
       new Set(
         Array.from(
