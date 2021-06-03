@@ -124,8 +124,13 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
         } ${k} `;
       }
     }
+    let matchedTime = false;
     for (let i = 0; i < buttonTimeStates.length; i++) {
       if (buttonTimeStates[i][0] && i !== buttonTimeStates.length - 1) {
+        if (!matchedTime) {
+          matchedTime = !matchedTime;
+          searchString += "Activities ";
+        }
         searchString += dateFilterKeyWords[i];
       } else if (buttonTimeStates[i][0] && i === buttonTimeStates.length - 1) {
         const startDay = renderDate(new Date(startSearchDate));

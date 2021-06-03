@@ -4,6 +4,7 @@ import resultSummaryClass from "../styles/ResultSummary.module.scss";
 interface ResultSummaryProps {
   summaryCount: number;
   clearSearchResults: React.MouseEventHandler<HTMLDivElement>;
+  searchResultSummaryString: string;
 }
 
 const ResultSummary: React.FC<ResultSummaryProps> = (props) => {
@@ -21,7 +22,7 @@ const ResultSummary: React.FC<ResultSummaryProps> = (props) => {
         </div>
       </div>
       <div className={resultSummaryClass.resultSecRow}>
-        Searched for activities
+        Searched for {props.searchResultSummaryString}
       </div>
     </div>
   );

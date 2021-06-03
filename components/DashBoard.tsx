@@ -46,6 +46,7 @@ const Dashboard: React.FC<DashBoardProps> = (props) => {
       {props.shouldShowSearchResults ? (
         <div>
           <ResultSummary
+            searchResultSummaryString={props.searchResultsSummaryString}
             summaryCount={searchedResults && searchedResults.length}
             clearSearchResults={props.clearUserSearchedResults}
           />
