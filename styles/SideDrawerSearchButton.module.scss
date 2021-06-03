@@ -1,24 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
 
 .searchButtonSidedrawer {
-  height: 64px;
+  height: 40px;
   width: 100%;
-  padding-top: 15px;
-  padding-bottom: 13px;
+  padding-top: 22px;
+  padding-bottom: 22px;
   background-color: #d5ef7f;
   position: absolute;
   bottom: 0;
   align-items: center;
+  justify-content: center;
+}
+
+.searchButtonSidedrawerInactive {
+  height: 40px;
+  width: 100%;
+  background-color: #bababa;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  padding: 22px 0px;
+  align-items: center;
+  justify-content: center;
 }
 
 .searchButtonSidedrawerContents {
-  padding-top: 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 40%;
+  padding: 5px;
   fill: #453257;
   color: #453257;
   font-family: "Source Sans Pro";
+
+  svg {
+    height: 16px;
+    width: 16px;
+    padding: 0px 5px;
+  }
 }
 
 .searchButtonSidedrawerTitle {

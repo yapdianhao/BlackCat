@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 
-import "../styles/EventDetailsScreen.scss";
 import { Event } from "../server/model/event";
 import { User } from "../server/model/user";
 import EventDetailsToolBar from "../components/EventDetailsToolBar";

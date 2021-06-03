@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { User } from "../server/model/user";
 import { Event } from "../server/model/event";
 
-import "../styles/ProfileScreen.scss";
+import profileScreenClass from "../styles/ProfileScreen.module.scss";
 import EventCard from "../components/EventCard";
 import EventDetailsToolBar from "../components/EventDetailsToolBar";
 import EmailIcon from "../components/EmailIcon";
@@ -14,6 +14,7 @@ import PastIconOutline from "../components/PastIconOutline";
 import HeartIcon from "../components/HeartIcon";
 import CheckIcon from "../components/CheckIcon";
 import PastIcon from "../components/PastIcon";
+import { profile } from "console";
 
 const ProfileScreen = () => {
   const [mainUser, setMainUser] = useState<User>();
@@ -105,20 +106,24 @@ const ProfileScreen = () => {
   return (
     <div>
       <EventDetailsToolBar />
-      <div className="profile-picture-area">
+      <div className={profileScreenClass.profilePictureArea}>
         <img src={mainUser && mainUser.userImgUrl} />
       </div>
-      <div className="profile-name">{mainUser && mainUser.userName}</div>
-      <div className="email-area">
+      <div className={profileScreenClass.profileName}>
+        {mainUser && mainUser.userName}
+      </div>
+      <div className={profileScreenClass.emailArea}>
         <EmailIcon />
         {mainUser && mainUser.userEmail}
       </div>
-      <div className="profile-content">
-        <hr className="divider" />
-        <div className="profile-stats">
+      <div className={profileScreenClass.profileContent}>
+        <hr className={profileScreenClass.divider} />
+        <div className={profileScreenClass.profileStats}>
           <div
-            className={`individual-stats ${
-              likesTapped ? "chosen" : "not-chosen"
+            className={`${profileScreenClass.individualStats} ${
+              likesTapped
+                ? `${profileScreenClass.chosen}`
+                : `${profileScreenClass.notChosen}`
             }`}
             onClick={handleClickLikesTab}
           >
@@ -126,8 +131,10 @@ const ProfileScreen = () => {
             {eventsUserLikes.length} Likes
           </div>
           <div
-            className={`individual-stats ${
-              goingTapped ? "chosen" : "not-chosen"
+            className={`${profileScreenClass.individualStats} ${
+              goingTapped
+                ? `${profileScreenClass.chosen}`
+                : `${profileScreenClass.notChosen}`
             }`}
             onClick={handleClickGoingTab}
           >
@@ -135,8 +142,10 @@ const ProfileScreen = () => {
             {eventsUserGoing.length} Going
           </div>
           <div
-            className={`individual-stats ${
-              pastTapped ? "chosen" : "not-chosen"
+            className={`${profileScreenClass.individualStats} ${
+              pastTapped
+                ? `${profileScreenClass.chosen}`
+                : `${profileScreenClass.notChosen}`
             }`}
             onClick={handleClickPassedTab}
           >
@@ -144,18 +153,18 @@ const ProfileScreen = () => {
             {eventsPast.length} Past
           </div>
         </div>
-        <div className="rendering-events-a">
-          <hr className="divider" />
+        <div className={profileScreenClass.renderingArea}>
+          <hr className={profileScreenClass.divider} />
           {likesTapped ? (
             eventsUserLikes.length > 0 ? (
               eventsUserLikes.map((event: Event, index: number) => (
                 <div key={index}>
                   <EventCard eventToRender={event} />
-                  <hr />
+                  <hr className={profileScreenClass.divider} />
                 </div>
               ))
             ) : (
-              <div className="no-activity">
+              <div className={profileScreenClass.noActivity}>
                 <NoActivity />
               </div>
             )
@@ -168,7 +177,7 @@ const ProfileScreen = () => {
                 </div>
               ))
             ) : (
-              <div className="no-activity">
+              <div className={profileScreenClass.noActivity}>
                 <NoActivity />
               </div>
             )
@@ -180,7 +189,7 @@ const ProfileScreen = () => {
               </div>
             ))
           ) : (
-            <div className="no-activity">
+            <div className={profileScreenClass.noActivity}>
               <NoActivity />
             </div>
           )}

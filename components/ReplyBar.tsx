@@ -1,9 +1,8 @@
 import React, { useState, useRef } from "react";
 
-import "../styles/ReplyBar.scss";
+import replyBarClass from "../styles/ReplyBar.module.scss";
 import SendIcon from "./SendIcon";
 import CrossIcon from "./CrossIcon";
-import e from "cors";
 
 interface ReplyBarProps {
   handleClickCancelIcon: any;
@@ -29,9 +28,9 @@ const ReplyBar: React.FC<ReplyBarProps> = (props) => {
   };
 
   return (
-    <div className="reply-bar">
-      <div className="reply-text-area">
-        <div className="reply-cancel-icon">
+    <div className={replyBarClass.replyBar}>
+      <div className={replyBarClass.replyTextArea}>
+        <div className={replyBarClass.replyCancelIcon}>
           <CrossIcon handleClickCancel={props.handleClickCancelIcon} />
         </div>
         <input
@@ -40,7 +39,7 @@ const ReplyBar: React.FC<ReplyBarProps> = (props) => {
           ref={textInput}
         />
       </div>
-      <div className="reply-send-button-area" onClick={clearInput}>
+      <div className={replyBarClass.replySendButtonArea} onClick={clearInput}>
         <SendIcon handleSendComment={sendComment} />
       </div>
     </div>

@@ -3,7 +3,7 @@
 .eventDetailsBody {
   display: inline-block;
   margin-top: 40px;
-  padding: 20px;
+  padding: 10px 10px 0px 10px;
   overflow-x: hidden;
   overflow: scroll;
 }
@@ -263,7 +263,7 @@
   flex-direction: row;
   fill: #ac8ec9;
 
-  .upside-down-svg {
+  .upsideDownSvg {
     svg {
       transform: rotate(180deg);
     }

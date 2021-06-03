@@ -1,7 +1,6 @@
 import React from "react";
 
-import "../styles/ResultSummary.scss";
-
+import resultSummaryClass from "../styles/ResultSummary.module.scss";
 interface ResultSummaryProps {
   summaryCount: number;
   clearSearchResults: React.MouseEventHandler<HTMLDivElement>;
@@ -9,14 +8,21 @@ interface ResultSummaryProps {
 
 const ResultSummary: React.FC<ResultSummaryProps> = (props) => {
   return (
-    <div className="result-summary">
-      <div className="result-first-row">
-        <div className="result-words">{`${props.summaryCount} Results`}</div>
-        <div className="result-button" onClick={props.clearSearchResults}>
+    <div className={resultSummaryClass.resultSummary}>
+      <div className={resultSummaryClass.resultFirstRow}>
+        <div
+          className={resultSummaryClass.resultWords}
+        >{`${props.summaryCount} Results`}</div>
+        <div
+          className={resultSummaryClass.resultButton}
+          onClick={props.clearSearchResults}
+        >
           CLEAR SEARCH
         </div>
       </div>
-      <div className="result-sec-row">Searched for activities</div>
+      <div className={resultSummaryClass.resultSecRow}>
+        Searched for activities
+      </div>
     </div>
   );
 };

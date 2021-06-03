@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-//import "../styles/LoginScreen.scss";
-
 import loginScreenClass from "../styles/LoginScreen.module.scss";
 
 import { User } from "../server/model/user";

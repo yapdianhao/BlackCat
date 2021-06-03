@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
 
-import "../styles/FilterButtons.scss";
+import filterButtonClass from "../styles/FilterButtons.module.scss";
 import { store } from "../store/store";
 import { Event } from "../server/model/event";
 import { cloneMap } from "../helper/CloneMap";
 
 interface FilterButtonProp {
-  buttonStates?: [boolean, React.Dispatch<React.SetStateAction<boolean>>][];
+  buttonStates?:
+    | [boolean, React.Dispatch<React.SetStateAction<boolean>>][]
+    | null;
+  setMapBool: any | null;
+  stateBoolMap: Map<string, boolean> | null;
   allButtonFunctions?: any[];
   buttonText: string;
   key?: number;
@@ -26,20 +30,19 @@ const mapStateToProps = (state: any) => {
 
 const FilterButton: React.FC<FilterButtonProp> = (props) => {
   const [isActive, toggleActive] =
+    props.buttonStates === null ||
+    props.buttonStates.length === 0 ||
+    props.buttonStates.length <= props.idx ||
     props.buttonStates[props.idx] === undefined
       ? useState(false)
       : props.buttonStates[props.idx];
 
   const dispatch = useDispatch();
+  console.log(props.buttonText + " " + isActive);
   const eventsCount: Map<number, number> = store.getState().eventCountReducer;
   const eventMap: Map<number, Event> = store.getState().eventMapReducer;
   const copyOfEventMap = cloneMap(eventMap);
   const copyOfCountMap = cloneMap(eventsCount);
-
-  console.log(props.handleClick);
-  console.log("rerender " + props.buttonText);
-  console.log(eventsCount);
-  console.log(eventMap);
 
   const handleClick = async () => {
     toggleActive(!isActive);
@@ -57,8 +60,14 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
         setOtherButtonActive(false);
       }
     }
-    console.log("stop here");
-    props.setSearchString();
+    if (props.type === "channel") {
+      const clonedButtonStateMap = cloneMap(props.stateBoolMap);
+      if (isActive) {
+        props.setMapBool(props.buttonText, true);
+      } else {
+        props.setMapBool(props.buttonText, false);
+      }
+    }
     if (props.type === "search") return;
     const filteredData = await props.handleClick(props.buttonText);
     console.log(`FILTERED DATA ${props.buttonText}`);
@@ -109,18 +118,26 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
       type: "SET_EVENT_COUNT",
       payload: copyOfCountMap,
     });
-    props.setSearchString();
+    //props.setSearchString();
   };
 
+  console.log(props.stateBoolMap);
+
   useEffect(() => {
+    console.log("use effect from " + props.buttonText);
     processAfterClick();
+    props.setSearchString();
   }, [isActive]);
 
   if (props.type === "time" || props.type === "search") {
     return (
       <button
         onClick={() => handleClick()}
-        className={isActive ? "filter-button-time-focus" : "filter-button-time"}
+        className={
+          isActive
+            ? `${filterButtonClass.filterButtonTimeFocus}`
+            : `${filterButtonClass.filterButtonTime}`
+        }
       >
         {props.buttonText}
       </button>
@@ -130,7 +147,9 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
       <button
         onClick={() => handleClick()}
         className={
-          isActive ? "filter-button-channel-focus" : "filter-button-channel"
+          isActive
+            ? `${filterButtonClass.filterButtonChannelFocus}`
+            : `${filterButtonClass.filterButtonChannel}`
         }
       >
         {props.buttonText}

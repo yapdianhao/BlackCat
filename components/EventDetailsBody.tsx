@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import "../styles/EventDetailsBody.scss";
+import eventDetailsBodyClass from "../styles/EventDetailsBody.module.scss";
 import { Event } from "../server/model/event";
 import { User } from "../server/model/user";
 import { Comment } from "../server/model/comment";
@@ -214,7 +215,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     // small amount of people
     if (lst.length <= 7) {
       return (
-        <div className="going-list-people-row">
+        <div className={eventDetailsBodyClass.goingListPeopleRow}>
           {lst.map((source: any, idx: number) => (
             <img src={String(source)} />
           ))}
@@ -225,7 +226,9 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
       if (!showMoreLikes) {
         const headList = lst.slice(0, 7);
         return (
-          <div className="going-list-people-row upside-down-svg">
+          <div
+            className={`${eventDetailsBodyClass.goingListPeopleRow} ${eventDetailsBodyClass.upsideDownSvg}`}
+          >
             {headList.map((source: any, idx: number) => {
               if (idx != 6) {
                 return <img src={String(source)} />;
@@ -257,7 +260,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
     // small amount of people
     if (lst.length <= 7) {
       return (
-        <div className="going-list-people-row">
+        <div className={eventDetailsBodyClass.goingListPeopleRow}>
           {lst.map((source: any, idx: number) => (
             <img src={String(source)} key={idx} />
           ))}
@@ -268,7 +271,9 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
       if (!showMoreGoing) {
         const headList = lst.slice(0, 7);
         return (
-          <div className="going-list-people-row upside-down-svg">
+          <div
+            className={`${eventDetailsBodyClass.goingListPeopleRow} ${eventDetailsBodyClass.upsideDownSvg}`}
+          >
             {headList.map((source: any, idx: number) => {
               if (idx != 6) {
                 return <img src={String(source)} />;
@@ -314,7 +319,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
 
   const generateNormalList = (lst: any) => {
     return (
-      <div className="going-list-people-row">
+      <div className={eventDetailsBodyClass.goingListPeopleRow}>
         {lst.map((source: any) => {
           return <img src={String(source)} />;
         })}
@@ -328,7 +333,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
   ) => {
     lst.push(null);
     return (
-      <div className="going-list-people-row">
+      <div className={eventDetailsBodyClass.goingListPeopleRow}>
         {lst.map((source: any, idx: number) => {
           if (idx != lst.length - 1) {
             return <img src={String(source)} />;
@@ -451,29 +456,33 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
 
   return (
     <>
-      <div className="event-details-body">
-        <div className="event-header">
-          <div className="event-channel-name">
+      <div className={eventDetailsBodyClass.eventDetailsBody}>
+        <div className={eventDetailsBodyClass.eventHeader}>
+          <div className={eventDetailsBodyClass.eventChannelName}>
             {props.eventToRender.eventChannel}
           </div>
-          <div className="filler"></div>
+          <div className={eventDetailsBodyClass.filler}></div>
         </div>
-        <div className="event-title">{props.eventToRender.eventName}</div>
-        <div className="event-info-row">
-          <div className="event-info-col-img">
+        <div className={eventDetailsBodyClass.eventTitle}>
+          {props.eventToRender.eventName}
+        </div>
+        <div className={eventDetailsBodyClass.eventInfoRow}>
+          <div className={eventDetailsBodyClass.eventInfoColImg}>
             {eventPoster === undefined ? null : (
               <img
                 src={String(eventPoster.userImgUrl)}
-                className="event-profile-pic"
+                className={eventDetailsBodyClass.eventProfilePic}
               />
             )}
           </div>
-          <div className="event-info-row-publish-details-area">
-            <div className="event-info-col-publish-details">
-              <div className="username">
+          <div className={eventDetailsBodyClass.eventInfoRowPublishDetailsArea}>
+            <div className={eventDetailsBodyClass.eventInfoColPublishDetails}>
+              <div className={eventDetailsBodyClass.username}>
                 {eventPoster && eventPoster.userName}
               </div>
-              <div className="last-publish">{`Published ${getDayDiff(
+              <div
+                className={eventDetailsBodyClass.lastPublish}
+              >{`Published ${getDayDiff(
                 props.eventToRender.eventPostedOn
               )} day${
                 getDayDiff(props.eventToRender.eventPostedOn) > 1 ? "s" : ""
@@ -481,12 +490,14 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
             </div>
           </div>
         </div>
-        <hr className="divider" />
-        <div className="event-stats">
+        <hr className={eventDetailsBodyClass.divider} />
+        <div className={eventDetailsBodyClass.eventStats}>
           <div
             onClick={handleDetailTabClicked}
-            className={`individual-stats ${
-              detailTabSelected ? "chosen" : "not-chosen"
+            className={`${eventDetailsBodyClass.individualStats} ${
+              detailTabSelected
+                ? `${eventDetailsBodyClass.chosen}`
+                : `${eventDetailsBodyClass.notChosen}`
             }`}
           >
             {detailTabSelected ? <InfoIcon /> : <InfoIconOutline />}
@@ -494,8 +505,10 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
           <div
             onClick={handleParticipantTabSelected}
-            className={`individual-stats ${
-              participantTabSelected ? "chosen" : "not-chosen"
+            className={`${eventDetailsBodyClass.individualStats} ${
+              participantTabSelected
+                ? `${eventDetailsBodyClass.chosen}`
+                : `${eventDetailsBodyClass.notChosen}`
             }`}
           >
             {participantTabSelected ? <PeopleIcon /> : <PeopleIconOutline />}
@@ -503,47 +516,53 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           </div>
           <div
             onClick={handleCommentsTabSelected}
-            className={`individual-stats ${
-              commentsTabSelected ? "chosen" : "not-chosen"
+            className={`${eventDetailsBodyClass.individualStats} ${
+              commentsTabSelected
+                ? `${eventDetailsBodyClass.chosen}`
+                : `${eventDetailsBodyClass.notChosen}`
             }`}
           >
             {commentsTabSelected ? <CommentIcon /> : <CommentIconOutline />}
             Comments
           </div>
         </div>
-        <hr className="divider" />
-        <div className="gallery" ref={descRef}>
+        <hr className={eventDetailsBodyClass.divider} />
+        <div className={eventDetailsBodyClass.gallery} ref={descRef}>
           {props.eventToRender.eventGalleryUrls &&
             props.eventToRender.eventGalleryUrls.map(
               (url: string, idx: number) => <img src={url} key={idx} />
             )}
         </div>
-        <div className="desc">
+        <div className={eventDetailsBodyClass.desc}>
           <div
-            className={showHidden ? "text-area-unhidden" : "text-area-hidden"}
+            className={
+              showHidden
+                ? `${eventDetailsBodyClass.textAreaHidden}`
+                : `${eventDetailsBodyClass.textAreaUnhidden}`
+            }
             ref={longDescRef}
           >
             {props.eventToRender.eventDescription}
           </div>
           {showHidden || !didDivOverflow ? null : (
-            <div className="blur-effect" />
+            <div className={eventDetailsBodyClass.blurEffect} />
           )}
           {didDivOverflow ? (
-            <div className="expand-btn">
+            <div className={eventDetailsBodyClass.expandBtn}>
               <button onClick={handleShowHiddenButtonClick}>
                 {showHidden ? "VIEW LESS" : "VIEW ALL"}
               </button>
             </div>
           ) : null}
         </div>
-        <hr className="divider" />
-        <div className="section-starter">
-          <div className="section-shape" />
-          <div className="section-text">When</div>
+        <hr className={eventDetailsBodyClass.divider} />
+        <div className={eventDetailsBodyClass.sectionStarter}>
+          <div className={eventDetailsBodyClass.sectionShape} />
+          <div className={eventDetailsBodyClass.sectionText}>When</div>
         </div>
-        <div className="time-row">
-          <div className="time-col">
-            <div className="time-col-row">
+        <div className={eventDetailsBodyClass.timeRow}>
+          <div className={eventDetailsBodyClass.timeCol}>
+            <div className={eventDetailsBodyClass.timeColRow}>
               <DateFromIcon />
               <div>{`${renderDate(
                 new Date(props.eventToRender.eventStartDateTime)
@@ -554,7 +573,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
               )}`}</div>
             </div>
           </div>
-          <div className="time-col-big-row">{`${
+          <div className={eventDetailsBodyClass.timeColBigRow}>{`${
             renderHour(new Date(props.eventToRender.eventStartDateTime)) < 10
               ? "0" +
                 renderHour(new Date(props.eventToRender.eventStartDateTime))
@@ -567,8 +586,8 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
           } ${renderAmPm(
             new Date(props.eventToRender.eventStartDateTime)
           )}`}</div>
-          <div className="time-col">
-            <div className="time-col-row">
+          <div className={eventDetailsBodyClass.timeCol}>
+            <div className={eventDetailsBodyClass.timeColRow}>
               <DateToIcon />
               <div>{`${renderDate(
                 new Date(props.eventToRender.eventEndDateTime)
@@ -579,7 +598,7 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
               )}`}</div>
             </div>
           </div>
-          <div className="time-col-big-row">{`${
+          <div className={eventDetailsBodyClass.timeColBigRow}>{`${
             renderHour(new Date(props.eventToRender.eventEndDateTime)) < 10
               ? "0" + renderHour(new Date(props.eventToRender.eventEndDateTime))
               : renderHour(new Date(props.eventToRender.eventEndDateTime))
@@ -592,43 +611,48 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
             new Date(props.eventToRender.eventEndDateTime)
           )}`}</div>
         </div>
-        <hr className="divider" />
-        <div className="section-starter">
-          <div className="section-shape" />
-          <div className="section-text">Where</div>
+        <hr className={eventDetailsBodyClass.divider} />
+        <div className={eventDetailsBodyClass.sectionStarter}>
+          <div className={eventDetailsBodyClass.sectionShape} />
+          <div className={eventDetailsBodyClass.sectionText}>Where</div>
         </div>
-        <div className="location">{props.eventToRender.eventLocation}</div>
-        <div className="loc-map">
+        <div className={eventDetailsBodyClass.location}>
+          {props.eventToRender.eventLocation}
+        </div>
+        <div className={eventDetailsBodyClass.locMap}>
           <img src={String(googleMaps)} />
         </div>
-        <hr className="divider" />
-        <div className="going-list-outline" ref={participantsRef}>
-          <div className="going-list-title">
+        <hr className={eventDetailsBodyClass.divider} />
+        <div
+          className={eventDetailsBodyClass.goingListOutline}
+          ref={participantsRef}
+        >
+          <div className={eventDetailsBodyClass.goingListTitle}>
             <CheckIconOutline />
 
             {`${goingUsersUrl.length} going`}
           </div>
-          <div className="going-list-people-col">
+          <div className={eventDetailsBodyClass.goingListPeopleCol}>
             {renderGoingList(goingUsersUrl)}
           </div>
         </div>
-        <hr className="divider" />
-        <div className="going-list-outline">
-          <div className="going-list-title">
+        <hr className={eventDetailsBodyClass.divider} />
+        <div className={eventDetailsBodyClass.goingListOutline}>
+          <div className={eventDetailsBodyClass.goingListTitle}>
             <HeartIconOutline />
 
             {`${likesUsersUrl.length} likes`}
           </div>
-          <div className="going-list-people-col">
+          <div className={eventDetailsBodyClass.goingListPeopleCol}>
             {renderLikesList(likesUsersUrl)}
           </div>
         </div>
-        <hr className="divider" />
+        <hr className={eventDetailsBodyClass.divider} />
         <div ref={commentsRef}>
           {commentedUsers.map((comment: Comment, idx: number) => {
             return (
-              <div className="comment-list-area" key={idx}>
-                <div className="comment-user-profile-pic">
+              <div className={eventDetailsBodyClass.commentListArea} key={idx}>
+                <div className={eventDetailsBodyClass.commentUserProfilePic}>
                   <img
                     src={
                       commentingUserList[idx] &&
@@ -636,18 +660,22 @@ const EventDetailsBody: React.FC<EventDetailsBodyProps> = (props) => {
                     }
                   />
                 </div>
-                <div className="comment-details-layout">
-                  <div className="comment-details">
-                    <div className="comment-username">
+                <div className={eventDetailsBodyClass.commentDetailsLayout}>
+                  <div className={eventDetailsBodyClass.commentDetails}>
+                    <div className={eventDetailsBodyClass.commentUsername}>
                       {commentingUserList[idx] &&
                         commentingUserList[idx].userName}
                     </div>
-                    <div className="comment-time">{`${comment.commentTimeBefore} hours ago`}</div>
-                    <div className="filler"></div>
+                    <div
+                      className={eventDetailsBodyClass.commentTime}
+                    >{`${comment.commentTimeBefore} hours ago`}</div>
+                    <div className={eventDetailsBodyClass.filler}></div>
                   </div>
-                  <div className="comment-words">{comment.commentContent}</div>
+                  <div className={eventDetailsBodyClass.commentWords}>
+                    {comment.commentContent}
+                  </div>
                 </div>
-                <div className="reply-button">
+                <div className={eventDetailsBodyClass.replyButton}>
                   <ReplyIcon
                     handleReplyIconClick={handleClickReplyButton}
                     scrollToBottom={scrollToBottom}

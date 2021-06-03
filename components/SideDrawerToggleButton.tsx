@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../styles/SideDrawerToggleButton.scss";
+import sideDrawerToggleButtonClass from "../styles/SideDrawerToggleButton.module.scss";
 import SearchIcon from "../components/SearchIcon";
 
 interface SideDrawerToggleButtonProps {
@@ -12,7 +12,7 @@ const SideDrawerToggleButton: React.FC<SideDrawerToggleButtonProps> = (
 ) => {
   return (
     <button onClick={props.clickHandler}>
-      <div className="search-button">
+      <div className={sideDrawerToggleButtonClass.searchButton}>
         <SearchIcon />
       </div>
     </button>

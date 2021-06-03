@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 
 import { User } from "../server/model/user";
 import "../styles/Toolbar.scss";
+import toolBarClass from "../styles/Toolbar.module.scss";
 import BlackCatIcon from "../components/BlackCatIcon";
 import SideDrawerToggleButton from "./SideDrawerToggleButton";
 
@@ -34,12 +35,12 @@ const Toolbar: React.FC<ToolBarProps> = (props) => {
   }, []);
 
   return (
-    <header className="toolbar">
-      <nav className="toolbar-navigation">
+    <header className={toolBarClass.toolbar}>
+      <nav className={toolBarClass.toolbarNavigation}>
         <div>
           <SideDrawerToggleButton clickHandler={props.drawerClickHandler} />
         </div>
-        <div className="toolbar-logo">
+        <div className={toolBarClass.toolbarLogo}>
           <button onClick={() => history.push("/home")}>
             <BlackCatIcon />
           </button>
@@ -48,7 +49,7 @@ const Toolbar: React.FC<ToolBarProps> = (props) => {
           <div onClick={() => history.push("/about")}>
             <img
               src={mainUser && mainUser.userImgUrl}
-              className="profile-pic"
+              className={toolBarClass.profilePic}
             />
           </div>
         </div>

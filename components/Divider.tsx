@@ -1,9 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import "../styles/Divider.scss";
+import dividerClass from "../styles/Divider.module.scss";
 
-const Divider = () => (
-    <hr className="red-horizontal-divider"/>
-);
+const Divider = () => <hr className={dividerClass.redHorizontalDivider} />;
 
 export default Divider;

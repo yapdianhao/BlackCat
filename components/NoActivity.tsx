@@ -1,11 +1,11 @@
 import React from "react";
 
-import "../styles/NoActivity.scss";
+import noActivityClass from "../styles/NoActivity.module.scss";
 import NoActivityIcon from "./NoActivityIcon";
 
 const NoActivity = () => {
   return (
-    <div className="no-activity">
+    <div className={noActivityClass.noActivity}>
       <NoActivityIcon />
       <div>No activity found</div>
     </div>

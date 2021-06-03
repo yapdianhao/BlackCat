@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import "../styles/SideDrawerSearchButton.scss";
+import sideDrawerSearchButtonClass from "../styles/SideDrawerSearchButton.module.scss";
 import { Channel } from "../server/model/channel";
 import { Event } from "../server/model/event";
 import { store } from "../store/store";
@@ -27,6 +27,8 @@ const SideDrawerSearchButton: React.FC<SideDrawerSearchButtonProps> = (
   const copyOfEventMap = cloneMap(eventMap);
   const copyOfCountMap = cloneMap(eventsCount);
 
+  console.log("rerender sidedrawer search button");
+
   const handleClickSearch = async (e: any) => {
     props.handleSearchClick(e);
     if (props.shouldHandleSearchRange) {
@@ -43,12 +45,23 @@ const SideDrawerSearchButton: React.FC<SideDrawerSearchButtonProps> = (
   };
 
   return (
-    <div onClick={handleClickSearch} className="search-button-sidedrawer">
-      <div className="search-button-sidedrawer-contents">
+    <div
+      onClick={
+        props.searchResultsSummaryString.length === 0 ? null : handleClickSearch
+      }
+      className={
+        props.searchResultsSummaryString.length === 0
+          ? `${sideDrawerSearchButtonClass.searchButtonSidedrawerInactive}`
+          : `${sideDrawerSearchButtonClass.searchButtonSidedrawer}`
+      }
+    >
+      <div
+        className={sideDrawerSearchButtonClass.searchButtonSidedrawerContents}
+      >
         <SearchIcon />
         <div>SEARCH</div>
       </div>
-      <div className="search-button-sidedrawer-title">
+      <div className={sideDrawerSearchButtonClass.searchButtonSidedrawerTitle}>
         {props.searchResultsSummaryString}
       </div>
     </div>

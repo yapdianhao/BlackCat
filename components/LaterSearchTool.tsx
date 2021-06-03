@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-import "../styles/LaterSearchTool.scss";
-
+import laterSearchToolClass from "../styles/LaterSearchTool.module.scss";
 import DateFromIcon from "./DateFromIcon";
 import DateToIcon from "./DateToIcon";
 
@@ -14,19 +13,19 @@ const LaterSearchTool: React.FC<LaterSearchToolProps> = (props) => {
   console.log(props.secondListener);
 
   return (
-    <div className="later-search">
-      <div className="triangle" />
-      <div className="input-area">
-        <div className="input-search-row">
-          <div className="input-search-box">
+    <div className={laterSearchToolClass.laterSearch}>
+      <div className={laterSearchToolClass.triangle} />
+      <div className={laterSearchToolClass.inputArea}>
+        <div className={laterSearchToolClass.inputSearchRow}>
+          <div className={laterSearchToolClass.inputSearchBox}>
             <DateFromIcon />
             <input
               placeholder="MM-DD-YYYY"
               onChange={(e) => props.firstListener(e.target.value)}
             ></input>
           </div>
-          <div className="input-search-box"> - </div>
-          <div className="input-search-box">
+          <div className={laterSearchToolClass.inputSearchBox}> - </div>
+          <div className={laterSearchToolClass.inputSearchBox}>
             <DateToIcon />
             <input
               placeholder="MM-DD-YYYY"

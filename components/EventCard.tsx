@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 
-import "../styles/EventCard.scss";
+import eventCardClass from "../styles/EventCard.module.scss";
 import { monthNames } from "../helper/MonthNames";
 import { Event } from "../server/model/event";
 import { User } from "../server/model/user";
@@ -57,19 +57,27 @@ const EventCard: React.FC<EventCardProps> = (props) => {
   }, []);
 
   return (
-    <div className="card-outline" onClick={handleClickEventCard}>
-      <div className="card-header">
+    <div className={eventCardClass.cardOutline} onClick={handleClickEventCard}>
+      <div className={eventCardClass.cardHeader}>
         <img
           src={String(eventPoster && eventPoster.userImgUrl)}
-          className="profile-pic"
+          className={eventCardClass.profilePic}
         />
-        <div className="user-name">{eventPoster && eventPoster.userName}</div>
-        <div className="channel-name">{props.eventToRender.eventChannel}</div>
+        <div className={eventCardClass.userName}>
+          {eventPoster && eventPoster.userName}
+        </div>
+        <div className={eventCardClass.channelName}>
+          {props.eventToRender.eventChannel}
+        </div>
       </div>
-      <div className="activity-title">{props.eventToRender.eventName}</div>
-      <div className="activity-time-area">
+      <div className={eventCardClass.activityTitle}>
+        {props.eventToRender.eventName}
+      </div>
+      <div className={eventCardClass.activityTimeArea}>
         <ClockIcon />
-        <div className="activity-time">{`${passedStartDate.getDate()} ${
+        <div
+          className={eventCardClass.activityTime}
+        >{`${passedStartDate.getDate()} ${
           monthNames[passedStartDate.getMonth()]
         } ${passedStartDate.getFullYear()} ${
           passedStartDate.getHours() < 10
@@ -87,16 +95,16 @@ const EventCard: React.FC<EventCardProps> = (props) => {
             : passedEndDate.getMinutes()
         }`}</div>
       </div>
-      <div className="activity-desc">
+      <div className={eventCardClass.activityDesc}>
         {props.eventToRender.eventDescription}
       </div>
       <div
-        className={`activity-stats-area ${
+        className={`${eventCardClass.activityStatsArea} ${
           props.eventToRender.usersGoingEvent
             .map((user: User) => user.userId)
             .includes(+localStorage.getItem("authenticatedUser"))
-            ? "user-going"
-            : "user-dont-like"
+            ? `${eventCardClass.userGoing}`
+            : `${eventCardClass.userDontLike}`
         }`}
       >
         <div
@@ -104,8 +112,8 @@ const EventCard: React.FC<EventCardProps> = (props) => {
             props.eventToRender.usersGoingEvent
               .map((user: User) => user.userId)
               .includes(+localStorage.getItem("authenticatedUser"))
-              ? "user-going"
-              : "user-dont-like"
+              ? `${eventCardClass.userGoing}`
+              : `${eventCardClass.userDontLike}`
           }`}
         >
           {props.eventToRender.usersGoingEvent
@@ -116,14 +124,14 @@ const EventCard: React.FC<EventCardProps> = (props) => {
             <CheckIconOutline />
           )}
         </div>
-        <div className="stats-desc">I am going</div>
+        <div className={eventCardClass.statsDesc}>I am going</div>
         <div
           className={`${
             props.eventToRender.usersLikeEvent
               .map((user: User) => user.userId)
               .includes(+localStorage.getItem("authenticatedUser"))
-              ? "user-likes"
-              : "user-dont-like"
+              ? `${eventCardClass.userLikes}`
+              : `${eventCardClass.userDontLike}`
           }`}
         >
           {props.eventToRender.usersLikeEvent
@@ -134,7 +142,7 @@ const EventCard: React.FC<EventCardProps> = (props) => {
             <HeartIconOutline />
           )}
         </div>
-        <div className="stats-desc">I like it</div>
+        <div className={eventCardClass.statsDesc}>I like it</div>
       </div>
     </div>
   );

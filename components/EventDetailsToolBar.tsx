@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 
-import "../styles/EventDetailsToolBar.scss";
+import eventDetailsToolBarClass from "../styles/EventDetailsToolBar.module.scss";
 import { User } from "../server/model/user";
 import ToolBarHomeButton from "./ToolBarHomeButton";
 import BlackCatIcon from "../components/BlackCatIcon";
@@ -28,12 +28,12 @@ const EventDetailsToolBar = () => {
   }, []);
 
   return (
-    <header className="toolbar">
-      <nav className="toolbar-navigation">
+    <header className={eventDetailsToolBarClass.toolbar}>
+      <nav className={eventDetailsToolBarClass.toolbarNavigation}>
         <div>
           <ToolBarHomeButton />
         </div>
-        <div className="toolbar-logo">
+        <div className={eventDetailsToolBarClass.toolbarLogo}>
           <button onClick={() => history.push("/home")}>
             <BlackCatIcon />
           </button>
@@ -42,7 +42,7 @@ const EventDetailsToolBar = () => {
           <button onClick={() => history.push("/about")}>
             <img
               src={mainUser && mainUser.userImgUrl}
-              className="profile-pic"
+              className={eventDetailsToolBarClass.profilePic}
             />
           </button>
         </div>

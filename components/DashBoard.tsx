@@ -2,10 +2,11 @@ import React from "react";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 
-import "../styles/Dashboard.scss";
+//import "../styles/Dashboard.scss";
+
+import dashBoardClass from "../styles/Dashboard.module.scss";
 import { Event } from "../server/model/event";
 import { store } from "../store/store";
-import { User } from "../server/model/user";
 import useFetch from "../helper/useFetch";
 import EventCard from "./EventCard";
 import Divider from "./Divider";
@@ -24,6 +25,8 @@ const Dashboard: React.FC<DashBoardProps> = (props) => {
   const observer = useRef<IntersectionObserver>();
   const searchedResults = store.getState().eventsReducer;
 
+  console.log("rerender dashboard");
+
   const lastItemRef = useCallback(
     (node) => {
       if (loading) return;
@@ -39,7 +42,7 @@ const Dashboard: React.FC<DashBoardProps> = (props) => {
   );
 
   return (
-    <div className="dashboard">
+    <div className={dashBoardClass.dashboard}>
       {props.shouldShowSearchResults ? (
         <div>
           <ResultSummary
@@ -60,7 +63,7 @@ const Dashboard: React.FC<DashBoardProps> = (props) => {
             );
           })
         ) : (
-          <div className="no-activity-area">
+          <div className={dashBoardClass.noActivityArea}>
             <NoActivity />
           </div>
         )

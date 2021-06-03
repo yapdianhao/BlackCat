@@ -2,7 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import "../styles/SideDrawer.scss";
+import { cloneMap } from "../helper/CloneMap";
+import sideDrawerClass from "../styles/SideDrawer.module.scss";
 import LaterSearchTool from "./laterSearchTool";
 import FilterButton from "./FilterButton";
 import SideDrawerSearchButton from "./SideDrawerSearchButton";
@@ -13,6 +14,7 @@ import { Channel } from "../server/model/channel";
 import { store } from "../store/store";
 import { getAll, getByChannel } from "../helper/FilterButtonFunctions";
 import ButtonHelperFunctions from "../helper/FilterButtonFunctions";
+
 interface SideDrawerProps {
   shouldShow: boolean;
   shouldShowSearchResults: boolean;
@@ -23,7 +25,9 @@ interface SideDrawerProps {
 
 const SideDrawer: React.FC<SideDrawerProps> = (props) => {
   // css style to render drawer
-  let drawerClass = props.shouldShow ? "side-drawer open" : "side-drawer";
+  let drawerClass = props.shouldShow
+    ? `${sideDrawerClass.sideDrawer} ${sideDrawerClass.open}`
+    : `${sideDrawerClass.sideDrawer}`;
 
   const dateFilterKeyWords = [
     "ANYTIME",
@@ -39,12 +43,16 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     React.Dispatch<React.SetStateAction<boolean>>
   ][] = [];
 
-  /**
-   * For Jia Ying: line 45 - 47 fetches a list of buttons' state, unknown how many during run time.
-   */
+  const [buttonChannelState, setButtonChannelState] = useState(false);
   const [buttonChannelStates, setButtonChannelStates] = useState<
     [boolean, React.Dispatch<React.SetStateAction<boolean>>][]
   >([]);
+
+  console.log("rerender sidedrawer");
+
+  const [buttonStateMap, setButtonStatemap] = useState<Map<string, boolean>>(
+    new Map()
+  );
 
   for (let i = 0; i < dateFilterKeyWords.length; i++) {
     buttonTimeStates.push(useState(false));
@@ -73,9 +81,6 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
 
   const allButtonHelperFunctions = [getAll, ...ButtonHelperFunctions];
 
-  /**
-   * For Jia Ying: the list of channels is unknown. For every channel, one button is needed.
-   */
   const [allChannels, setChannels] = useState<Channel[]>([
     { channelName: "All Channels" },
   ]);
@@ -84,9 +89,6 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     Function[]
   >([getAll]);
 
-  /**
-   *  For Jia Ying: this function below sets the number of buttons, sets the button states (which the error happens)
-   */
   const fetchAllChannels = async () => {
     await fetch("http://localhost:5000/api/channels")
       .then((response) => response.json())
@@ -98,23 +100,6 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
             return [...allChannels, ...data];
           }
         });
-        /**
-         * The commented out code below shows this error:
-         * Uncaught (in promise) Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
-         * 1. You might have mismatching versions of React and the renderer (such as React DOM)
-         * 2. You might be breaking the Rules of Hooks
-         * 3. You might have more than one copy of React in the same app
-         *
-         * I suspect it is the useState inside this setButtonChannelStates function.
-         */
-
-        // setButtonChannelStates(
-        //   Array.from({ length: data.length }, (i) => useState(false))
-        // );
-
-        /**
-         * This function pass the filter logic to the child component at line 209.
-         */
 
         setAllChannelButtonFunctions([
           ...allChannelButtonFunctions,
@@ -123,12 +108,20 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
       });
   };
 
+  const handleMapChange = (key: any, value: any) => {
+    const clonedMap = cloneMap(buttonStateMap);
+    buttonStateMap.set(key, value);
+    setButtonStatemap(cloneMap);
+  };
+
   const setSearchedString = () => {
-    let searchString = "Channel ";
-    console.log("set search string here");
-    for (let i = 0; i < buttonChannelStates.length; i++) {
-      if (buttonChannelStates[i][0]) {
-        searchString += allChannels[i].channelName + " ";
+    let searchString = "";
+    console.log(buttonStateMap);
+    for (const k of buttonStateMap.keys()) {
+      if (buttonStateMap.get(k)) {
+        searchString += `${searchString === "" ? "Channel" : ""} ${
+          searchString.length === 0 ? "" : ", "
+        } ${k} `;
       }
     }
     for (let i = 0; i < buttonTimeStates.length; i++) {
@@ -146,27 +139,33 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
         }`;
       }
     }
+    console.log(searchString);
     props.setSearchResultsSummaryString(searchString);
   };
 
   useEffect(() => {
     fetchAllChannels();
+    //setSearchedString();
   }, []);
+
+  console.log(buttonStateMap);
 
   return (
     <div className={drawerClass}>
-      <div className="date-title">
+      <div className={sideDrawerClass.dateTitle}>
         <div>DATE</div>
       </div>
-      <div className="filter-button-area">
+      <div className={sideDrawerClass.filterButtonArea}>
         {dateFilterKeyWords.map((keyword, index) => (
           <FilterButton
             buttonStates={buttonTimeStates}
+            setMapBool={null}
+            stateBoolMap={null}
             allButtonFunctions={allButtonHelperFunctions}
             buttonText={keyword}
             key={index}
             idx={index}
-            type={index === buttonTimeStates.length - 1 ? "search" : "time"}
+            type={index === dateFilterKeyWords.length - 1 ? "search" : "time"}
             setSearchString={setSearchedString}
             handleClick={
               index === buttonTimeStates.length - 1
@@ -182,14 +181,16 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
           secondListener={setEndSearchDate}
         />
       ) : null}
-      <div className="date-title">
+      <div className={sideDrawerClass.dateTitle}>
         <div>CHANNEL</div>
       </div>
-      <div className="filter-button-area">
+      <div className={sideDrawerClass.filterButtonArea}>
         {allChannels &&
           allChannels.map((channel, index) => (
             <FilterButton
-              buttonStates={buttonChannelStates}
+              buttonStates={null}
+              setMapBool={handleMapChange}
+              stateBoolMap={buttonStateMap}
               allButtonFunctions={allButtonHelperFunctions}
               buttonText={channel.channelName}
               key={index}
@@ -197,9 +198,7 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
               type="channel"
               setSearchString={setSearchedString}
               handleClick={
-                allChannelButtonFunctions &&
-                allChannelButtonFunctions[index] &&
-                allChannelButtonFunctions[index]
+                allChannelButtonFunctions && allChannelButtonFunctions[index]
               }
             />
           ))}

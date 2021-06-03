@@ -1,6 +1,6 @@
 import React, { useState, Suspense, lazy } from "react";
 
-import "../styles/HomeScreen.scss";
+import homeScreenClass from "../styles/HomeScreen.module.scss";
 
 const Toolbar = lazy(() => import("../components/Toolbar"));
 const Dashboard = lazy(() => import("../components/DashBoard"));
@@ -34,8 +34,7 @@ const Home = () => {
     setUserSearchedResults(false);
   };
 
-  console.log(userSearchedResults);
-  console.log(sideDrawerOpen);
+  console.log("rerender homescreen");
 
   return (
     <div>

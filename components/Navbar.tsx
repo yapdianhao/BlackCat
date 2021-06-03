@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../styles/Navbar.scss";
+import navBarClass from "../styles/Navbar.module.scss";
 import SearchIcon from "../components/SearchIcon";
 import BlackCatIcon from "../components/BlackCatIcon";
 
@@ -8,12 +8,12 @@ const profilePic = require("../images/Street-Dance-01.jpg");
 
 const NavBar = () => {
   return (
-    <div className="navbar-area">
+    <div className={navBarClass.navbarArea}>
       <SearchIcon />
-      <div className="blackcat-icon">
+      <div className={navBarClass.blackCatIcon}>
         <BlackCatIcon />
       </div>
-      <img src={String(profilePic)} className="profile-pic" />
+      <img src={String(profilePic)} className={navBarClass.profilePic} />
     </div>
   );
 };
