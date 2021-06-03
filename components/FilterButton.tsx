@@ -118,7 +118,6 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
       type: "SET_EVENT_COUNT",
       payload: copyOfCountMap,
     });
-    //props.setSearchString();
   };
 
   console.log(props.stateBoolMap);
@@ -126,7 +125,7 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
   useEffect(() => {
     console.log("use effect from " + props.buttonText);
     processAfterClick();
-    props.setSearchString();
+    if (props.type !== "search") props.setSearchString();
   }, [isActive]);
 
   if (props.type === "time" || props.type === "search") {
