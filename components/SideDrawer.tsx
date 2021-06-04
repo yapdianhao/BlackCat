@@ -14,6 +14,7 @@ import { Channel } from "../server/model/channel";
 import { store } from "../store/store";
 import { getAll, getByChannel } from "../helper/FilterButtonFunctions";
 import ButtonHelperFunctions from "../helper/FilterButtonFunctions";
+import { start } from "repl";
 
 interface SideDrawerProps {
   shouldShow: boolean;
@@ -42,11 +43,6 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     boolean,
     React.Dispatch<React.SetStateAction<boolean>>
   ][] = [];
-
-  const [buttonChannelState, setButtonChannelState] = useState(false);
-  const [buttonChannelStates, setButtonChannelStates] = useState<
-    [boolean, React.Dispatch<React.SetStateAction<boolean>>][]
-  >([]);
 
   console.log("rerender sidedrawer");
 
@@ -133,6 +129,12 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
         }
         searchString += dateFilterKeyWords[i];
       } else if (buttonTimeStates[i][0] && i === buttonTimeStates.length - 1) {
+        if (
+          isNaN(new Date(startSearchDate).getDay()) &&
+          isNaN(new Date(endSearchDate).getDay())
+        ) {
+          searchString += "";
+        }
         const startDay = renderDate(new Date(startSearchDate));
         const startMonth = renderMonthNumeric(new Date(startSearchDate));
         const endDay = renderDate(new Date(endSearchDate));
@@ -152,8 +154,6 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
     fetchAllChannels();
     //setSearchedString();
   }, []);
-
-  console.log(buttonStateMap);
 
   return (
     <div className={drawerClass}>
@@ -184,6 +184,7 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
         <LaterSearchTool
           firstListener={setStartSearchDate}
           secondListener={setEndSearchDate}
+          setSearchResultSummary={setSearchedString}
         />
       ) : null}
       <div className={sideDrawerClass.dateTitle}>

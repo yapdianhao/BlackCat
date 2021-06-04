@@ -125,7 +125,7 @@ const FilterButton: React.FC<FilterButtonProp> = (props) => {
   useEffect(() => {
     console.log("use effect from " + props.buttonText);
     processAfterClick();
-    if (props.type !== "search") props.setSearchString();
+    props.setSearchString();
   }, [isActive]);
 
   if (props.type === "time" || props.type === "search") {

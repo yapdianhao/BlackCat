@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 
 import laterSearchToolClass from "../styles/LaterSearchTool.module.scss";
 import DateFromIcon from "./DateFromIcon";
@@ -7,10 +7,21 @@ import DateToIcon from "./DateToIcon";
 interface LaterSearchToolProps {
   firstListener: any;
   secondListener: any;
+  setSearchResultSummary: any;
 }
 
 const LaterSearchTool: React.FC<LaterSearchToolProps> = (props) => {
   console.log(props.secondListener);
+
+  const handleFirstDateChange = (e: any) => {
+    props.firstListener(e.target.value);
+    props.setSearchResultSummary();
+  };
+
+  const handleSecondDateChange = (e: any) => {
+    props.secondListener(e.target.value);
+    props.setSearchResultSummary();
+  };
 
   return (
     <div className={laterSearchToolClass.laterSearch}>
@@ -21,7 +32,7 @@ const LaterSearchTool: React.FC<LaterSearchToolProps> = (props) => {
             <DateFromIcon />
             <input
               type="date"
-              onChange={(e) => props.firstListener(e.target.value)}
+              onChange={(e) => handleFirstDateChange(e.target.value)}
             ></input>
           </div>
           <div className={laterSearchToolClass.inputSearchBox}> - </div>
@@ -29,7 +40,7 @@ const LaterSearchTool: React.FC<LaterSearchToolProps> = (props) => {
             <DateToIcon />
             <input
               type="date"
-              onChange={(e) => props.secondListener(e.target.value)}
+              onChange={(e) => handleSecondDateChange(e.target.value)}
             ></input>
           </div>
         </div>
