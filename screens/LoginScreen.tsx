@@ -16,7 +16,6 @@ const LoginScreen = () => {
   const history = useHistory();
 
   const handleSubmit = async (event: any) => {
-    console.log("hello");
     const users: User[] = await fetch("http://localhost:5000/api/users")
       .then((response) => response.json())
       .then((data) => {
