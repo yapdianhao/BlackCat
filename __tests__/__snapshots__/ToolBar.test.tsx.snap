@@ -1,19 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders Toolbar correctly 1`] = `
-<header
-  className="toolbar"
->
-  <nav
-    className="toolbar-navigation"
-  >
+<header>
+  <nav>
     <div>
       <button
         onClick={[Function]}
       >
-        <div
-          className="search-button"
-        >
+        <div>
           <svg
             data-name="Layer 1"
             id="Layer_1"
@@ -30,9 +24,7 @@ exports[`renders Toolbar correctly 1`] = `
         </div>
       </button>
     </div>
-    <div
-      className="toolbar-logo"
-    >
+    <div>
       <button
         onClick={[Function]}
       >
@@ -55,9 +47,7 @@ exports[`renders Toolbar correctly 1`] = `
       <div
         onClick={[Function]}
       >
-        <img
-          className="profile-pic"
-        />
+        <img />
       </div>
     </div>
   </nav>

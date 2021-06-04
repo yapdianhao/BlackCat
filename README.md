@@ -6,6 +6,7 @@
 - Run `npm install`
 - Open a terminal / VS Code terminal window and run `npm run dev` for starting the backend mock API.
 - Open another terminal / VS Code terminal and run `npm start` to start the frontend. `localhost:3000` should start in a browswer page.
+- To run tests, run `npm test`.
 
 ## Login Instructions
 
