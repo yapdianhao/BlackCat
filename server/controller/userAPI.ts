@@ -1,12 +1,12 @@
 import { User } from "../model/user";
 
-const faker = require("faker");
+import * as faker from "faker";
 
-let fakeMeImageUrl: string = `${faker.image.imageUrl()}?random=${faker.datatype.number()}`;
-let fakeMeGoingEventsCount = Math.floor(Math.random() * 100);
-let fakeMeLikeEventsCount = Math.floor(Math.random() * 100);
+const fakeMeImageUrl = `${faker.image.imageUrl()}?random=${faker.datatype.number()}`;
+const fakeMeGoingEventsCount = Math.floor(Math.random() * 100);
+const fakeMeLikeEventsCount = Math.floor(Math.random() * 100);
 
-let users: User[] = [
+const users: User[] = [
   {
     userId: 1,
     userName: "yapdianhao",
@@ -33,13 +33,13 @@ let users: User[] = [
 ];
 
 for (let i = 2; i <= 50; i++) {
-  let fakerUserId: number = i;
-  let fakerUserName: string = faker.name.firstName();
-  let fakerUserEmail: string = faker.internet.email();
-  let fakeImgUrl: string = `${faker.image.imageUrl()}?random=${faker.datatype.number()}`;
-  let fakerUserPassword: string = faker.internet.password();
-  let randomGoingEventNum = Math.floor(Math.random() * 100);
-  let randomLikeEventNum = Math.floor(Math.random() * 100);
+  const fakerUserId: number = i;
+  const fakerUserName: string = faker.name.firstName();
+  const fakerUserEmail: string = faker.internet.email();
+  const fakeImgUrl = `${faker.image.imageUrl()}?random=${faker.datatype.number()}`;
+  const fakerUserPassword: string = faker.internet.password();
+  const randomGoingEventNum = Math.floor(Math.random() * 100);
+  const randomLikeEventNum = Math.floor(Math.random() * 100);
   users.push({
     userId: fakerUserId,
     userName: fakerUserName,
@@ -63,15 +63,15 @@ for (let i = 2; i <= 50; i++) {
   });
 }
 
-export const getUsers = () => {
+export const getUsers = (): User[] => {
   return users;
 };
 
-export const getUser = (id: number) => {
+export const getUser = (id: number): User => {
   return users[id - 1];
 };
 
-export const checkLoginUser = (username: string, password: string) => {
+export const checkLoginUser = (username: string, password: string): boolean => {
   return (
     users.filter(
       (user: User) =>

@@ -9,18 +9,18 @@ import {
   dateIsWithinWeek,
   dateIsWithinMonth,
   dateIsLater,
-} from "../../helper/DateCalculator";
+} from "../../src/utils/helper/DateCalculator";
 import { User } from "../model/user";
 
-const faker = require("faker");
+import * as faker from "faker";
 
 let events: Event[] = [];
 
-let channelsForEvents = getChannels();
-let usersForEvents = getUsers();
-let commentsForEvents = getComments();
+const channelsForEvents = getChannels();
+const usersForEvents = getUsers();
+const commentsForEvents = getComments();
 
-let eventType = [
+const eventType = [
   "Past",
   "Ongoing",
   "Future",
@@ -31,48 +31,45 @@ let eventType = [
   "This month",
 ];
 
-for (let i: number = 1; i <= 100; i++) {
-  let randomEventTypeIdx = Math.floor(Math.random() * eventType.length);
-  console.log(randomEventTypeIdx);
-  let fakeEventName: string = faker.lorem.words();
-  let fakeEventDescription: string =
+for (let i = 1; i <= 100; i++) {
+  const randomEventTypeIdx = Math.floor(Math.random() * eventType.length);
+  const fakeEventName: string = faker.lorem.words();
+  const fakeEventDescription: string =
     faker.lorem.sentence() +
     " " +
     faker.lorem.sentence() +
     " " +
     faker.lorem.sentence();
-  let fakeEventLocation: string =
+  const fakeEventLocation: string =
     faker.address.streetAddress() + " " + faker.address.secondaryAddress();
-  let fakePosterName: number =
+  const fakePosterName: number =
     usersForEvents[Math.floor(Math.random() * usersForEvents.length)].userId;
-  // random number of users who like this event.
-  let fakeUsersWhoLikesEvent: User[] = [];
-  let fakeEventLikesCount: number = Math.floor(
+  const fakeUsersWhoLikesEvent: User[] = [];
+  const fakeEventLikesCount: number = Math.floor(
     Math.random() * usersForEvents.length
   );
   for (let i = 0; i < fakeEventLikesCount; i++) {
-    let fakeUserIdx = Math.floor(Math.random() * usersForEvents.length);
+    const fakeUserIdx = Math.floor(Math.random() * usersForEvents.length);
     fakeUsersWhoLikesEvent.push(usersForEvents[fakeUserIdx]);
   }
-  // random number of users who is going to this event.
-  let fakeUsersWhoGoesEvent: User[] = [];
-  let fakeEventGoingCount: number = Math.floor(
+  const fakeUsersWhoGoesEvent: User[] = [];
+  const fakeEventGoingCount: number = Math.floor(
     Math.random() * usersForEvents.length
   );
   for (let i = 0; i < fakeEventGoingCount; i++) {
-    let fakeUserIdx = Math.floor(Math.random() * usersForEvents.length);
+    const fakeUserIdx = Math.floor(Math.random() * usersForEvents.length);
     fakeUsersWhoGoesEvent.push(usersForEvents[fakeUserIdx]);
   }
-  let fakeChannelName: string =
+  const fakeChannelName: string =
     channelsForEvents[Math.floor(Math.random() * channelsForEvents.length)]
       .channelName;
-  let fakePublishDate = new Date();
+  const fakePublishDate = new Date();
   fakePublishDate.setDate(
     fakePublishDate.getDate() - Math.floor(Math.random() * 7) + 1
   );
 
-  let fakeGallerySize = Math.floor(Math.random() * 10) + 1;
-  let fakeGalleryUrls: string[] = [];
+  const fakeGallerySize = Math.floor(Math.random() * 10) + 1;
+  const fakeGalleryUrls: string[] = [];
   for (let i = 0; i < fakeGallerySize; i++) {
     fakeGalleryUrls.push(
       `${faker.image.imageUrl()}?random=${faker.datatype.number()}`
@@ -81,17 +78,18 @@ for (let i: number = 1; i <= 100; i++) {
 
   let fakeEventStartDateTime: Date;
   let fakeEventEndDateTime: Date;
-  let fakeEventComments: Comment[] = [];
-  // random number of comments of this post
-  let fakeCommentNumbers = Math.floor(Math.random() * 12);
+  const fakeEventComments: Comment[] = [];
+  const fakeCommentNumbers = Math.floor(Math.random() * 12);
   for (let i = 0; i < fakeCommentNumbers; i++) {
-    let fakeCommentIndex = Math.floor(Math.random() * commentsForEvents.length);
+    const fakeCommentIndex = Math.floor(
+      Math.random() * commentsForEvents.length
+    );
     fakeEventComments.push(commentsForEvents[fakeCommentIndex]);
   }
   switch (randomEventTypeIdx) {
     case 0: {
-      let startDate = new Date();
-      let endDate = new Date();
+      const startDate = new Date();
+      const endDate = new Date();
       startDate.setDate(
         startDate.getDate() - (Math.floor(Math.random() * 20) + 10)
       );
@@ -103,21 +101,20 @@ for (let i: number = 1; i <= 100; i++) {
       break;
     }
     case 1: {
-      let startDate = new Date();
-      let endDate = new Date();
+      const startDate = new Date();
+      const endDate = new Date();
       startDate.setDate(
         startDate.getDate() - Math.floor(Math.random() * 5) + 1
       );
       endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 5) + 1);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
-      console.log(fakeEventStartDateTime);
-      console.log(fakeEventEndDateTime);
+
       break;
     }
     case 2: {
-      let startDate = new Date();
-      let endDate = new Date();
+      const startDate = new Date();
+      const endDate = new Date();
       startDate.setDate(
         startDate.getDate() + Math.floor(Math.random() * 50) + 1
       );
@@ -127,70 +124,61 @@ for (let i: number = 1; i <= 100; i++) {
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
 
-      console.log(fakeEventStartDateTime);
-      console.log(fakeEventEndDateTime);
       break;
     }
     case 3: {
-      let startDate = new Date();
-      let endDate = new Date();
+      const startDate = new Date();
+      const endDate = new Date();
       startDate.setDate(startDate.getDate() - 1);
       endDate.setDate(startDate.getDate() - 1);
       endDate.setHours(endDate.getHours() + 1);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
-      console.log(fakeEventStartDateTime);
-      console.log(fakeEventEndDateTime);
+
       break;
     }
     case 4: {
-      let startDate = new Date();
-      let endDate = new Date();
+      const startDate = new Date();
+      const endDate = new Date();
       startDate.setDate(startDate.getHours() + 1);
       endDate.setDate(startDate.getHours() + 3);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
-      console.log(fakeEventStartDateTime);
-      console.log(fakeEventEndDateTime);
+
       break;
     }
     case 5: {
-      let startDate = new Date();
-      let endDate = new Date();
+      const startDate = new Date();
+      const endDate = new Date();
       startDate.setDate(startDate.getDate() + 1);
       startDate.setHours(startDate.getHours() - 1);
       endDate.setDate(endDate.getDate() + 1);
       endDate.setHours(endDate.getHours() + 5);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
-      console.log(fakeEventStartDateTime);
-      console.log(fakeEventEndDateTime);
+
       break;
     }
     case 6: {
-      let startDate = new Date();
-      let endDate = new Date();
+      const startDate = new Date();
+      const endDate = new Date();
       startDate.setDate(
         startDate.getDate() + Math.floor(Math.random() * 3) + 1
       );
       endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 7) + 4);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
-      console.log(fakeEventStartDateTime);
-      console.log(fakeEventEndDateTime);
       break;
     }
     case 7: {
-      let startDate = new Date();
-      let endDate = new Date();
+      const startDate = new Date();
+      const endDate = new Date();
       startDate.setDate(
         startDate.getDate() + Math.floor(Math.random() * 7) + 1
       );
       endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 10) + 7);
       fakeEventStartDateTime = startDate;
       fakeEventEndDateTime = endDate;
-      console.log(fakeEventStartDateTime);
-      console.log(fakeEventEndDateTime);
       break;
     }
     default: {
@@ -215,44 +203,49 @@ for (let i: number = 1; i <= 100; i++) {
   });
 }
 
-export const getEvents = () => {
-  console.log(`number of events in the database: ${events.length}`);
+export const getEvents = (): Event[] => {
   return events;
 };
 
-export const getEventById = (id: number) => {
+export const getEventById = (id: number): Event => {
   return events[id - 1];
 };
 
-export const getEventWithLimit = (limit: number, offset: number) => {
-  console.log(`${limit} ${offset}`);
+export const getEventWithLimit = (limit: number, offset: number): Event[] => {
   return events.slice(+limit, +limit + +offset);
 };
 
-export const deleteEvent = (toDeleteEventId: number) => {
+export const deleteEvent = (toDeleteEventId: number): Event[] => {
   events = events.filter((event) => event.eventId !== toDeleteEventId);
   return events;
 };
 
-export const processUserLikesEvent = (eventId: number, userId: number) => {
-  let targetEvent: Event = events[eventId - 1];
+export const processUserLikesEvent = (
+  eventId: number,
+  userId: number
+): void => {
+  const targetEvent: Event = events[eventId - 1];
   userId = +userId;
-  let userIdArr = targetEvent.usersLikeEvent.map((user: User) => user.userId);
+  const userIdArr = targetEvent.usersLikeEvent.map((user: User) => user.userId);
   if (userIdArr.includes(userId)) {
     targetEvent.usersLikeEvent = targetEvent.usersLikeEvent.filter(
       (user) => user.userId !== userId
     );
   } else {
-    console.log("execute this");
     targetEvent.usersLikeEvent.push(usersForEvents[userId - 1]);
   }
   events[eventId - 1] = targetEvent;
 };
 
-export const processUserGoingEvent = (eventId: number, userId: number) => {
-  let targetEvent: Event = events[eventId - 1];
+export const processUserGoingEvent = (
+  eventId: number,
+  userId: number
+): void => {
+  const targetEvent: Event = events[eventId - 1];
   eventId = +eventId;
-  let userIdArr = targetEvent.usersGoingEvent.map((user: User) => user.userId);
+  const userIdArr = targetEvent.usersGoingEvent.map(
+    (user: User) => user.userId
+  );
   if (userIdArr.includes(eventId)) {
     targetEvent.usersGoingEvent = targetEvent.usersGoingEvent.filter(
       (user) => user.userId !== userId
@@ -263,44 +256,40 @@ export const processUserGoingEvent = (eventId: number, userId: number) => {
   events[eventId - 1] = targetEvent;
 };
 
-export const insertCommentIntoEvent = (id: number, comment: Comment) => {
+export const insertCommentIntoEvent = (id: number, comment: Comment): void => {
   const oldEvent: Event = events[id - 1];
-  console.log(comment);
   oldEvent.eventComments.push(comment);
   events[id - 1] = oldEvent;
-  console.log(oldEvent.eventComments);
 };
 
-export const getTodayEvents = () => {
+export const getTodayEvents = (): Event[] => {
   return events.filter((event) => dateIsToday(event.eventStartDateTime));
 };
 
-export const getTomorrowEvents = () => {
+export const getTomorrowEvents = (): Event[] => {
   return events.filter((event) => dateIsTomorrow(event.eventStartDateTime));
 };
 
-export const getThisWeekEvents = () => {
+export const getThisWeekEvents = (): Event[] => {
   return events.filter((event) => dateIsWithinWeek(event.eventStartDateTime));
 };
 
-export const getThisMonthEvents = () => {
+export const getThisMonthEvents = (): Event[] => {
   return events.filter((event) => dateIsWithinMonth(event.eventStartDateTime));
 };
 
-export const getLaterEvents = () => {
+export const getLaterEvents = (): Event[] => {
   return events.filter((event) => dateIsLater(event.eventStartDateTime));
 };
 
-export const getEventWithinRange = (start: Date, end: Date) => {
+export const getEventWithinRange = (start: Date, end: Date): Event[] => {
   return events.filter(
     (event) =>
       event.eventStartDateTime >= start && event.eventEndDateTime <= end
   );
 };
 
-export const getEventsByChannel = (filterChannelName: string) => {
-  console.log(filterChannelName);
-  console.log(filterChannelName);
+export const getEventsByChannel = (filterChannelName: string): Event[] => {
   return events.filter((event) => {
     return event.eventChannel === filterChannelName;
   });

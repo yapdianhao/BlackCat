@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import Toolbar from "../components/Toolbar";
+import Toolbar from "../src/components/Toolbar/Toolbar";
 
 it("renders Toolbar correctly", () => {
   const drawerClickHandler = () => console.log(true);

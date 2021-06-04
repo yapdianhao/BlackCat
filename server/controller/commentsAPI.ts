@@ -1,13 +1,13 @@
 import { Comment } from "../model/comment";
 
-const faker = require("faker");
+import * as faker from "faker";
 
-let comments: Comment[] = [];
+const comments: Comment[] = [];
 
 for (let i = 0; i < 200; i++) {
-  let randomUserIdx = Math.floor(Math.random() * 100) + 1;
-  let randomDaysBefore = Math.floor(Math.random() * 30) + 7;
-  let randomText = faker.lorem.sentences();
+  const randomUserIdx = Math.floor(Math.random() * 100) + 1;
+  const randomDaysBefore = Math.floor(Math.random() * 30) + 7;
+  const randomText = faker.lorem.sentences();
 
   comments.push({
     commentedBy: randomUserIdx,
@@ -16,11 +16,10 @@ for (let i = 0; i < 200; i++) {
   });
 }
 
-export const getComments = () => {
+export const getComments = (): Comment[] => {
   return comments;
 };
 
-export const insertComment = (newComment: Comment) => {
+export const insertComment = (newComment: Comment): void => {
   comments.push(newComment);
-  console.log("inserted new comment");
 };

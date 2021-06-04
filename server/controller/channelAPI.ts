@@ -1,14 +1,14 @@
 import { Channel } from "../model/channel";
 
-const faker = require("faker");
+import * as faker from "faker";
 
-let channels: Channel[] = [];
+const channels: Channel[] = [];
 
 for (let i = 0; i < 6; i++) {
-  let fakeChannelName: string = faker.internet.domainName();
+  const fakeChannelName: string = faker.internet.domainName();
   channels.push({ channelName: fakeChannelName });
 }
 
-export const getChannels = () => {
+export const getChannels = (): Channel[] => {
   return channels;
 };

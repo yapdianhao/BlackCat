@@ -1,15 +1,21 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import LoadingScreen from "../screens/LoadingScreen";
+import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 
-const HomeScreen = lazy(() => import("../screens/HomeScreen"));
-const ProfileScreen = lazy(() => import("../screens/ProfileScreen"));
-const SearchScreen = lazy(() => import("../screens/SearchScreen"));
-const EventDetailsScreen = lazy(() => import("../screens/EventDetailsScreen"));
-const LoginScreen = lazy(() => import("../screens/LoginScreen"));
+const HomeScreen = lazy(() => import("./components/HomeScreen/HomeScreen"));
+const ProfileScreen = lazy(
+  () => import("./components/ProfileScreen/ProfileScreen")
+);
+const SearchScreen = lazy(
+  () => import("./components/SearchScreen/SearchScreen")
+);
+const EventDetailsScreen = lazy(
+  () => import("./components/EventDetailsScreen/EventDetailsScreen")
+);
+const LoginScreen = lazy(() => import("./components/LoginScreen/LoginScreen"));
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <Router>
       <Suspense fallback={LoadingScreen}>
