@@ -1,12 +1,14 @@
-button {
-  background: transparent;
-  border: none;
-  margin: 0;
-  padding: 0;
-}
+:local {
+  button {
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
 
-.searchButton {
-  height: 18px;
-  width: 18px;
-  fill: #453257;
+  .searchButton {
+    height: 18px;
+    width: 18px;
+    fill: #453257;
+  }
 }

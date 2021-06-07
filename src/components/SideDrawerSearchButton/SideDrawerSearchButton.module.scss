@@ -1,51 +1,53 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+:local {
+  @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
 
-.searchButtonSidedrawer {
-  height: 40px;
-  width: 100%;
-  padding-top: 22px;
-  padding-bottom: 22px;
-  background-color: #d5ef7f;
-  position: absolute;
-  bottom: 0;
-  align-items: center;
-  justify-content: center;
-}
-
-.searchButtonSidedrawerInactive {
-  height: 40px;
-  width: 100%;
-  background-color: #bababa;
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  padding: 22px 0px;
-  align-items: center;
-  justify-content: center;
-}
-
-.searchButtonSidedrawerContents {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40%;
-  padding: 5px;
-  fill: #453257;
-  color: #453257;
-  font-family: "Source Sans Pro";
-
-  svg {
-    height: 16px;
-    width: 16px;
-    padding: 0px 5px;
+  .searchButtonSidedrawer {
+    height: 40px;
+    width: 100%;
+    padding-top: 22px;
+    padding-bottom: 22px;
+    background-color: #d5ef7f;
+    position: absolute;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
   }
-}
 
-.searchButtonSidedrawerTitle {
-  display: flex;
-  justify-content: center;
-  font-family: "Source Sans Pro";
-  font-weight: 400;
-  color: #8560a9;
-  font-size: 10px;
+  .searchButtonSidedrawerInactive {
+    height: 40px;
+    width: 100%;
+    background-color: #bababa;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    padding: 22px 0px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .searchButtonSidedrawerContents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+    padding: 5px;
+    fill: #453257;
+    color: #453257;
+    font-family: "Source Sans Pro";
+
+    svg {
+      height: 16px;
+      width: 16px;
+      padding: 0px 5px;
+    }
+  }
+
+  .searchButtonSidedrawerTitle {
+    display: flex;
+    justify-content: center;
+    font-family: "Source Sans Pro";
+    font-weight: 400;
+    color: #8560a9;
+    font-size: 10px;
+  }
 }

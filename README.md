@@ -1,5 +1,8 @@
 # Entry Task, Web FE (Black Cat)
 
+## Introduction
+My first project, a social media sharing platform while doing my internship at Shopee.
+
 ## Setup Instructions
 
 - Open terminal and run `git clone gitlab@git.garena.com:dianhao.yap/entry-task.git`.

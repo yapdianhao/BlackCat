@@ -1,38 +1,40 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+:local {
+  @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
 
-.resultSummary {
-  width: 100%;
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  font-family: "Source Sans Pro";
-  font-weight: 600;
-  background-color: #faf9fc;
-
-  .resultFirstRow {
+  .resultSummary {
+    width: 100%;
+    height: 70px;
     display: flex;
-    justify-content: space-between;
-    padding: 10px 30px 5px 30px;
+    justify-content: center;
+    flex-direction: column;
+    font-family: "Source Sans Pro";
+    font-weight: 600;
+    background-color: #faf9fc;
 
-    .resultWords {
-      color: #8560a9;
+    .resultFirstRow {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 30px 5px 30px;
+
+      .resultWords {
+        color: #8560a9;
+      }
+
+      .resultButton {
+        padding: 5px;
+        color: #67616d;
+        background-color: #d5ef7f;
+        border-radius: 25px;
+        font-size: 10px;
+      }
     }
 
-    .resultButton {
-      padding: 5px;
+    .resultSecRow {
+      display: flex;
+      padding: 0px 30px;
+      font-size: 12px;
       color: #67616d;
-      background-color: #d5ef7f;
-      border-radius: 25px;
-      font-size: 10px;
+      font-weight: 400;
     }
-  }
-
-  .resultSecRow {
-    display: flex;
-    padding: 0px 30px;
-    font-size: 12px;
-    color: #67616d;
-    font-weight: 400;
   }
 }

@@ -1,111 +1,113 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+:local {
+  @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
 
-.cardOutline {
-  margin: 0 auto;
-  padding: 10px 20px;
-}
+  .cardOutline {
+    margin: 0 auto;
+    padding: 10px 20px;
+  }
 
-.cardHeader {
-  display: flex;
-}
+  .cardHeader {
+    display: flex;
+  }
 
-.profilePic {
-  display: flex;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
+  .profilePic {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
 
-.userName {
-  padding-left: 5px;
-  font-family: "Source Sans Pro";
-  font-weight: 600;
-  color: #67616d;
-  padding-top: 3px;
-}
+  .userName {
+    padding-left: 5px;
+    font-family: "Source Sans Pro";
+    font-weight: 600;
+    color: #67616d;
+    padding-top: 3px;
+  }
 
-.channelName {
-  padding: 5px;
-  font-size: 12px;
-  margin-left: auto;
-  font-family: "Source Sans Pro";
-  font-weight: 400;
-  border-radius: 25px;
-  color: #8560a9;
-  border: 1px solid #8560a9;
-}
+  .channelName {
+    padding: 5px;
+    font-size: 12px;
+    margin-left: auto;
+    font-family: "Source Sans Pro";
+    font-weight: 400;
+    border-radius: 25px;
+    color: #8560a9;
+    border: 1px solid #8560a9;
+  }
 
-.activityTitle {
-  padding-top: 5px;
-  display: flex;
-  font-size: 18px;
-  font-family: "Source Sans Pro";
-  font-weight: 600;
-  color: #453257;
-}
-
-.activityTimeArea {
-  display: flex;
-  justify-content: flex-start;
-  height: 12px;
-  font-size: 12px;
-  padding: 5px;
-}
-
-.activityTime {
-  padding-left: 5px;
-  font-family: "Source Sans Pro";
-  font-weight: 400;
-  color: #8560a9;
-}
-
-.activityDesc {
-  padding: 10px 0px 10px 0px;
-  font-family: "Source Sans Pro";
-  font-weight: 400;
-  color: #67616d;
-}
-
-.activityStatsArea {
-  display: flex;
-  height: 12px;
-  padding: 0px 20px 0px 5px;
-
-  .userLikes {
+  .activityTitle {
+    padding-top: 5px;
+    display: flex;
+    font-size: 18px;
+    font-family: "Source Sans Pro";
+    font-weight: 600;
     color: #453257;
+  }
 
-    svg {
-      height: 12px;
-      width: 12px;
-      fill: #ff5c5c;
+  .activityTimeArea {
+    display: flex;
+    justify-content: flex-start;
+    height: 12px;
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .activityTime {
+    padding-left: 5px;
+    font-family: "Source Sans Pro";
+    font-weight: 400;
+    color: #8560a9;
+  }
+
+  .activityDesc {
+    padding: 10px 0px 10px 0px;
+    font-family: "Source Sans Pro";
+    font-weight: 400;
+    color: #67616d;
+  }
+
+  .activityStatsArea {
+    display: flex;
+    height: 12px;
+    padding: 0px 20px 0px 5px;
+
+    .userLikes {
+      color: #453257;
+
+      svg {
+        height: 12px;
+        width: 12px;
+        fill: #ff5c5c;
+      }
+    }
+
+    .userGoing {
+      color: #453257;
+
+      svg {
+        height: 12px;
+        width: 12px;
+        fill: #aecb4f;
+      }
+    }
+
+    .userDontLike {
+      color: #ac8ec9;
+
+      svg {
+        height: 12px;
+        width: 12px;
+        fill: #ac8ec9;
+      }
     }
   }
 
-  .userGoing {
-    color: #453257;
-
-    svg {
-      height: 12px;
-      width: 12px;
-      fill: #aecb4f;
-    }
+  .statsDesc {
+    font-size: 12px;
+    font-family: "Source Sans Pro";
+    font-weight: 400;
+    padding-left: 5px;
+    padding-right: 20px;
   }
-
-  .userDontLike {
-    color: #ac8ec9;
-
-    svg {
-      height: 12px;
-      width: 12px;
-      fill: #ac8ec9;
-    }
-  }
-}
-
-.statsDesc {
-  font-size: 12px;
-  font-family: "Source Sans Pro";
-  font-weight: 400;
-  padding-left: 5px;
-  padding-right: 20px;
 }

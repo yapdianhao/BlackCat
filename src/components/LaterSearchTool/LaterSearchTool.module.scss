@@ -1,57 +1,59 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+:local {
+  @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
 
-.laterSearch {
-  margin: 0px 15px 0px 15px;
-}
+  .laterSearch {
+    margin: 0px 15px 0px 15px;
+  }
 
-.triangle {
-  width: 0;
-  height: 0;
-  margin-left: 10px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid #ffffff;
-}
+  .triangle {
+    width: 0;
+    height: 0;
+    margin-left: 10px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #ffffff;
+  }
 
-.inputArea {
-  background-color: #ffffff;
-  display: block;
-  justify-content: space-between;
+  .inputArea {
+    background-color: #ffffff;
+    display: block;
+    justify-content: space-between;
 
-  .inputSearchRow {
-    display: flex;
-    flex-direction: row;
-
-    .inputSearchBox {
+    .inputSearchRow {
       display: flex;
-      fill: #d5ef7f;
-      padding: 5px 5px;
-      align-items: center;
+      flex-direction: row;
 
-      svg {
-        width: 12px;
-        height: 12px;
-      }
+      .inputSearchBox {
+        display: flex;
+        fill: #d5ef7f;
+        padding: 5px 5px;
+        align-items: center;
 
-      input,
-      input:focus {
-        font-family: "Source Sans Pro";
-        font-size: 14px;
-        font-weight: 400;
-        color: #8560a9;
-        width: 80px;
-        height: 18px;
-        outline: none;
-        border-radius: 0px;
-        overflow-x: scroll;
-        border-color: transparent;
-      }
+        svg {
+          width: 12px;
+          height: 12px;
+        }
 
-      ::placeholder {
-        font-family: "Source Sans Pro";
-        font-size: 14px;
-        opacity: 0.5;
-        color: #8560a9;
+        input,
+        input:focus {
+          font-family: "Source Sans Pro";
+          font-size: 14px;
+          font-weight: 400;
+          color: #8560a9;
+          width: 80px;
+          height: 18px;
+          outline: none;
+          border-radius: 0px;
+          overflow-x: scroll;
+          border-color: transparent;
+        }
+
+        ::placeholder {
+          font-family: "Source Sans Pro";
+          font-size: 14px;
+          opacity: 0.5;
+          color: #8560a9;
+        }
       }
     }
   }
