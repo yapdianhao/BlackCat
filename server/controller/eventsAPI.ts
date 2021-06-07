@@ -31,8 +31,6 @@ const eventType = [
   "This month",
 ];
 
-const eventsCountMap: Map<number, number> = new Map();
-
 for (let i = 1; i <= 100; i++) {
   const randomEventTypeIdx = Math.floor(Math.random() * eventType.length);
   const fakeEventName: string = faker.lorem.words();
@@ -203,8 +201,6 @@ for (let i = 1; i <= 100; i++) {
     eventPostedOn: fakePublishDate,
     eventComments: fakeEventComments,
   });
-
-  eventsCountMap.set(events[i].eventId, 0);
 }
 
 export const getEvents = (): Event[] => {

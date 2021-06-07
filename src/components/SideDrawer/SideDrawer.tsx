@@ -106,7 +106,7 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
       }
     }
     let matchedTime = false;
-    for (let i = 0; i < buttonTimeStates.length; i++) {
+    for (let i = 0; i < buttonTimeStates.length - 1; i++) {
       if (buttonTimeStates[i][0] && i !== buttonTimeStates.length - 1) {
         if (!matchedTime) {
           matchedTime = !matchedTime;
@@ -118,7 +118,7 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
           isNaN(new Date(startSearchDate).getDay()) &&
           isNaN(new Date(endSearchDate).getDay())
         ) {
-          searchString += "";
+          continue;
         }
         const startDay = renderDate(new Date(startSearchDate));
         const startMonth = renderMonthNumeric(new Date(startSearchDate));
@@ -167,7 +167,8 @@ const SideDrawer: React.FC<SideDrawerProps> = (props) => {
         <LaterSearchTool
           firstListener={setStartSearchDate}
           secondListener={setEndSearchDate}
-          setSearchResultSummary={setSearchedString}
+          searchResultSummary={props.searchResultsSummaryString}
+          setSearchResultSummary={props.setSearchResultsSummaryString}
         />
       ) : null}
       <div className={styles.dateTitle}>
