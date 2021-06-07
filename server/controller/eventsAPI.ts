@@ -31,6 +31,8 @@ const eventType = [
   "This month",
 ];
 
+const eventsCountMap: Map<number, number> = new Map();
+
 for (let i = 1; i <= 100; i++) {
   const randomEventTypeIdx = Math.floor(Math.random() * eventType.length);
   const fakeEventName: string = faker.lorem.words();
@@ -201,6 +203,8 @@ for (let i = 1; i <= 100; i++) {
     eventPostedOn: fakePublishDate,
     eventComments: fakeEventComments,
   });
+
+  eventsCountMap.set(events[i].eventId, 0);
 }
 
 export const getEvents = (): Event[] => {
@@ -290,7 +294,8 @@ export const getEventWithinRange = (start: Date, end: Date): Event[] => {
 };
 
 export const getEventsByChannel = (filterChannelName: string): Event[] => {
-  return events.filter((event) => {
+  const filteredEvent: Event[] = events.filter((event) => {
     return event.eventChannel === filterChannelName;
   });
+  return filteredEvent;
 };

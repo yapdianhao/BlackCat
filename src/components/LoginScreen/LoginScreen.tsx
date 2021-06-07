@@ -16,7 +16,6 @@ const LoginScreen = (): JSX.Element => {
     await fetch(`http://localhost:5000/login/${userName}/${userPassword}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setUserLoggedIn(data);
         if (data) {
           history.push("/home");

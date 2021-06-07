@@ -12,12 +12,12 @@ interface LaterSearchToolProps {
 
 const LaterSearchTool: React.FC<LaterSearchToolProps> = (props) => {
   const handleFirstDateChange = (e: any) => {
-    props.firstListener(e.target.value);
+    props.firstListener(e);
     props.setSearchResultSummary();
   };
 
   const handleSecondDateChange = (e: any) => {
-    props.secondListener(e.target.value);
+    props.secondListener(e);
     props.setSearchResultSummary();
   };
 
@@ -30,7 +30,7 @@ const LaterSearchTool: React.FC<LaterSearchToolProps> = (props) => {
             <DateFromIcon />
             <input
               type="date"
-              onChange={(e) => handleFirstDateChange(e.target.value)}
+              onChange={(e) => e && handleFirstDateChange(e.target.value)}
             ></input>
           </div>
           <div className={styles.inputSearchBox}> - </div>
@@ -38,7 +38,7 @@ const LaterSearchTool: React.FC<LaterSearchToolProps> = (props) => {
             <DateToIcon />
             <input
               type="date"
-              onChange={(e) => handleSecondDateChange(e.target.value)}
+              onChange={(e) => e && handleSecondDateChange(e.target.value)}
             ></input>
           </div>
         </div>
