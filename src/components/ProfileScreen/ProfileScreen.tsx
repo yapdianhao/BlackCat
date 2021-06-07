@@ -98,10 +98,6 @@ const ProfileScreen = (): JSX.Element => {
     fetchEventsPast();
   }, []);
 
-  console.log(eventsUserGoing);
-  console.log(eventsUserLikes);
-  console.log(eventsPast);
-
   return (
     <div>
       <EventDetailsToolBar />

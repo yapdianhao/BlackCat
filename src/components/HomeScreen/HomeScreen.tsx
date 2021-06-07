@@ -33,8 +33,6 @@ const Home = (): JSX.Element => {
     setUserSearchedResults(false);
   };
 
-  console.log("rerender homescreen");
-
   return (
     <div>
       <Suspense fallback={LoadingScreen}>
